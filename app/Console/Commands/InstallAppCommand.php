@@ -8,6 +8,7 @@ use App\Models\Admin;
 use Illuminate\Console\Command;
 use Illuminate\Contracts\Console\Isolatable;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Process;
 
 use function Laravel\Prompts\confirm;
 use function Laravel\Prompts\info;
@@ -85,9 +86,9 @@ final class InstallAppCommand extends Command implements Isolatable
         if ($this->initializeGit) {
             info('Initializing a new Git repository...');
 
-            exec('git init');
-            exec('git add .');
-            exec('git commit -m "Initial commit"');
+            Process::run('git init');
+            Process::run('git add .');
+            Process::run('git commit -m "Initial commit"');
             info('New Git repository initialized and committed.');
         }
     }
@@ -99,7 +100,7 @@ final class InstallAppCommand extends Command implements Isolatable
     {
         if (! File::exists('node_modules')) {
             info('Installing Node.js dependencies...');
-            exec('npm install');
+            Process::run('npm install');
         } else {
             warning('Node modules already installed. Skipping installation.');
         }
