@@ -39,9 +39,9 @@ describe('users Index', function () {
 });
 
 test('users create', function () {
-get(route('dashboard.users.create'))
-->assertOk();
-    });
+    get(route('dashboard.users.create'))
+        ->assertOk();
+});
 
 test('users store', function () {
     $user = User::factory()->make();

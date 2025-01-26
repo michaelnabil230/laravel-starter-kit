@@ -11,8 +11,17 @@ jobs:
               with:
                   ref: ${{ github.head_ref }}
 
+            - name: Setup PHP
+              uses: shivammathur/setup-php@v2
+              with:
+                  php-version: '8.2'
+                  coverage: none
+
+            - name: Install composer dependencies
+              run: composer install -n --prefer-dist
+
             - name: Fix PHP code style issues
-              uses: aglipanci/laravel-pint-action@2.4
+              run: composer lint
 
             - name: Commit changes
               uses: stefanzweifel/git-auto-commit-action@v5
