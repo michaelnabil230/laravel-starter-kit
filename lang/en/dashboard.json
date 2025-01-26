@@ -1,0 +1,258 @@
+{
+    "dashboard": "Dashboard",
+    "home": "Home",
+    "logout": "Logout",
+    "profile": {
+        "name": "Profile",
+        "description": "Edit your account details and password.",
+        "personal_info": {
+            "title": "Personal Info",
+            "description": "Edit your personal information and email.",
+            "placeholder": {
+                "name": "Enter your name",
+                "email": "Enter your email"
+            },
+            "toast": {
+                "updated": "Your profile has been updated successfully!"
+            }
+        },
+        "password": {
+            "title": "Password",
+            "placeholder": {
+                "current_password": "Enter your current password",
+                "new_password": "Enter your new password",
+                "new_password_confirmation": "Confirm your new password"
+            },
+            "button": "Change Password",
+            "toast": {
+                "updated": "Your password has been updated."
+            }
+        },
+        "delete_account": {
+            "title": "Delete Account",
+            "description": "Danger zone",
+            "button": {
+                "text": "Delete my account",
+                "description": "This will immediately delete all of your data. This action is irreversible, so proceed with caution."
+            },
+            "model": {
+                "title": "Delete Account",
+                "tooltip": {
+                    "title": "Delete Account",
+                    "description": "Are you sure you want to delete your account? Once deleted, all your data will be permanently erased. Please enter your password to confirm this action."
+                }
+            },
+            "toast": {
+                "deleted": "Your account has been deleted."
+            }
+        }
+    },
+    "authentication": {
+        "login": {
+            "name": "Login",
+            "title": "Log in to your :appName account",
+            "description": "Access digital products with :appName.",
+            "submit": "Login",
+            "forgot_your_password": "Forgot your password?"
+        },
+        "forgot_password": "Forgot Password",
+        "confirm_password": "Confirm Password"
+    },
+    "resources": {
+        "admin": {
+            "plural": "Admins",
+            "singular": "Admin",
+            "attributes": {
+                "name": "Name",
+                "phone": "Phone",
+                "role": "Role"
+            },
+            "enums": {
+                "role": {
+                    "super_admin": "Super Admin",
+                    "admin": "Admin"
+                }
+            }
+        },
+        "user": {
+            "plural": "Users",
+            "singular": "user",
+            "attributes": {
+                "name": "Name",
+                "phone": "Phone",
+                "birth_date": "Birth Date"
+            }
+        }
+    },
+    "global": {
+        "id": "ID",
+        "count": {
+            "name": "Count",
+            "resource": "Count :resource"
+        },
+        "created_at": "Created At",
+        "updated_at": "Updated At",
+        "deleted_at": "Deleted At",
+        "attributes": {
+            "name": "Name",
+            "email": "Email",
+            "phone": "Phone",
+            "current_password": "Current Password",
+            "password": "Password",
+            "password_confirmation": "Confirm Password",
+            "new_password": "New Password",
+            "new_password_confirmation": "Confirm New Password"
+        },
+        "placeholder": "Enter the :attribute",
+        "loading": "Loading",
+        "select_all": "Select All",
+        "choose": "Choose :attribute",
+        "search": {
+            "name": "Search",
+            "resource": "Search :resource",
+            "global": {
+                "label": "Global Search",
+                "resources": {
+                    "admins": "Admins",
+                    "users": "Users"
+                }
+            }
+        },
+        "not_found": {
+            "results": "No results found",
+            "resource": "No :resource found",
+            "description": "Please try a different search term or create a new one."
+        },
+        "crud": {
+            "edit": "Edit",
+            "update": "Update",
+            "delete": "Delete",
+            "show": "Show",
+            "create": "Create",
+            "save": "Save"
+        },
+        "closure": {
+            "cancel": "Cancel",
+            "close": "Close",
+            "to_close": "To Close"
+        },
+        "confirmation": {
+            "yes": "Yes",
+            "no": "No"
+        },
+        "resource": {
+            "show": "Show :resource",
+            "create": "Create :resource",
+            "edit": "Edit :resource",
+            "delete": "Delete :resource"
+        },
+        "actions": {
+            "created": "The :resource was created!",
+            "updated": "The :resource was updated!",
+            "deleted": "The :resource was deleted!",
+            "restored": "The :resource was restored!"
+        },
+        "options": {
+            "delete": {
+                "delete_resource": "Delete Resource",
+                "soft_deleted": "Soft Deleted",
+                "force_delete": "Force Delete",
+                "force_delete_resource": "Force Delete Resource",
+                "force_delete_selected": "Force Delete Selected",
+                "delete_selected": "Delete Selected"
+            },
+            "restore": {
+                "restore_resource": "Restore Resource",
+                "restore": "Restore",
+                "restore_selected": "Restore Selected"
+            },
+            "detach": {
+                "detach_resource": "Detach Resource",
+                "detach": "Detach",
+                "detach_selected": "Detach Selected"
+            }
+        },
+        "timezone": "Timezone",
+        "gender": "Gender",
+        "day": "Day",
+        "weekend": "Weekend",
+        "enums": {
+            "gender": {
+                "male": "Male",
+                "female": "Female"
+            },
+            "day": {
+                "saturday": "Saturday",
+                "sunday": "Sunday",
+                "monday": "Monday",
+                "tuesday": "Tuesday",
+                "wednesday": "Wednesday",
+                "thursday": "Thursday",
+                "friday": "Friday"
+            }
+        }
+    },
+    "import_and_export": "Import / Export",
+    "export": {
+        "label": "Export",
+        "resource": "Export :resource",
+        "model": {
+            "title": "This CSV file will update all product information. To update only inventory quantities, use the option below.",
+            "current_page": "Current Page",
+            "all_resource": "All :resource",
+            "confirm": "Confirm Export"
+        }
+    },
+    "import": {
+        "label": "Import",
+        "resource": "Import :resource",
+        "model": {
+            "example": {
+                "first": "Download a sample CSV template",
+                "second": "to see the required format."
+            },
+            "upload_file": "Upload XLSX file",
+            "drag_drop": "Drag and drop files here or",
+            "extensions": "CSV, XLS, DOCX",
+            "confirm": "Confirm Import"
+        }
+    },
+    "models": {
+        "delete": {
+            "title": "Are you sure you want to delete this :resource?",
+            "description": "You can undo this action later by deleting this resource."
+        },
+        "delete_all": {
+            "title": "Are you sure you want to delete all selected :resource?",
+            "description": "You can undo this action later by deleting the selected resources."
+        }
+    },
+    "pagination": {
+        "showing": "Showing",
+        "page": "Page",
+        "next": "Next",
+        "previous": "Previous",
+        "of": "of"
+    },
+    "filters": {
+        "name": "Filter",
+        "apply": "Apply",
+        "reset": "Reset the filters",
+        "clear": "Clear"
+    },
+    "navigation": {
+        "go_home": "Go Home"
+    },
+    "photo": "Photo",
+    "upload_photo": "Upload Photo",
+    "upload": "Upload",
+    "browse": "Browse",
+    "errors": {
+        "error": "Error",
+        "error_happened": "An error occurred, please try again later."
+    },
+    "all_rights_reserved": "All Rights Reserved",
+    "faq": "FAQ",
+    "license": "License",
+    "back_to_home": "Back to Home"
+}

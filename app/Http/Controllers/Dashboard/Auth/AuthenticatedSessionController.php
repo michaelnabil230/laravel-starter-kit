@@ -1,0 +1,53 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Http\Controllers\Dashboard\Auth;
+
+use App\Http\Requests\Dashboard\Auth\LoginRequest;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Inertia\Inertia;
+use Inertia\Response;
+use Inertia\ResponseFactory;
+use Symfony\Component\HttpFoundation\Response as HttpFoundationResponse;
+
+final class AuthenticatedSessionController
+{
+    /**
+     * Display the login view.
+     */
+    public function create(): Response|ResponseFactory
+    {
+        return inertia('Auth/Login', [
+            'status' => session('status'),
+        ]);
+    }
+
+    /**
+     * Handle an incoming authentication request.
+     */
+    public function store(LoginRequest $request): RedirectResponse
+    {
+        $request->authenticate();
+
+        $request->session()->regenerate();
+
+        return to_route('dashboard.welcome');
+    }
+
+    /**
+     * Destroy an authenticated session.
+     */
+    public function destroy(Request $request): HttpFoundationResponse
+    {
+        Auth::logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        return Inertia::location(route('welcome'));
+    }
+}

@@ -1,0 +1,22 @@
+@import '.././phone-input.css';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+    ::-webkit-scrollbar-thumb {
+        @apply rounded-full bg-gray-300 dark:bg-neutral-500;
+    }
+
+    ::-webkit-scrollbar-track {
+        @apply rounded-full bg-gray-100 dark:bg-neutral-700;
+    }
+
+    ::-webkit-scrollbar {
+        @apply size-2;
+    }
+}
+
+[x-cloak] {
+    display: none !important;
+}

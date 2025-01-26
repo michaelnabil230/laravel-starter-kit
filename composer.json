@@ -1,24 +1,51 @@
 {
     "$schema": "https://getcomposer.org/schema.json",
-    "name": "laravel/laravel",
+    "name": "michaelnabil230/laravel-starter-kit",
     "type": "project",
-    "description": "The skeleton application for the Laravel framework.",
-    "keywords": ["laravel", "framework"],
+    "description": "An opinionated starter kit for building Laravel applications.",
+    "keywords": [
+        "laravel",
+        "framework",
+        "starter-kit"
+    ],
     "license": "MIT",
     "require": {
         "php": "^8.2",
-        "laravel/framework": "^11.31",
-        "laravel/tinker": "^2.9"
+        "inertiajs/inertia-laravel": "v2.0.0",
+        "laravel-notification-channels/fcm": "^4.5.0",
+        "laravel/framework": "v11.40.0",
+        "laravel/horizon": "v5.30.2",
+        "laravel/pulse": "v1.3.3",
+        "laravel/telescope": "v5.3.0",
+        "laravel/tinker": "v2.10.0",
+        "maatwebsite/excel": "^3.1.62",
+        "mcamara/laravel-localization": "v2.2.1",
+        "pinkary-project/type-guard": "v0.1.0",
+        "predis/predis": "v2.3.0",
+        "propaganistas/laravel-phone": "^5.3.3",
+        "sentry/sentry-laravel": "^4.11.0",
+        "spatie/cpu-load-health-check": "^1.0.4",
+        "spatie/laravel-backup": "^9.2.3",
+        "spatie/laravel-health": "^1.32.0",
+        "spatie/laravel-schedule-monitor": "^3.9.2",
+        "spatie/laravel-searchable": "^1.12",
+        "spatie/security-advisories-health-check": "^1.2.1",
+        "tightenco/ziggy": "v2.5.0"
     },
     "require-dev": {
-        "fakerphp/faker": "^1.23",
-        "laravel/pail": "^1.1",
-        "laravel/pint": "^1.13",
-        "laravel/sail": "^1.26",
-        "mockery/mockery": "^1.6",
-        "nunomaduro/collision": "^8.1",
-        "pestphp/pest": "^3.7",
-        "pestphp/pest-plugin-laravel": "^3.1"
+        "aaronfrancis/solo": "v0.2.2",
+        "barryvdh/laravel-debugbar": "v3.14.10",
+        "fakerphp/faker": "v1.24.1",
+        "larastan/larastan": "v3.0.2",
+        "laravel/pail": "v1.2.1",
+        "laravel/pint": "v1.20.0",
+        "laravel/sail": "v1.40.0",
+        "mockery/mockery": "^1.6.12",
+        "nunomaduro/collision": "v8.6.1",
+        "pestphp/pest": "v3.7.4",
+        "pestphp/pest-plugin-laravel": "v3.1.0",
+        "pestphp/pest-plugin-type-coverage": "v3.2.3",
+        "rector/rector": "^2.0.7"
     },
     "autoload": {
         "psr-4": {
@@ -45,12 +72,25 @@
         ],
         "post-create-project-cmd": [
             "@php artisan key:generate --ansi",
-            "@php -r \"file_exists('database/database.sqlite') || touch('database/database.sqlite');\"",
             "@php artisan migrate --graceful --ansi"
         ],
         "dev": [
             "Composer\\Config::disableProcessTimeout",
             "npx concurrently -c \"#93c5fd,#c4b5fd,#fb7185,#fdba74\" \"php artisan serve\" \"php artisan queue:listen --tries=1\" \"php artisan pail --timeout=0\" \"npm run dev\" --names=server,queue,logs,vite"
+        ],
+        "lint": "pint",
+        "refactor": "rector",
+        "test:type-coverage": "pest --type-coverage --min=100 --memory-limit=2G",
+        "test:lint": "pint --test",
+        "test:unit": "pest --parallel --coverage --exactly=100 --memory-limit=2G",
+        "test:types": "phpstan --memory-limit=2G",
+        "test:refactor": "rector --dry-run",
+        "test": [
+            "@test:type-coverage",
+            "@test:unit",
+            "@test:lint",
+            "@test:types",
+            "@test:refactor"
         ]
     },
     "extra": {

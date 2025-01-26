@@ -1,66 +1,85 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+<div align="center">
+  <img src="public/logo.svg" alt="App Logo">
+  <h2>App Starter Kit</h2>
+</div>
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+> [!TIP]
+> Clone this repository and run `bash install.sh` to set up your application effortlessly.
 
-## About Laravel
+## Overview
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+The App Starter Kit is designed as a robust foundation for building web applications. It includes essential features such as authentication and a pre-configured dashboard to help you start coding quickly.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Features
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- **Authentication**: Secure and reliable user authentication.
+- **Dashboard Layout**: A pre-built, customizable dashboard.
+- **[Preline](https://preline.co)**: A modern UI component library.
+- **Tailwind CSS**: A utility-first CSS framework.
+- **Inertia.js + Vue 3 + TypeScript**: Seamless front-end integration with modern tools.
+- **Multi-Language Support**: Supports English and Arabic out of the box.
 
-## Learning Laravel
+## Installation
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+This project comes with a custom installation script to simplify the setup process. The `install.sh` script automates the following steps:
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+1. Install required Composer packages.
+2. Execute the custom `app:install` Artisan command.
+3. Remove any existing Git repository.
+4. Initialize a new Git repository.
+5. Install Node.js dependencies.
+6. Configure the `.env` file.
+7. Reload environment variables.
+8. Generate the application key.
+9. Run database migrations.
+10. Seed the database.
+11. Create admin credentials.
+12. Update project settings (name and URL).
+13. Update specific environment variables.
+14. Clean up installation-related files.
+15. Run post-setup tasks (e.g., linking storage, clearing cache).
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### Steps to Install
 
-## Laravel Sponsors
+1. Clone the repository:
+   
+```bash
+git clone https://github.com/michaelnabil230/laravel-starter-kit.git
+```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+2. Navigate to the project directory:
 
-### Premium Partners
+```bash
+cd laravel-starter-kit
+```
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+3. Run the installation script:
 
-## Contributing
+```bash
+bash install.sh
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## Testing
 
-## Code of Conduct
+```bash
+composer test
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## Support
 
-## Security Vulnerabilities
+[![Image for sponsor](https://raw.githubusercontent.com/michaelnabil230/michaelnabil230/main/.assets/sponsors.png)](https://github.com/sponsors/michaelnabil230)
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Or
+
+[![Ko-fi](https://raw.githubusercontent.com/michaelnabil230/michaelnabil230/main/.assets/ko-fi.png)](https://ko-fi.com/michaelnabil230)
+[![Buymeacoffee](https://raw.githubusercontent.com/michaelnabil230/michaelnabil230/main/.assets/buymeacoffee.png)](https://www.buymeacoffee.com/michaelnabil230)
+[![Paypal](https://raw.githubusercontent.com/michaelnabil230/michaelnabil230/main/.assets/paypal.png)](https://www.paypal.com/paypalme/MichaelNabil23)
+
+## Credits
+
+- [Michael Nabil](https://github.com/michaelnabil230)
+- [All Contributors](../../contributors)
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+The App starter kit is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
