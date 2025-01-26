@@ -1,0 +1,122 @@
+@import 'tailwindcss';
+@custom-variant dark (&:where(.dark, .dark *));
+@import '.././flag.css' layer(base);
+@source '../../js/dashboard/Pages/*.vue';
+@plugin '@tailwindcss/forms';
+@plugin 'tailwindcss-animate';
+
+@layer utilities {
+    ::-webkit-scrollbar-thumb {
+        @apply rounded-full bg-gray-300;
+    }
+
+    ::-webkit-scrollbar-track {
+        @apply rounded-full bg-gray-100;
+    }
+
+    ::-webkit-scrollbar {
+        @apply size-2;
+    }
+
+    @variant dark {
+        ::-webkit-scrollbar-thumb {
+            @apply bg-neutral-500;
+        }
+
+        ::-webkit-scrollbar-track {
+            @apply bg-neutral-700;
+        }
+    }
+
+    .no-scrollbar::-webkit-scrollbar {
+        display: none;
+    }
+
+    .no-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+}
+
+::view-transition-group(root) {
+    animation-duration: 1s;
+    animation-timing-function: linear(
+        0 0%,
+        0.1684 2.66%,
+        0.3165 5.49%,
+        0.446 8.52%,
+        0.5581 11.78%,
+        0.6535 15.29%,
+        0.7341 19.11%,
+        0.8011 23.3%,
+        0.8557 27.93%,
+        0.8962 32.68%,
+        0.9283 38.01%,
+        0.9529 44.08%,
+        0.9711 51.14%,
+        0.9833 59.06%,
+        0.9915 68.74%,
+        1 100%
+    );
+}
+
+::view-transition-new(root) {
+    animation-name: reveal-light;
+}
+
+::view-transition-old(root),
+.dark::view-transition-old(root) {
+    animation: none;
+    z-index: -1;
+}
+
+.dark::view-transition-new(root) {
+    animation-name: reveal-dark;
+}
+
+@keyframes reveal-light {
+    from {
+        clip-path: polygon(50% -71%, -50% 71%, -50% 71%, 50% -71%);
+    }
+
+    to {
+        clip-path: polygon(50% -71%, -50% 71%, 50% 171%, 171% 50%);
+    }
+}
+
+@keyframes reveal-dark {
+    from {
+        clip-path: polygon(171% 50%, 50% 171%, 50% 171%, 171% 50%);
+    }
+
+    to {
+        clip-path: polygon(171% 50%, 50% 171%, -50% 71%, 50% -71%);
+    }
+}
+
+&:indeterminate {
+    @apply border-transparent bg-transparent bg-center bg-no-repeat;
+    background: url("data:image/svg+xml,%3Csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='8' height='2' x='4' y='7' rx='1'/%3E%3C/svg%3E");
+    background-size: 100% 100%;
+}
+
+.ProseMirror:focus {
+    @apply outline-hidden;
+}
+
+.tiptap ul p,
+.tiptap ol p {
+    @apply inline;
+}
+
+.tiptap p.is-editor-empty:first-child::before {
+    content: attr(data-placeholder);
+}
+
+pre .hljs {
+    @apply rounded-md;
+}
+
+.spin-button-none {
+    @apply [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none;
+}

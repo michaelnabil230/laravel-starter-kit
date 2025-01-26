@@ -1,0 +1,44 @@
+@import 'tailwindcss';
+@import '.././flag.css' layer(base);
+@plugin '@tailwindcss/forms';
+
+@layer utilities {
+    ::-webkit-scrollbar-thumb {
+        @apply rounded-full bg-gray-300;
+    }
+
+    ::-webkit-scrollbar-track {
+        @apply rounded-full bg-gray-100;
+    }
+
+    ::-webkit-scrollbar {
+        @apply size-2;
+    }
+
+    @variant dark {
+        ::-webkit-scrollbar-thumb {
+            @apply bg-neutral-500;
+        }
+
+        ::-webkit-scrollbar-track {
+            @apply bg-neutral-700;
+        }
+    }
+
+    .no-scrollbar::-webkit-scrollbar {
+        display: none;
+    }
+
+    .no-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+}
+
+[x-cloak] {
+    display: none !important;
+}
+
+.spin-button-none {
+    @apply [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none;
+}

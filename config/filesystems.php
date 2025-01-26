@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 return [
 
     /*
@@ -42,6 +44,15 @@ return [
             'driver' => 'local',
             'root' => storage_path('app/public'),
             'url' => env('APP_URL').'/storage',
+            'visibility' => 'public',
+            'throw' => false,
+            'report' => false,
+        ],
+
+        'temporary-upload' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/temporary-upload'),
+            'url' => env('APP_URL').'/storage/temporary-upload',
             'visibility' => 'public',
             'throw' => false,
             'report' => false,

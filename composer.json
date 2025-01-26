@@ -1,24 +1,58 @@
 {
     "$schema": "https://getcomposer.org/schema.json",
-    "name": "laravel/laravel",
+    "name": "michaelnabil230/laravel-starter-kit",
     "type": "project",
-    "description": "The skeleton application for the Laravel framework.",
-    "keywords": ["laravel", "framework"],
+    "description": "An opinionated starter kit for building Laravel applications.",
+    "keywords": [
+        "laravel",
+        "framework",
+        "starter-kit"
+    ],
     "license": "MIT",
     "require": {
-        "php": "^8.2",
-        "laravel/framework": "^11.31",
-        "laravel/tinker": "^2.9"
+        "php": "^8.3",
+        "inertiajs/inertia-laravel": "^2.0.4",
+        "laravel-notification-channels/fcm": "^5.1.0",
+        "laravel/framework": "^12.20.0",
+        "laravel/horizon": "^5.33.1",
+        "laravel/pulse": "^1.4.2",
+        "laravel/telescope": "^5.10.0",
+        "laravel/tinker": "^2.10.1",
+        "league/commonmark": "^2.7.0",
+        "maatwebsite/excel": "^3.1.64",
+        "mcamara/laravel-localization": "^2.3.0",
+        "pinkary-project/type-guard": "^0.1.0",
+        "predis/predis": "^3.0.1",
+        "propaganistas/laravel-phone": "^6.0.2",
+        "sentry/sentry-laravel": "^4.15.1",
+        "spatie/cpu-load-health-check": "^1.0.4",
+        "spatie/laravel-activitylog": "^4.10.2",
+        "spatie/laravel-backup": "^9.3.3",
+        "spatie/laravel-health": "^1.34.3",
+        "spatie/laravel-login-link": "^1.6.3",
+        "spatie/laravel-medialibrary": "^11.13.0",
+        "spatie/laravel-query-builder": "^6.3.3",
+        "spatie/laravel-schedule-monitor": "^3.10.3",
+        "spatie/laravel-searchable": "^1.13.0",
+        "spatie/laravel-translatable": "^6.11.4",
+        "spatie/security-advisories-health-check": "^1.2.1",
+        "tightenco/ziggy": "^2.5.3"
     },
     "require-dev": {
-        "fakerphp/faker": "^1.23",
-        "laravel/pail": "^1.1",
-        "laravel/pint": "^1.13",
-        "laravel/sail": "^1.26",
-        "mockery/mockery": "^1.6",
-        "nunomaduro/collision": "^8.1",
-        "pestphp/pest": "^3.7",
-        "pestphp/pest-plugin-laravel": "^3.1"
+        "barryvdh/laravel-debugbar": "^3.15.4",
+        "driftingly/rector-laravel": "^2.0.5",
+        "fakerphp/faker": "^1.24.1",
+        "larastan/larastan": "^3.6.0",
+        "laravel/pail": "^1.2.3",
+        "laravel/pint": "^1.24.0",
+        "laravel/sail": "^1.43.1",
+        "mockery/mockery": "^1.6.12",
+        "nunomaduro/collision": "^8.8.2",
+        "pestphp/pest": "^3.8.2",
+        "pestphp/pest-plugin-laravel": "^3.2.0",
+        "pestphp/pest-plugin-type-coverage": "^3.6.0",
+        "rector/rector": "^2.1.2",
+        "soloterm/solo": "^0.5.0"
     },
     "autoload": {
         "psr-4": {
@@ -44,13 +78,26 @@
             "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
         ],
         "post-create-project-cmd": [
-            "@php artisan key:generate --ansi",
-            "@php -r \"file_exists('database/database.sqlite') || touch('database/database.sqlite');\"",
-            "@php artisan migrate --graceful --ansi"
+            "@php artisan app:install"
         ],
         "dev": [
             "Composer\\Config::disableProcessTimeout",
             "npx concurrently -c \"#93c5fd,#c4b5fd,#fb7185,#fdba74\" \"php artisan serve\" \"php artisan queue:listen --tries=1\" \"php artisan pail --timeout=0\" \"npm run dev\" --names=server,queue,logs,vite"
+        ],
+        "format": "pint --parallel",
+        "refactor": "rector",
+        "test:type-coverage": "pest --type-coverage --min=99.9 --memory-limit=2G",
+        "test:format": "pint --parallel --test",
+        "test:unit": "pest --parallel --coverage --exactly=37.7",
+        "test:types": "phpstan --memory-limit=2G",
+        "test:refactor": "rector --dry-run",
+        "test": [
+            "@php artisan config:clear --ansi",
+            "@php artisan test",
+            "@test:type-coverage",
+            "@test:unit",
+            "@test:format",
+            "@test:types"
         ]
     },
     "extra": {
