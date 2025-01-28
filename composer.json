@@ -82,7 +82,7 @@
         "refactor": "rector",
         "test:type-coverage": "pest --type-coverage --min=100 --memory-limit=2G",
         "test:lint": "pint --test",
-        "test:unit": "pest --parallel --coverage --exactly=39.6",
+        "test:unit": "pest --parallel --coverage --exactly=50.5",
         "test:types": "phpstan --memory-limit=2G",
         "test:refactor": "rector --dry-run",
         "test": [
