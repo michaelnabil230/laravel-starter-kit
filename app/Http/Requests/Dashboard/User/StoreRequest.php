@@ -24,7 +24,7 @@ final class StoreRequest extends FormRequest
             'phone' => ['required', 'phone', Rule::unique(User::class)],
             'phone_country' => Rule::isPhoneCountry(),
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'birth_date' => ['required', ...Rule::birthDate()],
+            'birth_date' => ['required', Rule::birthDate()],
             'gender' => ['required', Rule::enum(Gender::class)],
         ];
     }

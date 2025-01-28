@@ -5,18 +5,19 @@ declare(strict_types=1);
 namespace App\Rules;
 
 use Illuminate\Validation\Rule as BaseRule;
+use Illuminate\Validation\Rules\Date;
 use libphonenumber\PhoneNumberUtil;
 
 final class Rule extends BaseRule
 {
     /**
      * Get validation rules for birth date
-     *
-     * @return array<array-key, string>
      */
-    public static function birthDate(): array
+    public static function birthDate(): Date
     {
-        return ['date', 'date_format:Y-m-d', 'before:'.now()->subYears(16)->format('Y-m-d')];
+        return self::date()
+            ->format('Y-m-d')
+            ->before(now()->subYears(16));
     }
 
     /**

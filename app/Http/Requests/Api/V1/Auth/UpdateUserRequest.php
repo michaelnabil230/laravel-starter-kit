@@ -23,7 +23,7 @@ final class UpdateUserRequest extends FormRequest
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', Rule::email()->default(), Rule::unique(User::class)->ignore($userId)],
             'phone' => ['required', 'phone', Rule::unique(User::class)->ignore($userId)],
-            'birth_date' => ['required', ...Rule::birthDate()],
+            'birth_date' => ['required', Rule::birthDate()],
             'phone_country' => Rule::isPhoneCountry(),
             'photo' => ['nullable', 'image'],
         ];

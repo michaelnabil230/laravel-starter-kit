@@ -18,8 +18,6 @@ final class SoloServiceProvider extends ServiceProvider
             ->addCommands([
                 'Logs' => 'php artisan pail',
                 'Vite' => 'npm run dev',
-                'HTTP' => 'php artisan serve',
-                'About' => 'php artisan solo:about',
             ])
             ->addLazyCommands([
                 'Queue' => 'php artisan queue:listen --tries=1',
