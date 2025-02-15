@@ -12,7 +12,7 @@ const props = defineProps<{
 
 const model = defineModel<string>({ required: true });
 
-const attrs = useAttrs();
+const attrs: any = useAttrs();
 
 const ids = computed(() => {
     const attrId = attrs.id ? '#' + attrs.id : null;

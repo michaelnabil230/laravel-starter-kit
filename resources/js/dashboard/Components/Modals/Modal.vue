@@ -21,7 +21,7 @@ const props = withDefaults(
 
 const emit = defineEmits(['opened', 'closed', 'close-via-escape']);
 
-const attrs = useAttrs();
+const attrs: any = useAttrs();
 
 const sizesClasses = computed(() => {
     return {
