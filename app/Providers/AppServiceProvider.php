@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace App\Providers;
 
 use App\BladeSupport;
-use App\Modal;
 use App\Models\Admin;
 use App\Rules\Rule;
+use App\Support\Modal\Modal;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider;
 use Illuminate\Http\Resources\Json\JsonResource;

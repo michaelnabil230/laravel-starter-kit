@@ -4,19 +4,19 @@
     "scripts": {
         "dev": "vite",
         "build": "vue-tsc && vite build",
-        "format": "npx prettier --write resources/"
+        "lint": "npx prettier --write resources/"
     },
     "devDependencies": {
         "@inertiajs/vue3": "^2.0.3",
         "@preline/range-slider": "^2.5.2",
         "@sentry/tracing": "^7.120.3",
-        "@sentry/vue": "^8.51.0",
+        "@sentry/vue": "^9.1.0",
         "@tailwindcss/forms": "^0.5.10",
         "@types/dropzone": "^5.7.9",
         "@types/google.maps": "^3.58.1",
-        "@types/lodash": "^4.17.14",
+        "@types/lodash": "^4.17.15",
         "@types/mousetrap": "^1.6.15",
-        "@types/node": "^22.10.10",
+        "@types/node": "^22.13.4",
         "@types/qs": "^6.9.18",
         "@vitejs/plugin-vue": "^5.2.1",
         "autoprefixer": "^10.4.20",
@@ -25,15 +25,15 @@
         "dayjs": "^1.11.13",
         "dropzone": "^5.9.3",
         "laravel-vite-plugin": "^1.2.0",
-        "libphonenumber-js": "^1.11.18",
+        "libphonenumber-js": "^1.11.19",
         "lodash": "^4.17.21",
         "moment": "^2.30.1",
         "mousetrap": "^1.6.5",
         "mousetrap-pause": "^1.0.0",
         "nouislider": "^15.8.1",
-        "postcss": "^8.5.1",
+        "postcss": "^8.5.2",
         "preline": "^2.7.0",
-        "prettier": "^3.4.2",
+        "prettier": "^3.5.1",
         "prettier-plugin-blade": "^2.1.19",
         "prettier-plugin-organize-imports": "^4.1.0",
         "prettier-plugin-tailwindcss": "^0.6.11",
@@ -41,8 +41,8 @@
         "tailwindcss": "3.4.17",
         "tiny-emitter": "^2.1.0",
         "typescript": "^5.7.3",
-        "vite": "^6.0.11",
+        "vite": "^6.1.0",
         "vue": "^3.5.13",
-        "vue-tsc": "^2.2.0"
+        "vue-tsc": "^2.2.2"
     }
 }
