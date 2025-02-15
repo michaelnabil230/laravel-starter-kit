@@ -258,7 +258,7 @@ const breadcrumbs: Breadcrumbs = [
                                         >
                                             <div class="flex items-center gap-x-3">
                                                 <img
-                                                    class="inline-block size-[38px] rounded-full"
+                                                    class="inline-block size-[38px] rounded-full object-cover"
                                                     :src="user.profile_photo_url"
                                                     alt="Avatar"
                                                 />

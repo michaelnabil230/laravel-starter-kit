@@ -109,7 +109,7 @@ const clearPhotoFileInput = (): void => {
                         <img
                             :src="photoPreview?.toString() ?? auth.admin.profile_photo_url"
                             :alt="auth.admin.name"
-                            class="size-20 shrink-0 rounded-full"
+                            class="size-20 shrink-0 rounded-full object-cover"
                         />
 
                         <div class="grow">

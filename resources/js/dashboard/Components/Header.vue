@@ -220,7 +220,7 @@ const getImageUrl = (key: string): string => new URL(`../../../images/flags/${ke
                             class="inline-flex flex-shrink-0 items-center gap-x-3 rounded-full text-start focus:bg-gray-100 focus:outline-none dark:focus:bg-neutral-700"
                         >
                             <img
-                                class="size-[38px] flex-shrink-0 rounded-full"
+                                class="size-[38px] flex-shrink-0 rounded-full object-cover"
                                 :src="$page.props.auth.admin.profile_photo_url"
                             />
                         </button>
@@ -233,7 +233,7 @@ const getImageUrl = (key: string): string => new URL(`../../../images/flags/${ke
                                     class="flex items-center gap-x-3 rounded-lg px-3 py-2 text-sm text-gray-800 hover:bg-gray-100 dark:text-neutral-300 dark:hover:bg-neutral-800"
                                 >
                                     <img
-                                        class="size-8 flex-shrink-0 rounded-full"
+                                        class="size-8 flex-shrink-0 rounded-full object-cover"
                                         :src="$page.props.auth.admin.profile_photo_url"
                                     />
 
