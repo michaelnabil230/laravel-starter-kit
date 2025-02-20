@@ -1,8 +1,5 @@
 <script setup lang="ts">
-import { useAuth } from '@/dashboard/composables/useAuth';
-import Link from './Link.vue';
-
-const auth = useAuth();
+import { Link } from '@inertiajs/vue3';
 </script>
 
 <template>
@@ -58,7 +55,13 @@ const auth = useAuth();
                 <nav class="hs-accordion-group flex w-full flex-col flex-wrap pb-3">
                     <ul>
                         <li class="mb-1.5 px-5">
-                            <Link href="dashboard.welcome">
+                            <Link
+                                :href="route('dashboard.welcome')"
+                                :class="{
+                                    'bg-gray-100 dark:bg-neutral-700': route().current('dashboard.welcome'),
+                                }"
+                                class="flex gap-x-3 rounded-lg px-3 py-2 text-sm text-gray-800 hover:bg-gray-100 focus:bg-gray-100 focus:outline-none dark:text-neutral-300 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700"
+                            >
                                 <svg
                                     class="mt-0.5 size-4 flex-shrink-0"
                                     xmlns="http://www.w3.org/2000/svg"
@@ -79,7 +82,13 @@ const auth = useAuth();
                         </li>
 
                         <li class="mb-1.5 px-5">
-                            <Link href="dashboard.admins.index">
+                            <Link
+                                :href="route('dashboard.admins.index')"
+                                :class="{
+                                    'bg-gray-100 dark:bg-neutral-700': route().current('dashboard.admins.index'),
+                                }"
+                                class="flex gap-x-3 rounded-lg px-3 py-2 text-sm text-gray-800 hover:bg-gray-100 focus:bg-gray-100 focus:outline-none dark:text-neutral-300 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700"
+                            >
                                 <svg
                                     class="mt-0.5 size-4 flex-shrink-0"
                                     xmlns="http://www.w3.org/2000/svg"
@@ -107,7 +116,13 @@ const auth = useAuth();
                         </li>
 
                         <li class="mb-1.5 px-5">
-                            <Link href="dashboard.users.index">
+                            <Link
+                                :href="route('dashboard.users.index')"
+                                :class="{
+                                    'bg-gray-100 dark:bg-neutral-700': route().current('dashboard.users.index'),
+                                }"
+                                class="flex gap-x-3 rounded-lg px-3 py-2 text-sm text-gray-800 hover:bg-gray-100 focus:bg-gray-100 focus:outline-none dark:text-neutral-300 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700"
+                            >
                                 <svg
                                     class="mt-0.5 size-4 flex-shrink-0"
                                     xmlns="http://www.w3.org/2000/svg"

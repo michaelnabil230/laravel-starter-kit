@@ -3,7 +3,7 @@ import Breadcrumbs from '@/dashboard/Components/Breadcrumbs.vue';
 import Header from '@/dashboard/Components/Header.vue';
 import Modal from '@/dashboard/Components/Modal';
 import Search from '@/dashboard/Components/Search.vue';
-import Sidebar from '@/dashboard/Components/Sidebar/Index.vue';
+import Sidebar from '@/dashboard/Components/Sidebar.vue';
 import Toasts from '@/dashboard/Components/Toasts/Index.vue';
 import { Head } from '@inertiajs/vue3';
 import { HSOverlay, ICollectionItem } from 'preline/preline';
