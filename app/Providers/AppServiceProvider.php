@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Providers;
 
-use App\Support\Blade;
 use App\Models\Admin;
 use App\Rules\Rule;
+use App\Support\Blade;
 use App\Support\Modal\Modal;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider;
@@ -50,7 +50,7 @@ final class AppServiceProvider extends ServiceProvider
 
         URL::forceHttps();
 
-        $this->app->booted(fn() => Number::useLocale(app()->getLocale()));
+        $this->app->booted(fn () => Number::useLocale(app()->getLocale()));
     }
 
     protected function configureValidationRules(): void
@@ -79,7 +79,7 @@ final class AppServiceProvider extends ServiceProvider
     {
         Gate::define(
             'viewPulse',
-            fn(Admin $admin): bool => $admin->email === 'super-admin@app.com',
+            fn (Admin $admin): bool => $admin->email === 'super-admin@app.com',
         );
     }
 
@@ -87,13 +87,13 @@ final class AppServiceProvider extends ServiceProvider
     {
         Model::shouldBeStrict(App::isLocal());
         DB::prohibitDestructiveCommands(App::isProduction());
-        RouteServiceProvider::loadCachedRoutesUsing(fn() => $this->loadCachedRoutes());
+        RouteServiceProvider::loadCachedRoutesUsing(fn () => $this->loadCachedRoutes());
         Vite::prefetch(concurrency: 3);
     }
 
     protected function configureMacros(): void
     {
-        ComponentAttributeBag::macro('entangle', fn() => app(Blade::class, ['attributes' => $this])->entangle());
+        ComponentAttributeBag::macro('entangle', fn () => app(Blade::class, ['attributes' => $this])->entangle());
         $this->configureInertiaMacros();
     }
 
@@ -101,7 +101,7 @@ final class AppServiceProvider extends ServiceProvider
     {
         ResponseFactory::macro(
             'modal',
-            fn(string $component, array $props = []): Modal => new Modal($component, $props),
+            fn (string $component, array $props = []): Modal => new Modal($component, $props),
         );
     }
 }
