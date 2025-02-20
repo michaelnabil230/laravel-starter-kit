@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace App;
+namespace App\Support;
 
-use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\Blade as BladeRender;
 use Illuminate\View\ComponentAttributeBag;
 use Livewire\WireDirective;
 
-final readonly class BladeSupport
+final readonly class Blade
 {
     public function __construct(protected ComponentAttributeBag $attributes)
     {
@@ -18,14 +18,14 @@ final readonly class BladeSupport
     public function entangle(): string
     {
         if (! ($wire = $this->wire()) instanceof WireDirective) {
-            return Blade::render('null');
+            return BladeRender::render('null');
         }
 
         $property = $wire->value();
 
         return $wire->hasModifier('live') || $wire->hasModifier('blur')
-            ? Blade::render("@entangle('{$property}').live")
-            : Blade::render("@entangle('{$property}')");
+            ? BladeRender::render("@entangle('{$property}').live")
+            : BladeRender::render("@entangle('{$property}')");
     }
 
     protected function wire(): ?WireDirective
