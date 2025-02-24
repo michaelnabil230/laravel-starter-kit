@@ -13,7 +13,6 @@ use Spatie\Health\Checks\Checks\DebugModeCheck;
 use Spatie\Health\Checks\Checks\EnvironmentCheck;
 use Spatie\Health\Checks\Checks\HorizonCheck;
 use Spatie\Health\Checks\Checks\OptimizedAppCheck;
-use Spatie\Health\Checks\Checks\PingCheck;
 use Spatie\Health\Checks\Checks\QueueCheck;
 use Spatie\Health\Checks\Checks\RedisCheck;
 use Spatie\Health\Checks\Checks\ScheduleCheck;
@@ -31,9 +30,6 @@ final class HealthServiceProvider extends ServiceProvider
         Health::checks([
             EnvironmentCheck::new(),
             CacheCheck::new(),
-            PingCheck::new()
-                ->url(config('app.url').':6001')
-                ->name('Socket'),
             HorizonCheck::new(),
             SecurityAdvisoriesCheck::new(),
             ScheduleCheck::new(),
