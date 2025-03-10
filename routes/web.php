@@ -11,7 +11,7 @@ use Spatie\Health\Http\Controllers\HealthCheckResultsController;
 Route::prefix(LaravelLocalization::setLocale())
     ->middleware(['localeSessionRedirect', 'localizationRedirect', 'localeViewPath'])
     ->group(function () {
-        Livewire::setUpdateRoute(fn(array|string|callable|null $handle) => Route::post('/livewire/update', $handle));
+        Livewire::setUpdateRoute(fn (array|string|callable|null $handle) => Route::post('/livewire/update', $handle));
 
         Route::get('health', HealthCheckResultsController::class);
 
@@ -23,5 +23,5 @@ Route::prefix(LaravelLocalization::setLocale())
             ->name('page')
             ->whereIn('page', ['privacy', 'terms-and-conditions']);
 
-        require __DIR__ . '/dashboard.php';
+        require __DIR__.'/dashboard.php';
     });

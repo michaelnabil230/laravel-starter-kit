@@ -24,11 +24,11 @@ final class LegalController
 
     protected function localizedMarkdownPath(string $name): ?string
     {
-        $localName = preg_replace('#(\.md)$#i', '/' . app()->getLocale() . '$1', $name);
+        $localName = preg_replace('#(\.md)$#i', '/'.app()->getLocale().'$1', $name);
 
         return Arr::first([
             resource_path("markdown/$localName"),
             resource_path("markdown/$name"),
-        ], fn(string $path): bool => file_exists($path));
+        ], fn (string $path): bool => file_exists($path));
     }
 }
