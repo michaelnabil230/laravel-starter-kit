@@ -6,7 +6,6 @@ namespace App\Providers;
 
 use App\Models\Admin;
 use App\Rules\Rule;
-use App\Support\Blade;
 use App\Support\Modal\Modal;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider;
@@ -20,7 +19,6 @@ use Illuminate\Support\Number;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Validation\Rules\Email;
 use Illuminate\Validation\Rules\Password;
-use Illuminate\View\ComponentAttributeBag;
 use Inertia\ResponseFactory;
 use Mcamara\LaravelLocalization\Traits\LoadsTranslatedCachedRoutes;
 
@@ -93,7 +91,6 @@ final class AppServiceProvider extends ServiceProvider
 
     protected function configureMacros(): void
     {
-        ComponentAttributeBag::macro('entangle', fn () => app(Blade::class, ['attributes' => $this])->entangle());
         $this->configureInertiaMacros();
     }
 

@@ -1,19 +1,28 @@
-@import '.././phone-input.css';
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+@import '.././flag.css' layer(base);
+@plugin '@tailwindcss/forms';
 
 @layer utilities {
     ::-webkit-scrollbar-thumb {
-        @apply rounded-full bg-gray-300 dark:bg-neutral-500;
+        @apply rounded-full bg-gray-300;
     }
 
     ::-webkit-scrollbar-track {
-        @apply rounded-full bg-gray-100 dark:bg-neutral-700;
+        @apply rounded-full bg-gray-100;
     }
 
     ::-webkit-scrollbar {
         @apply size-2;
+    }
+
+    @variant dark {
+        ::-webkit-scrollbar-thumb {
+            @apply bg-neutral-500;
+        }
+
+        ::-webkit-scrollbar-track {
+            @apply bg-neutral-700;
+        }
     }
 }
 

@@ -26,19 +26,22 @@ final class AdminController
     {
         $filters = [
             'search' => $request->string('search')->value(),
-            'per_page' => $perPage = $request->integer('per_page', 15),
         ];
 
+        /** @var Admin $admin */
+        $admin = type(auth()->user())->as(Admin::class);
+
         $admins = Admin::query()
+            ->whereNot('id', $admin->id)
             ->when(
                 $filters['search'],
                 fn (Builder $builder, string $search): Builder => $builder->whereAny(['name', 'email'], 'Like', "%$search%")
             )
             ->latest()
-            ->paginate($perPage)
+            ->paginate($request->integer('per_page', 15))
             ->appends($filters);
 
-        return inertia('Admins/Index', [
+        return inertia('admins/Index', [
             'filters' => $filters,
             'admins' => AdminResource::collection($admins),
         ]);
@@ -49,7 +52,7 @@ final class AdminController
      */
     public function create(): Response|ResponseFactory
     {
-        return inertia('Admins/Create');
+        return inertia('admins/Create');
     }
 
     /**
@@ -67,7 +70,7 @@ final class AdminController
      */
     public function edit(Admin $admin): Response|ResponseFactory
     {
-        return inertia('Admins/Edit', ['admin' => AdminResource::make($admin)]);
+        return inertia('admins/Edit', ['admin' => AdminResource::make($admin)]);
     }
 
     /**

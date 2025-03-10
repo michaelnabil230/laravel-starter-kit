@@ -1,13 +1,3 @@
-import { Role } from './enums/admin';
+import { App } from '@/dashboard/types/models';
 
-export interface Auth {
-    id: string;
-    name: string;
-    email: string;
-    email_verified_at: string;
-    photo: string | null;
-    profile_photo_url: string;
-    role: Role;
-    created_at: string;
-    updated_at: string;
-}
+export type Auth = App.Models.Admin;

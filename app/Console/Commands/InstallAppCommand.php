@@ -58,6 +58,7 @@ final class InstallAppCommand extends Command implements Isolatable
         $this->updateProjectSettings();
         $this->cleanupInstallationFiles();
         $this->initializeGitRepository();
+        $this->initializePhpStan();
 
         info('Application installation completed successfully!');
         info('👉 Run `php artisan solo` or `composer run dev` to start the local server.');
@@ -248,5 +249,13 @@ final class InstallAppCommand extends Command implements Isolatable
         } else {
             info('Installation files retained.');
         }
+    }
+
+    /**
+     * Initialize PHPStan for static analysis.
+     */
+    protected function initializePhpStan(): void
+    {
+        Process::run('phpstan -b --memory-limit=2G');
     }
 }

@@ -37,10 +37,7 @@
             },
             "model": {
                 "title": "Delete Account",
-                "tooltip": {
-                    "title": "Delete Account",
-                    "description": "Are you sure you want to delete your account? Once deleted, all your data will be permanently erased. Please enter your password to confirm this action."
-                }
+                "description": "Are you sure you want to delete your account? Once deleted, all your data will be permanently erased. Please enter your password to confirm this action."
             },
             "toast": {
                 "deleted": "Your account has been deleted."
@@ -76,7 +73,7 @@
         },
         "user": {
             "plural": "Users",
-            "singular": "user",
+            "singular": "User",
             "attributes": {
                 "name": "Name",
                 "phone": "Phone",
@@ -104,9 +101,11 @@
             "new_password_confirmation": "Confirm New Password"
         },
         "placeholder": "Enter the :attribute",
+        "example": "Example: :example",
         "loading": "Loading",
         "select_all": "Select All",
         "choose": "Choose :attribute",
+        "download": "Download",
         "search": {
             "name": "Search",
             "resource": "Search :resource",
@@ -197,11 +196,12 @@
         "label": "Export",
         "resource": "Export :resource",
         "model": {
-            "title": "This CSV file will update all product information. To update only inventory quantities, use the option below.",
+            "title": "Choose to Export Either the Current Page or All Available Records in .XLSX Format",
             "current_page": "Current Page",
             "all_resource": "All :resource",
             "confirm": "Confirm Export"
-        }
+        },
+        "success": "An email will be sent to your account with the file once the export is ready."
     },
     "import": {
         "label": "Import",
@@ -237,11 +237,17 @@
     "filters": {
         "name": "Filter",
         "apply": "Apply",
-        "reset": "Reset the filters",
-        "clear": "Clear"
+        "reset": "Reset",
+        "clear": "Clear",
+        "trashed": {
+            "name": "Trashed",
+            "with": "With Trashed",
+            "only": "Only Trashed"
+        }
     },
     "navigation": {
-        "go_home": "Go Home"
+        "go_home": "Go Home",
+        "go_to_link": "Go to link"
     },
     "photo": "Photo",
     "upload_photo": "Upload Photo",

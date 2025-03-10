@@ -21,7 +21,7 @@ final class UserResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'email' => $this->email,
-            'phone' => $this->phone,
+            'phone' => $this->phone->formatE164(),
             'phone_country' => $this->phone_country,
             'photo' => $this->photo,
             'profile_photo_url' => $this->profile_photo_url,

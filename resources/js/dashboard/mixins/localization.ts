@@ -4,7 +4,7 @@ import { Translations } from '../types/appConfig';
 import config from './config';
 
 export default function __(key: string, replace?: { [key: string]: string }): string {
-    let translations: Translations = config('translations');
+    const translations: Translations = config('translations');
 
     const keyExists = has(translations, key);
 

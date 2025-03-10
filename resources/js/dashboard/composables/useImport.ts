@@ -1,17 +1,22 @@
-import { HSOverlay } from 'preline/preline';
+import { ref } from 'vue';
 
-export default function useImport(resource: string) {
+export default function useImport() {
+    const openImport = ref(false);
+
     const openImportModal = () => {
-        HSOverlay.open(document.getElementById('import-' + resource) as HTMLElement);
+        openImport.value = true;
     };
 
     const closeImportModal = () => {
-        HSOverlay.close(document.getElementById('import-' + resource) as HTMLElement);
+        openImport.value = false;
     };
 
-    const confirmImport = () => closeImportModal();
+    const confirmImport = () => {
+        closeImportModal();
+    };
 
     return {
+        openImport,
         openImportModal,
         closeImportModal,
         confirmImport,

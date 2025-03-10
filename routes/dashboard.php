@@ -35,7 +35,7 @@ Route::middleware(App\Http\Middleware\HandleInertiaRequests::class)
             Route::post('/reset-password', [NewPasswordController::class, 'store'])->name('password.store');
         });
 
-        Route::middleware(['auth'])->group(function () {
+        Route::middleware('auth')->group(function () {
             Route::get('/verify-email', EmailVerificationPromptController::class)->name('verification.notice');
 
             Route::get('/verify-email/{id}/{hash}', VerifyEmailController::class)
@@ -73,9 +73,11 @@ Route::middleware(App\Http\Middleware\HandleInertiaRequests::class)
 
             // Users
             Route::prefix('users')->name('users.')->controller(UserController::class)->group(function () {
+                Route::get('/ajax', 'ajax')->name('ajax');
                 Route::delete('/pluck-destroy', 'pluckDestroy')->name('pluck-destroy');
+                Route::post('/export', 'export')->name('export');
             });
-            Route::resource('users', UserController::class)->except('show');
+            Route::resource('users', UserController::class);
 
             // Admins
             Route::prefix('admins')->name('admins.')->controller(AdminController::class)->group(function () {

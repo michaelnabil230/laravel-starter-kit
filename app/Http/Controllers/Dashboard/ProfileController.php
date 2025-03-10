@@ -21,7 +21,7 @@ final class ProfileController
      */
     public function edit(): Response|ResponseFactory
     {
-        return inertia('Profile/Edit');
+        return inertia('profile/Edit');
     }
 
     /**

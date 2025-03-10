@@ -20,6 +20,6 @@ final class EmailVerificationPromptController
 
         return $admin->hasVerifiedEmail()
             ? redirect()->intended(route('dashboard.welcome', absolute: false))
-            : inertia('Auth/VerifyEmail', ['status' => session('status')]);
+            : inertia('auth/VerifyEmail', ['status' => session('status')]);
     }
 }

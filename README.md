@@ -14,7 +14,7 @@ The App Starter Kit is designed as a robust foundation for building web applicat
 
 - **Authentication**: Secure and reliable user authentication.
 - **Dashboard Layout**: A pre-built, customizable dashboard.
-- **[Preline](https://preline.co)**: A modern UI component library.
+- **[Reka Ui](https://reka-ui.com)**: For components
 - **Tailwind CSS**: A utility-first CSS framework.
 - **Inertia.js + Vue 3 + TypeScript**: Seamless front-end integration with modern tools.
 - **Multi-Language Support**: Supports English and Arabic out of the box.

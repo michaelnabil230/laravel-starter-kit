@@ -1,8 +1,6 @@
 import { PageProps as InertiaPageProps, Page } from '@inertiajs/core';
 import { AxiosInstance } from 'axios';
 import dropzone from 'dropzone';
-import noUiSlider from 'nouislider';
-import { type IStaticMethods } from 'preline/preline';
 import 'vue';
 import { route as ziggyRoute } from 'ziggy-js';
 import mixin from '../mixins/index';
@@ -13,10 +11,8 @@ import { AppConfig, DashboardAppInterface } from './appConfig';
 declare global {
     interface Window {
         axios: AxiosInstance;
-        HSStaticMethods: IStaticMethods;
         createDashboardApp: (config: AppConfig) => void;
         dashboardApp: DashboardAppInterface;
-        noUiSlider: typeof noUiSlider;
         dropzone: typeof dropzone;
     }
 

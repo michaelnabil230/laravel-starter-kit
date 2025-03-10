@@ -17,16 +17,6 @@ final class AuthResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return [
-            'id' => $this->id,
-            'name' => $this->name,
-            'email' => $this->email,
-            'phone' => $this->phone,
-            'photo' => $this->photo,
-            'profile_photo_url' => $this->profile_photo_url,
-            'role' => $this->role->value,
-            'created_at' => $this->created_at->format('Y-m-d h:i:s A'),
-            'updated_at' => $this->updated_at->format('Y-m-d h:i:s A'),
-        ];
+        return array_merge(AdminResource::make($this)->toArray($request), []);
     }
 }

@@ -1,8 +1,6 @@
 export interface DashboardAppInterface {
     log(message: string, type: 'log' | 'error' | 'warn' | 'info' = 'log'): void;
 
-    preline(): void;
-
     $on(event: string, listener: (...args: any[]) => void): void;
 
     $once(event: string, listener: (...args: any[]) => void): void;

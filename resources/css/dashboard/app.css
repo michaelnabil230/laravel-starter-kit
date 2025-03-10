@@ -1,21 +1,57 @@
-@import '.././phone-input.css';
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+@custom-variant dark (&:where(.dark, .dark *));
+@import '.././flag.css' layer(base);
+@source '../../js/dashboard/pages/*.vue';
+@plugin '@tailwindcss/forms';
+@plugin 'tailwindcss-animate';
+
 @layer utilities {
     ::-webkit-scrollbar-thumb {
-        @apply rounded-full bg-gray-300 dark:bg-neutral-500;
+        @apply rounded-full bg-gray-300;
     }
 
     ::-webkit-scrollbar-track {
-        @apply rounded-full bg-gray-100 dark:bg-neutral-700;
+        @apply rounded-full bg-gray-100;
     }
 
     ::-webkit-scrollbar {
         @apply size-2;
     }
+
+    @variant dark {
+        ::-webkit-scrollbar-thumb {
+            @apply bg-neutral-500;
+        }
+
+        ::-webkit-scrollbar-track {
+            @apply bg-neutral-700;
+        }
+    }
 }
 
-.translate-aside {
-    @apply -translate-x-full rtl:translate-x-full;
+&:indeterminate {
+    @apply border-transparent bg-transparent bg-center bg-no-repeat;
+    background: url("data:image/svg+xml,%3Csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='8' height='2' x='4' y='7' rx='1'/%3E%3C/svg%3E");
+    background-size: 100% 100%;
+}
+
+.ProseMirror:focus {
+    @apply outline-hidden;
+}
+
+.tiptap ul p,
+.tiptap ol p {
+    @apply inline;
+}
+
+.tiptap p.is-editor-empty:first-child::before {
+    content: attr(data-placeholder);
+}
+
+pre .hljs {
+    @apply rounded-md;
+}
+
+.spin-button-none {
+    @apply [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none;
 }

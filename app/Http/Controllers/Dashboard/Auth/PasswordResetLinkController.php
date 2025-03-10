@@ -19,7 +19,7 @@ final class PasswordResetLinkController
      */
     public function create(): Response|ResponseFactory
     {
-        return inertia('Auth/ForgotPassword', [
+        return inertia('auth/ForgotPassword', [
             'status' => session('status'),
         ]);
     }

@@ -23,7 +23,7 @@ final class NewPasswordController
      */
     public function create(Request $request): Response|ResponseFactory
     {
-        return inertia('Auth/ResetPassword', [
+        return inertia('auth/ResetPassword', [
             'email' => $request->email,
             'token' => $request->route('token'),
         ]);

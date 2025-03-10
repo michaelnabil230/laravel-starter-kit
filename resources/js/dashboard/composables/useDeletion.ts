@@ -1,5 +1,4 @@
 import { router } from '@inertiajs/vue3';
-import { HSOverlay } from 'preline/preline';
 import { ref } from 'vue';
 import { RouteName } from '../../../../vendor/tightenco/ziggy/src/js';
 
@@ -9,16 +8,18 @@ interface Options {
     onFinish?: () => void;
 }
 
-export default function useDeletion<T>(resource: string, routeName: RouteName, options?: Options) {
+export default function useDeletion<T>(routeName: RouteName, options?: Options) {
     const itemToDelete = ref<T | null>(null);
 
+    const openDelete = ref(false);
+
     const openDeleteModal = (item: T) => {
-        HSOverlay.open(document.getElementById('delete-' + resource + '-record') as HTMLElement);
+        openDelete.value = true;
         itemToDelete.value = item;
     };
 
     const closeDeleteModal = () => {
-        HSOverlay.close(document.getElementById('delete-' + resource + '-record') as HTMLElement);
+        openDelete.value = false;
         resetToDeletionState();
     };
 
@@ -43,6 +44,7 @@ export default function useDeletion<T>(resource: string, routeName: RouteName, o
 
     return {
         itemToDelete,
+        openDelete,
         confirmDelete,
         openDeleteModal,
         closeDeleteModal,

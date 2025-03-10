@@ -7,6 +7,7 @@ declare namespace App.Models {
         name: string;
         email: string;
         phone: string;
+        phone_country: string;
         photo: ?string;
         profile_photo_url: string;
         role: Role;

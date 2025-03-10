@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Fluent;
 use Propaganistas\LaravelPhone\Casts\RawPhoneNumberCast;
 use Spatie\Searchable\Searchable;
 use Spatie\Searchable\SearchResult;
@@ -31,7 +32,7 @@ use Spatie\Searchable\SearchResult;
 final class User extends Authenticatable implements Searchable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, HasProfilePhoto,  HasUuids, Notifiable, Prunable, SoftDeletes;
+    use HasFactory, HasProfilePhoto, HasUuids, Notifiable, Prunable, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -90,8 +91,39 @@ final class User extends Authenticatable implements Searchable
         return new SearchResult(
             $this,
             $this->name,
-            route('dashboard.users.edit', $this->id),
+            route('dashboard.users.show', $this->id),
         );
+    }
+
+    /**
+     * Filter the employees.
+     *
+     * @param  Builder<self>  $builder
+     * @param  Fluent<string, mixed>  $data
+     * @return Builder<self>
+     */
+    public function scopeFilter(Builder $builder, Fluent $data): Builder
+    {
+        return $builder
+            ->when(
+                $data->string('search')->value(),
+                fn (Builder $builder, string $search): Builder => $builder->whereAny(['name', 'email'], 'Like', "%$search%")
+            )
+            ->when($data->get('trashed'), function (Builder $builder, string $trashed): Builder {
+                if ($trashed === 'with') {
+                    return $builder->withTrashed();
+                }
+
+                if ($trashed === 'only') {
+                    return $builder->onlyTrashed();
+                }
+
+                return $builder->withoutTrashed();
+            })
+            ->orderBy(
+                $data->get('order_by', 'created_at'),
+                $data->get('order_by_direction', 'desc'),
+            );
     }
 
     /**

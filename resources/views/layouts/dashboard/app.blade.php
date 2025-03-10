@@ -43,7 +43,7 @@
 
         <!-- Scripts -->
         @routes
-        @vite(['resources/js/dashboard/app.ts', "resources/js/dashboard/Pages/{$page['component']}.vue"])
+        @vite(['resources/js/dashboard/app.ts', "resources/js/dashboard/pages/{$page['component']}.vue"])
         @inertiaHead
 
         <x-dashboard.app />

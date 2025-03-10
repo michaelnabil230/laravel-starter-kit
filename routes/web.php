@@ -2,9 +2,8 @@
 
 declare(strict_types=1);
 
-use App\Http\Controllers\PageController;
+use App\Http\Controllers\LegalController;
 use Illuminate\Support\Facades\Route;
-use Livewire\Livewire;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use Spatie\Health\Http\Controllers\HealthCheckResultsController;
 
@@ -19,9 +18,10 @@ Route::prefix(LaravelLocalization::setLocale())
 
         Route::view('/apps', 'apps');
 
-        Route::get('/{page}', PageController::class)
+        Route::get('/legal/{page}', LegalController::class)
             ->name('page')
             ->whereIn('page', ['privacy', 'terms-and-conditions']);
 
+        require __DIR__.'/dashboard.php';
         require __DIR__.'/dashboard.php';
     });

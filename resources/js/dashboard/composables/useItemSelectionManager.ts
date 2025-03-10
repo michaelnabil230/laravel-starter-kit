@@ -1,5 +1,4 @@
 import { router } from '@inertiajs/vue3';
-import { HSOverlay } from 'preline/preline';
 import { ref, watch } from 'vue';
 
 interface Identifiable {
@@ -12,18 +11,12 @@ interface Options {
     onFinish?: () => void;
 }
 
-export default function useItemSelectionManager(
-    resource: string,
-    items: Identifiable[],
-    endPoint: string,
-    options?: Options,
-) {
-    // States
+export default function useItemSelectionManager(items: Identifiable[], url: string, options?: Options) {
     const isAllSelected = ref(false);
     const isIndeterminate = ref(false);
     const selectedList = ref<Identifiable[]>([]);
+    const openDeleteItems = ref(false);
 
-    // Function to update checkbox state
     const updateCheckboxState = () => {
         const checkedCount = selectedList.value.length;
         const totalItems = items.length;
@@ -32,7 +25,6 @@ export default function useItemSelectionManager(
         isIndeterminate.value = checkedCount > 0 && checkedCount < totalItems;
     };
 
-    // Function to toggle selection of a single item
     const toggleItemSelect = (item: Identifiable) => {
         const index = selectedList.value.findIndex((i) => i.id === item.id);
         if (index !== -1) {
@@ -42,7 +34,6 @@ export default function useItemSelectionManager(
         }
     };
 
-    // Function to toggle select/deselect all items
     const toggleSelectAll = () => {
         isAllSelected.value = !isAllSelected.value;
         if (isAllSelected.value) {
@@ -52,22 +43,20 @@ export default function useItemSelectionManager(
         }
     };
 
-    // Watch selected items and update the checkbox state
     watch(selectedList, updateCheckboxState, { deep: true });
 
     const openDeleteItemsModal = () => {
-        HSOverlay.open(document.getElementById('delete-all-' + resource + '-records') as HTMLElement);
+        openDeleteItems.value = true;
     };
 
     const closeDeleteItemsModal = () => {
-        HSOverlay.close(document.getElementById('delete-all-' + resource + '-records') as HTMLElement);
+        openDeleteItems.value = false;
     };
 
-    // Function to confirm deletion
     const confirmDeleteAll = () => {
         closeDeleteItemsModal();
 
-        router.delete(endPoint, {
+        router.delete(url, {
             preserveScroll: true,
             preserveState: true,
             data: { ids: selectedList.value.map((item) => item.id) },
@@ -75,13 +64,12 @@ export default function useItemSelectionManager(
             onError: () => options?.onError?.(),
             onFinish: () => {
                 options?.onFinish?.();
-                resetDeletionState();
+                resetItemSelection();
             },
         });
     };
 
-    // Reset the deletion state
-    const resetDeletionState = () => {
+    const resetItemSelection = () => {
         selectedList.value = [];
     };
 
@@ -89,11 +77,12 @@ export default function useItemSelectionManager(
         isAllSelected,
         isIndeterminate,
         selectedList,
+        openDeleteItems,
         toggleItemSelect,
         toggleSelectAll,
         openDeleteItemsModal,
         closeDeleteItemsModal,
         confirmDeleteAll,
-        resetDeletionState,
+        resetItemSelection,
     };
 }

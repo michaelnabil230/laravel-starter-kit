@@ -18,7 +18,7 @@ final class ConfirmablePasswordController
      */
     public function show(): Response|ResponseFactory
     {
-        return inertia('Auth/ConfirmPassword');
+        return inertia('auth/ConfirmPassword');
     }
 
     /**

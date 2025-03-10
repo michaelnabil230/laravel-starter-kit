@@ -61,9 +61,7 @@
         <title>App</title>
     </head>
 
-    <body x-data="{ mobileMenuIsOpen: false }">
-        <x-front.toast />
-
+    <body>
         {{ $slot }}
     </body>
 </html>

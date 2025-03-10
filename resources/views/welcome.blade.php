@@ -2,12 +2,12 @@
     <!-- Hero -->
     <div class="relative flex min-h-screen items-center justify-center overflow-hidden">
         <!-- Gradients -->
-        <div aria-hidden="true" class="absolute -top-96 start-1/2 flex -translate-x-1/2 transform">
+        <div aria-hidden="true" class="absolute start-1/2 -top-96 flex -translate-x-1/2 transform">
             <div
-                class="h-[44rem] w-[25rem] -translate-x-[10rem] rotate-[-60deg] transform bg-gradient-to-r from-violet-300/50 to-purple-100 blur-3xl dark:from-violet-900/50 dark:to-purple-900"
+                class="h-[44rem] w-[25rem] -translate-x-[10rem] rotate-[-60deg] transform bg-linear-to-r from-violet-300/50 to-purple-100 blur-3xl"
             ></div>
             <div
-                class="rounded-fulls h-[50rem] w-[90rem] origin-top-left -translate-x-[15rem] -rotate-12 bg-gradient-to-tl from-blue-50 via-blue-100 to-blue-50 blur-3xl dark:from-indigo-900/70 dark:via-indigo-900/70 dark:to-blue-900/70"
+                class="rounded-fulls h-[50rem] w-[90rem] origin-top-left -translate-x-[15rem] -rotate-12 bg-linear-to-tl from-blue-50 via-blue-100 to-blue-50 blur-3xl"
             ></div>
         </div>
         <!-- End Gradients -->
@@ -16,23 +16,21 @@
             <div class="mx-auto max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-16">
                 <div class="mx-auto max-w-2xl text-center">
                     <p
-                        class="inline-block bg-gradient-to-l from-blue-600 to-violet-500 bg-clip-text text-sm font-medium text-transparent dark:from-blue-400 dark:to-violet-400"
+                        class="inline-block bg-linear-to-l from-blue-600 to-violet-500 bg-clip-text text-sm font-medium text-transparent"
                     >
                         PRO release - Dashboard
                     </p>
 
                     <!-- Title -->
                     <div class="mt-5 max-w-2xl">
-                        <h1
-                            class="block text-4xl font-semibold text-gray-800 dark:text-neutral-200 md:text-5xl lg:text-6xl"
-                        >
+                        <h1 class="block text-4xl font-semibold text-gray-800 md:text-5xl lg:text-6xl">
                             The Advanced Dashboard
                         </h1>
                     </div>
                     <!-- End Title -->
 
                     <div class="mt-5 max-w-3xl">
-                        <p class="text-lg text-gray-600 dark:text-neutral-400">
+                        <p class="text-lg text-gray-600">
                             Dashboard is a fully responsive and customizable admin template built with Tailwind CSS and
                             Vue.js with Inertia.js.
                         </p>
@@ -43,7 +41,7 @@
                         @auth
                             <a
                                 href="{{ route('dashboard.welcome') }}"
-                                class="inline-flex items-center gap-x-2 rounded-lg border border-transparent bg-blue-600 px-4 py-3 text-sm font-medium text-white hover:bg-blue-700 focus:bg-blue-700 focus:outline-none disabled:pointer-events-none disabled:opacity-50"
+                                class="inline-flex items-center gap-x-2 rounded-lg border border-transparent bg-blue-600 px-4 py-3 text-sm font-medium text-white hover:bg-blue-700 focus:bg-blue-700 focus:outline-hidden disabled:pointer-events-none disabled:opacity-50"
                             >
                                 Go to dashboard
                                 <svg
@@ -64,7 +62,7 @@
                         @else
                             <a
                                 href="{{ route('dashboard.login') }}"
-                                class="inline-flex items-center gap-x-2 rounded-lg border border-transparent bg-blue-600 px-4 py-3 text-sm font-medium text-white hover:bg-blue-700 focus:bg-blue-700 focus:outline-none disabled:pointer-events-none disabled:opacity-50"
+                                class="inline-flex items-center gap-x-2 rounded-lg border border-transparent bg-blue-600 px-4 py-3 text-sm font-medium text-white hover:bg-blue-700 focus:bg-blue-700 focus:outline-hidden disabled:pointer-events-none disabled:opacity-50"
                             >
                                 Login as Admin
                                 <svg

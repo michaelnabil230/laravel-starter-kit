@@ -35,7 +35,7 @@ final class UserFactory extends Factory
             'password' => 'password',
             'remember_token' => Str::random(10),
             'gender' => $gender,
-            'birth_date' => fake()->date(max: '-15 years'),
+            'birth_date' => fake()->date(max: now()->subYears(25)->format('Y-m-d')),
         ];
     }
 

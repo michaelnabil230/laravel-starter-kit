@@ -1,26 +1,16 @@
-import { createInertiaApp, router } from '@inertiajs/vue3';
-import HSRangeSlider from '@preline/range-slider';
+import { initializeTheme } from '@/dashboard/composables/useAppearance';
+import { createInertiaApp } from '@inertiajs/vue3';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import Mousetrap, { ExtendedKeyboardEvent } from 'mousetrap';
 import 'mousetrap/plugins/pause/mousetrap-pause.js';
-import {
-    HSCopyMarkup,
-    HSDropdown,
-    HSOverlay,
-    HSSelect,
-    HSStaticMethods,
-    HSStrongPassword,
-    HSThemeSwitch,
-    HSTogglePassword,
-} from 'preline/preline';
 import { TinyEmitter } from 'tiny-emitter';
 import { createApp, DefineComponent, h } from 'vue';
 import { ZiggyVue } from '../../../vendor/tightenco/ziggy';
 import '../../css/dashboard/app.css';
 import './bootstrap';
 import mixins from './mixins/index';
-import { loading, modal, queryStringUpdater, toast } from './Plugins/index';
-import toasts from './Stores/toasts';
+import { loading, modal, queryStringUpdater, toast } from './plugins/index';
+import toasts from './stores/toasts';
 import { AppConfig, DashboardAppInterface } from './types/appConfig';
 import { Toast } from './types/toast';
 
@@ -47,12 +37,10 @@ export class DashboardApp implements DashboardAppInterface {
 
         const appName = this.config('appName');
 
-        const sentryConfig = this.config('sentry');
-
         createInertiaApp({
             title: (title: string) => `${title} - ${appName}`,
             resolve: (name) =>
-                resolvePageComponent(`./Pages/${name}.vue`, import.meta.glob<DefineComponent>(['./Pages/**/*.vue'])),
+                resolvePageComponent(`./pages/${name}.vue`, import.meta.glob<DefineComponent>(['./pages/**/*.vue'])),
             setup({ el, App, props, plugin }) {
                 createApp({ render: () => h(App, props) })
                     .use(modal, { resolve: props.resolveComponent })
@@ -70,25 +58,11 @@ export class DashboardApp implements DashboardAppInterface {
             },
         });
 
-        router.on('before', (event) => {
-            setTimeout(() => this.preline(), 100);
-        });
+        initializeTheme();
     }
 
     public log(message: string, type: 'log' | 'error' | 'warn' | 'info' = 'log'): void {
         console[type](`[AppDashboard]`, message);
-    }
-
-    public preline(): void {
-        HSStaticMethods.autoInit();
-        HSThemeSwitch.autoInit();
-        HSOverlay.autoInit();
-        HSTogglePassword.autoInit();
-        HSSelect.autoInit();
-        HSDropdown.autoInit();
-        HSStrongPassword.autoInit();
-        HSCopyMarkup.autoInit();
-        HSRangeSlider.autoInit();
     }
 
     public $on(event: string, listener: (...args: any[]) => void): void {

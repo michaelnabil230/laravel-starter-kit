@@ -20,7 +20,7 @@ final class AuthenticatedSessionController
      */
     public function create(): Response|ResponseFactory
     {
-        return inertia('Auth/Login', [
+        return inertia('auth/Login', [
             'status' => session('status'),
         ]);
     }
