@@ -2,15 +2,18 @@
 import { computed, useAttrs } from 'vue';
 import TextInput from './TextInput.vue';
 
-defineOptions({
-    inheritAttrs: false,
-});
+defineOptions({ inheritAttrs: false });
 
 const props = defineProps<{
-    ids?: String[];
+    defaultValue?: string;
+    ids?: string[];
 }>();
 
-const model = defineModel<string>({ required: true });
+const model = defineModel<string | null>();
+
+if (model.value === undefined) {
+    model.value = props.defaultValue;
+}
 
 const attrs: any = useAttrs();
 
@@ -27,10 +30,10 @@ const ids = computed(() => {
             <button
                 type="button"
                 :data-hs-toggle-password="JSON.stringify({ target: ids })"
-                class="text-gray-400 focus:text-blue-700 focus:outline-none dark:text-neutral-600 dark:focus:text-blue-500"
+                class="text-gray-400 focus:text-blue-700 focus:outline-hidden dark:text-neutral-600 dark:focus:text-blue-500"
             >
                 <svg
-                    class="size-4 flex-shrink-0"
+                    class="size-4 shrink-0"
                     width="24"
                     height="24"
                     viewBox="0 0 24 24"

@@ -309,7 +309,7 @@
                 }
             })
         "
-        class="group fixed z-[99] block w-full sm:max-w-xs"
+        class="group fixed z-99 block w-full sm:max-w-xs"
         :class="{ 'right-0 top-0 sm:mt-6 sm:mr-6': position=='top-right', 'left-0 top-0 sm:mt-6 sm:ml-6': position=='top-left', 'left-1/2 -translate-x-1/2 top-0 sm:mt-6': position=='top-center', 'right-0 bottom-0 sm:mr-6 sm:mb-6': position=='bottom-right', 'left-0 bottom-0 sm:ml-6 sm:mb-6': position=='bottom-left', 'left-1/2 -translate-x-1/2 bottom-0 sm:mb-6': position=='bottom-center' }"
         x-cloak
     >
@@ -363,7 +363,7 @@
                 "
                 @mouseover="toastHovered=true"
                 @mouseout="toastHovered=false"
-                class="absolute w-full select-none duration-300 ease-out sm:max-w-xs"
+                class="absolute w-full duration-300 ease-out select-none sm:max-w-xs"
                 :class="{ 'toast-no-description': !toast.description }"
             >
                 <span
@@ -433,7 +433,7 @@
                                     ></path>
                                 </svg>
                                 <p
-                                    class="text-[13px] font-medium leading-none text-gray-800"
+                                    class="text-[13px] leading-none font-medium text-gray-800"
                                     x-text="toast.message"
                                 ></p>
                             </div>

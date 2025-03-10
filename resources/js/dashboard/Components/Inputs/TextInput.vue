@@ -1,12 +1,13 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
+import { cn } from '@/dashboard/lib/utils';
+import { type HTMLAttributes } from 'vue';
 
-const model = defineModel<string | number | null>({ required: true });
+defineOptions({ inheritAttrs: false });
 
-const input = ref<HTMLInputElement | null>(null);
-
-withDefaults(
+const props = withDefaults(
     defineProps<{
+        defaultValue?: string | number;
+        class?: HTMLAttributes['class'];
         hasError?: boolean;
         fullWidth?: boolean;
     }>(),
@@ -16,29 +17,28 @@ withDefaults(
     },
 );
 
-defineOptions({
-    inheritAttrs: false,
-});
+const model = defineModel<string | number | null>({});
 
-onMounted(() => {
-    if (input.value?.hasAttribute('autofocus')) {
-        input.value?.focus();
-    }
-});
-
-defineExpose({ focus: () => input.value?.focus() });
+if (model.value === undefined) {
+    model.value = props.defaultValue;
+}
 </script>
 
 <template>
     <div class="relative" :class="{ 'w-full': fullWidth }">
         <input
-            ref="input"
-            v-bind="$attrs"
             v-model="model"
-            :class="{
-                '!focus:border-red-500 !focus:ring-red-500 !border-red-500': hasError,
-            }"
-            class="block w-full rounded-lg border-gray-200 px-3 py-2 text-sm placeholder:text-gray-400 focus:border-blue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:bg-transparent dark:text-neutral-300 dark:placeholder:text-white/60 dark:focus:ring-neutral-600"
+            v-bind="$attrs"
+            :class="
+                cn(
+                    'block w-full rounded-lg border-gray-200 px-3 py-2 text-sm placeholder:text-gray-400 focus:border-blue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:bg-transparent dark:text-neutral-300 dark:placeholder:text-white/60 dark:focus:ring-neutral-600',
+                    props.class,
+                    {
+                        'focus:border-red-500 focus:ring-red-500 border-red-500 dark:focus:border-red-500 dark:focus:ring-red-500 dark:border-red-500':
+                            props.hasError,
+                    },
+                )
+            "
         />
 
         <div class="absolute inset-y-0 end-0 z-20 flex cursor-pointer items-center gap-2 pe-4">

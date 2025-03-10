@@ -80,7 +80,7 @@ const closeModal = () => {
                 <!-- Tooltip -->
                 <div class="hs-tooltip inline-block">
                     <svg
-                        class="hs-tooltip-toggle ms-1 size-3 flex-shrink-0 text-gray-500 dark:text-neutral-500"
+                        class="hs-tooltip-toggle ms-1 size-3 shrink-0 text-gray-500 dark:text-neutral-500"
                         xmlns="http://www.w3.org/2000/svg"
                         width="16"
                         height="16"
@@ -93,7 +93,7 @@ const closeModal = () => {
                         />
                     </svg>
                     <div
-                        class="hs-tooltip-content invisible absolute z-[60] inline-block w-96 rounded-xl bg-white p-4 opacity-0 shadow-xl transition-opacity hs-tooltip-shown:visible hs-tooltip-shown:opacity-100 dark:bg-neutral-900 dark:text-neutral-400"
+                        class="hs-tooltip-content invisible absolute z-60 inline-block w-96 rounded-xl bg-white p-4 opacity-0 shadow-xl transition-opacity hs-tooltip-shown:visible hs-tooltip-shown:opacity-100 dark:bg-neutral-900 dark:text-neutral-400"
                         role="tooltip"
                     >
                         <p class="font-medium text-gray-800 dark:text-neutral-200">
@@ -108,7 +108,7 @@ const closeModal = () => {
             </h3>
             <button
                 type="button"
-                class="inline-flex size-6 items-center justify-center gap-x-2 rounded-full border border-transparent bg-gray-100 text-gray-800 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none disabled:pointer-events-none disabled:opacity-50 dark:bg-neutral-700 dark:text-neutral-400 dark:hover:bg-neutral-600 dark:focus:bg-neutral-600"
+                class="inline-flex size-6 items-center justify-center gap-x-2 rounded-full border border-transparent bg-gray-100 text-gray-800 hover:bg-gray-200 focus:bg-gray-200 focus:outline-hidden disabled:pointer-events-none disabled:opacity-50 dark:bg-neutral-700 dark:text-neutral-400 dark:hover:bg-neutral-600 dark:focus:bg-neutral-600"
                 aria-label="Close"
                 data-hs-overlay="#delete-user"
             >

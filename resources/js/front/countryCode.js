@@ -18,7 +18,7 @@ export default {
             }
             const data = await response.json();
             countryCode = data.country_code ?? 'US';
-        } catch (error) {
+        } catch {
             countryCode = 'US';
         }
 

@@ -36,7 +36,7 @@ onMounted(() => dashboardApp.preline());
                 <!-- Dark Mode -->
                 <button
                     type="button"
-                    class="hs-dark-mode flex items-center gap-x-1.5 text-sm text-gray-500 hover:text-gray-800 focus:text-gray-800 focus:outline-none hs-dark-mode-active:hidden dark:text-neutral-500 dark:hover:text-neutral-200 dark:focus:text-neutral-200"
+                    class="hs-dark-mode flex items-center gap-x-1.5 text-sm text-gray-500 hover:text-gray-800 focus:text-gray-800 focus:outline-hidden hs-dark-mode-active:hidden dark:text-neutral-500 dark:hover:text-neutral-200 dark:focus:text-neutral-200"
                     data-hs-theme-click-value="dark"
                 >
                     <svg
@@ -57,7 +57,7 @@ onMounted(() => dashboardApp.preline());
                 </button>
                 <button
                     type="button"
-                    class="hs-dark-mode hidden items-center gap-x-1.5 text-sm text-gray-500 hover:text-gray-800 focus:text-gray-800 focus:outline-none hs-dark-mode-active:flex dark:text-neutral-500 dark:hover:text-neutral-200 dark:focus:text-neutral-200"
+                    class="hs-dark-mode hidden items-center gap-x-1.5 text-sm text-gray-500 hover:text-gray-800 focus:text-gray-800 focus:outline-hidden hs-dark-mode-active:flex dark:text-neutral-500 dark:hover:text-neutral-200 dark:focus:text-neutral-200"
                     data-hs-theme-click-value="light"
                 >
                     <svg

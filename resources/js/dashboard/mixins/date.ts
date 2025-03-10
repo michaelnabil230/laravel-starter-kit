@@ -8,7 +8,7 @@ dayjs.extend(utc);
 dayjs.extend(timezone);
 dayjs.extend(relativeTime);
 
-export default function date(date: string) {
+export default function date() {
     return {
         timezone(): string {
             return config('timezone');

@@ -5,13 +5,13 @@ import { Link } from '@inertiajs/vue3';
 <template>
     <aside
         id="sidebar"
-        class="hs-overlay translate-aside fixed inset-y-0 start-0 z-[60] hidden w-[260px] transform border-e border-gray-200 bg-white transition-all duration-300 [--auto-close:lg] hs-overlay-open:translate-x-0 dark:border-neutral-700 dark:bg-neutral-800 dark:hs-overlay-backdrop-open:bg-neutral-900/90 lg:bottom-0 lg:end-auto lg:block lg:translate-x-0"
+        class="hs-overlay rtl:translate-x-full ltr:-translate-x-full [--auto-close:lg] hs-overlay-open:translate-x-0 transition-all duration-300 transform w-65 h-full hidden fixed inset-y-0 start-0 z-60 bg-white border-e border-gray-200 lg:block lg:translate-x-0 rtl:lg:translate-x-0 ltr:lg:-translate-x-0 lg:end-auto lg:bottom-0 dark:bg-neutral-800 dark:border-neutral-700"
     >
         <div class="flex h-full max-h-full flex-col py-3">
             <header class="px-5 text-center">
                 <a
                     href="/"
-                    class="inline-block flex-none rounded-md text-xl font-semibold focus:opacity-80 focus:outline-none"
+                    class="inline-block flex-none rounded-md text-xl font-semibold focus:opacity-80 focus:outline-hidden"
                 >
                     <svg class="h-14 w-full" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 934 345">
                         <g>
@@ -60,10 +60,10 @@ import { Link } from '@inertiajs/vue3';
                                 :class="{
                                     'bg-gray-100 dark:bg-neutral-700': route().current('dashboard.welcome'),
                                 }"
-                                class="flex gap-x-3 rounded-lg px-3 py-2 text-sm text-gray-800 hover:bg-gray-100 focus:bg-gray-100 focus:outline-none dark:text-neutral-300 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700"
+                                class="flex gap-x-3 rounded-lg px-3 py-2 text-sm text-gray-800 hover:bg-gray-100 focus:bg-gray-100 focus:outline-hidden dark:text-neutral-300 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700"
                             >
                                 <svg
-                                    class="mt-0.5 size-4 flex-shrink-0"
+                                    class="mt-0.5 size-4 shrink-0"
                                     xmlns="http://www.w3.org/2000/svg"
                                     width="24"
                                     height="24"
@@ -87,10 +87,10 @@ import { Link } from '@inertiajs/vue3';
                                 :class="{
                                     'bg-gray-100 dark:bg-neutral-700': route().current('dashboard.admins.index'),
                                 }"
-                                class="flex gap-x-3 rounded-lg px-3 py-2 text-sm text-gray-800 hover:bg-gray-100 focus:bg-gray-100 focus:outline-none dark:text-neutral-300 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700"
+                                class="flex gap-x-3 rounded-lg px-3 py-2 text-sm text-gray-800 hover:bg-gray-100 focus:bg-gray-100 focus:outline-hidden dark:text-neutral-300 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700"
                             >
                                 <svg
-                                    class="mt-0.5 size-4 flex-shrink-0"
+                                    class="mt-0.5 size-4 shrink-0"
                                     xmlns="http://www.w3.org/2000/svg"
                                     width="24"
                                     height="24"
@@ -121,10 +121,10 @@ import { Link } from '@inertiajs/vue3';
                                 :class="{
                                     'bg-gray-100 dark:bg-neutral-700': route().current('dashboard.users.index'),
                                 }"
-                                class="flex gap-x-3 rounded-lg px-3 py-2 text-sm text-gray-800 hover:bg-gray-100 focus:bg-gray-100 focus:outline-none dark:text-neutral-300 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700"
+                                class="flex gap-x-3 rounded-lg px-3 py-2 text-sm text-gray-800 hover:bg-gray-100 focus:bg-gray-100 focus:outline-hidden dark:text-neutral-300 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700"
                             >
                                 <svg
-                                    class="mt-0.5 size-4 flex-shrink-0"
+                                    class="mt-0.5 size-4 shrink-0"
                                     xmlns="http://www.w3.org/2000/svg"
                                     width="24"
                                     height="24"
@@ -162,13 +162,13 @@ import { Link } from '@inertiajs/vue3';
             <div class="absolute -end-3 top-3 z-10 lg:hidden">
                 <button
                     type="button"
-                    class="inline-flex h-7 w-6 items-center justify-center gap-x-2 rounded-md border border-gray-200 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 focus:bg-gray-100 focus:outline-none disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-300 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700"
+                    class="inline-flex h-7 w-6 items-center justify-center gap-x-2 rounded-md border border-gray-200 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 focus:bg-gray-100 focus:outline-hidden disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-300 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700"
                     data-hs-overlay="#sidebar"
                     aria-controls="sidebar"
                     aria-label="Toggle navigation"
                 >
                     <svg
-                        class="size-4 flex-shrink-0"
+                        class="size-4 shrink-0"
                         xmlns="http://www.w3.org/2000/svg"
                         width="24"
                         height="24"

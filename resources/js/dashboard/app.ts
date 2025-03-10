@@ -47,8 +47,6 @@ export class DashboardApp implements DashboardAppInterface {
 
         const appName = this.config('appName');
 
-        const sentryConfig = this.config('sentry');
-
         createInertiaApp({
             title: (title: string) => `${title} - ${appName}`,
             resolve: (name) =>
@@ -70,7 +68,7 @@ export class DashboardApp implements DashboardAppInterface {
             },
         });
 
-        router.on('before', (event) => {
+        router.on('before', () => {
             setTimeout(() => this.preline(), 100);
         });
     }

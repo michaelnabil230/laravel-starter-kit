@@ -23,7 +23,7 @@ defineProps<{
             </h3>
             <button
                 @click="emit('close')"
-                class="inline-flex size-8 items-center justify-center gap-x-2 rounded-full border border-transparent bg-stone-100 text-stone-800 hover:bg-stone-200 focus:bg-stone-200 focus:outline-none disabled:pointer-events-none disabled:opacity-50 dark:bg-neutral-700 dark:text-neutral-400 dark:hover:bg-neutral-600 dark:focus:bg-neutral-600"
+                class="inline-flex size-8 items-center justify-center gap-x-2 rounded-full border border-transparent bg-stone-100 text-stone-800 hover:bg-stone-200 focus:bg-stone-200 focus:outline-hidden disabled:pointer-events-none disabled:opacity-50 dark:bg-neutral-700 dark:text-neutral-400 dark:hover:bg-neutral-600 dark:focus:bg-neutral-600"
                 aria-label="Close"
             >
                 <span class="sr-only">{{ __('global.closure.close') }}</span>
@@ -54,7 +54,7 @@ defineProps<{
                 <label class="block text-sm text-stone-500 dark:text-neutral-400">
                     <a
                         href="#"
-                        class="text-sm font-medium text-blue-700 decoration-2 hover:underline focus:underline focus:outline-none dark:text-blue-400 dark:hover:text-blue-500"
+                        class="text-sm font-medium text-blue-700 decoration-2 hover:underline focus:underline focus:outline-hidden dark:text-blue-400 dark:hover:text-blue-500"
                     >
                         {{ __('import.model.example.first') }}
                     </a>
@@ -125,7 +125,7 @@ defineProps<{
                                 </span>
                                 <label
                                     for="file"
-                                    class="relative cursor-pointer rounded-lg bg-white font-semibold text-blue-700 decoration-2 focus-within:outline-none focus-within:ring-2 focus-within:ring-blue-700 focus-within:ring-offset-2 hover:text-blue-700 hover:underline dark:bg-neutral-800 dark:text-blue-500 dark:hover:text-blue-700"
+                                    class="relative cursor-pointer rounded-lg bg-white font-semibold text-blue-700 decoration-2 focus-within:outline-hidden focus-within:ring-2 focus-within:ring-blue-700 focus-within:ring-offset-2 hover:text-blue-700 hover:underline dark:bg-neutral-800 dark:text-blue-500 dark:hover:text-blue-700"
                                 >
                                     <span>{{ __('browse') }}</span>
                                     <input id="file" type="file" class="sr-only" />

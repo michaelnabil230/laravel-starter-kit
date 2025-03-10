@@ -28,13 +28,13 @@ const getImageUrl = (key: string): string => new URL(`../../../images/flags/${ke
                 <div class="lg:hidden">
                     <button
                         type="button"
-                        class="inline-flex h-[38px] w-7 items-center justify-center gap-x-2 rounded-lg border border-gray-200 bg-white text-sm font-medium text-gray-800 shadow-sm hover:bg-gray-50 focus:bg-gray-100 focus:outline-none disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-300 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700"
+                        class="inline-flex h-[38px] w-7 items-center justify-center gap-x-2 rounded-lg border border-gray-200 bg-white text-sm font-medium text-gray-800 shadow-2xs hover:bg-gray-50 focus:bg-gray-100 focus:outline-hidden disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-300 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700"
                         data-hs-overlay="#sidebar"
                         aria-controls="sidebar"
                         aria-label="Toggle navigation"
                     >
                         <svg
-                            class="size-4 flex-shrink-0"
+                            class="size-4 shrink-0"
                             xmlns="http://www.w3.org/2000/svg"
                             width="24"
                             height="24"
@@ -54,7 +54,7 @@ const getImageUrl = (key: string): string => new URL(`../../../images/flags/${ke
                     <div class="relative">
                         <div class="pointer-events-none absolute inset-y-0 start-0 z-20 flex items-center ps-3.5">
                             <svg
-                                class="size-4 flex-shrink-0 text-gray-400 dark:text-white/60"
+                                class="size-4 shrink-0 text-gray-400 dark:text-white/60"
                                 xmlns="http://www.w3.org/2000/svg"
                                 width="24"
                                 height="24"
@@ -75,7 +75,7 @@ const getImageUrl = (key: string): string => new URL(`../../../images/flags/${ke
                         <input
                             type="text"
                             id="header-global-search"
-                            class="block w-full rounded-lg border-gray-200 bg-white py-2 pe-16 ps-10 text-sm focus:border-gray-200 focus:outline-none focus:ring-0 disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-400 dark:placeholder:text-neutral-400 dark:focus:ring-neutral-600"
+                            class="block w-full rounded-lg border-gray-200 bg-white py-2 pe-16 ps-10 text-sm focus:border-gray-200 focus:outline-hidden focus:ring-0 disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-400 dark:placeholder:text-neutral-400 dark:focus:ring-neutral-600"
                             :placeholder="__('global.search.global.label')"
                             data-hs-overlay="#global-search"
                         />
@@ -83,7 +83,7 @@ const getImageUrl = (key: string): string => new URL(`../../../images/flags/${ke
                             class="pointer-events-none absolute inset-y-0 end-0 z-20 flex items-center pe-3 text-gray-400"
                         >
                             <svg
-                                class="size-3 flex-shrink-0 text-gray-400 dark:text-white/60"
+                                class="size-3 shrink-0 text-gray-400 dark:text-white/60"
                                 xmlns="http://www.w3.org/2000/svg"
                                 width="24"
                                 height="24"
@@ -98,7 +98,7 @@ const getImageUrl = (key: string): string => new URL(`../../../images/flags/${ke
                             </svg>
                             <span class="mx-1">
                                 <svg
-                                    class="size-3 flex-shrink-0 text-gray-400 dark:text-white/60"
+                                    class="size-3 shrink-0 text-gray-400 dark:text-white/60"
                                     xmlns="http://www.w3.org/2000/svg"
                                     width="24"
                                     height="24"
@@ -123,11 +123,11 @@ const getImageUrl = (key: string): string => new URL(`../../../images/flags/${ke
                 <div class="lg:hidden">
                     <button
                         type="button"
-                        class="inline-flex size-[38px] flex-shrink-0 items-center justify-center gap-x-2 rounded-full text-gray-500 hover:bg-gray-100 focus:bg-gray-100 focus:outline-none dark:text-neutral-400 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700"
+                        class="inline-flex size-[38px] shrink-0 items-center justify-center gap-x-2 rounded-full text-gray-500 hover:bg-gray-100 focus:bg-gray-100 focus:outline-hidden dark:text-neutral-400 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700"
                         data-hs-overlay="#global-search"
                     >
                         <svg
-                            class="size-4 flex-shrink-0"
+                            class="size-4 shrink-0"
                             xmlns="http://www.w3.org/2000/svg"
                             width="24"
                             height="24"
@@ -149,7 +149,7 @@ const getImageUrl = (key: string): string => new URL(`../../../images/flags/${ke
                     <button
                         id="language-dropdown"
                         type="button"
-                        class="inline-flex items-center gap-x-2 rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm font-medium text-gray-800 shadow-sm hover:bg-gray-50 focus:bg-gray-100 focus:outline-none disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-300 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700"
+                        class="inline-flex items-center gap-x-2 rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm font-medium text-gray-800 shadow-2xs hover:bg-gray-50 focus:bg-gray-100 focus:outline-hidden disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-300 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700"
                     >
                         <div class="size-4 overflow-hidden rounded-full">
                             <img :src="getImageUrl(locale)" class="h-full w-full object-cover" />
@@ -171,7 +171,7 @@ const getImageUrl = (key: string): string => new URL(`../../../images/flags/${ke
                                         localeKey as string,
                                     ),
                                 }"
-                                class="w-full cursor-pointer rounded-lg px-4 py-2 text-sm text-gray-800 hover:bg-gray-100 focus:bg-gray-100 focus:outline-none dark:text-neutral-300 dark:hover:bg-neutral-800 dark:focus:bg-neutral-800"
+                                class="w-full cursor-pointer rounded-lg px-4 py-2 text-sm text-gray-800 hover:bg-gray-100 focus:bg-gray-100 focus:outline-hidden dark:text-neutral-300 dark:hover:bg-neutral-800 dark:focus:bg-neutral-800"
                             >
                                 <a :href="locale.url" class="flex items-center gap-x-2">
                                     <div class="size-4 overflow-hidden rounded-full">
@@ -189,8 +189,8 @@ const getImageUrl = (key: string): string => new URL(`../../../images/flags/${ke
                                         class="ms-auto hidden hs-selected:block"
                                     >
                                         <svg
-                                            class="size-3.5 flex-shrink-0 text-gray-800 dark:text-neutral-200"
-                                            xmlns="http:.w3.org/2000/svg"
+                                            class="size-3.5 shrink-0 text-gray-800 dark:text-neutral-200"
+                                            xmlns="http://www.w3.org/2000/svg"
                                             width="24"
                                             height="24"
                                             viewBox="0 0 24 24"
@@ -217,10 +217,10 @@ const getImageUrl = (key: string): string => new URL(`../../../images/flags/${ke
                         <button
                             id="user-dropdown"
                             type="button"
-                            class="inline-flex flex-shrink-0 items-center gap-x-3 rounded-full text-start focus:bg-gray-100 focus:outline-none dark:focus:bg-neutral-700"
+                            class="inline-flex shrink-0 items-center gap-x-3 rounded-full text-start focus:bg-gray-100 focus:outline-hidden dark:focus:bg-neutral-700"
                         >
                             <img
-                                class="size-[38px] flex-shrink-0 rounded-full object-cover"
+                                class="size-[38px] shrink-0 rounded-full object-cover"
                                 :src="$page.props.auth.admin.profile_photo_url"
                             />
                         </button>
@@ -233,7 +233,7 @@ const getImageUrl = (key: string): string => new URL(`../../../images/flags/${ke
                                     class="flex items-center gap-x-3 rounded-lg px-3 py-2 text-sm text-gray-800 hover:bg-gray-100 dark:text-neutral-300 dark:hover:bg-neutral-800"
                                 >
                                     <img
-                                        class="size-8 flex-shrink-0 rounded-full object-cover"
+                                        class="size-8 shrink-0 rounded-full object-cover"
                                         :src="$page.props.auth.admin.profile_photo_url"
                                     />
 
@@ -247,7 +247,7 @@ const getImageUrl = (key: string): string => new URL(`../../../images/flags/${ke
                                     <button
                                         type="button"
                                         data-hs-theme-click-value="light"
-                                        class="hs-dark-mode -ms-px inline-flex w-full items-center justify-center gap-2 border border-gray-200 bg-white px-3 py-2 text-sm font-medium text-gray-800 first:ms-0 first:rounded-s-lg last:rounded-e-lg hover:bg-gray-50 focus:z-10 focus:bg-gray-50 focus:outline-none disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:bg-neutral-900 dark:text-white dark:hover:bg-neutral-800 dark:focus:bg-neutral-800"
+                                        class="hs-dark-mode -ms-px inline-flex w-full items-center justify-center gap-2 border border-gray-200 bg-white px-3 py-2 text-sm font-medium text-gray-800 first:ms-0 first:rounded-s-lg last:rounded-e-lg hover:bg-gray-50 focus:z-10 focus:bg-gray-50 focus:outline-hidden disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:bg-neutral-900 dark:text-white dark:hover:bg-neutral-800 dark:focus:bg-neutral-800"
                                     >
                                         <svg
                                             class="size-4 shrink-0"
@@ -275,7 +275,7 @@ const getImageUrl = (key: string): string => new URL(`../../../images/flags/${ke
                                     <button
                                         type="button"
                                         data-hs-theme-click-value="dark"
-                                        class="hs-dark-mode -ms-px inline-flex w-full items-center justify-center gap-2 border border-gray-200 bg-white px-3 py-2 text-sm font-medium text-gray-800 first:ms-0 first:rounded-s-lg last:rounded-e-lg hover:bg-gray-50 focus:z-10 focus:bg-gray-50 focus:outline-none disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:bg-neutral-900 dark:text-white dark:hover:bg-neutral-800 dark:focus:bg-neutral-800"
+                                        class="hs-dark-mode -ms-px inline-flex w-full items-center justify-center gap-2 border border-gray-200 bg-white px-3 py-2 text-sm font-medium text-gray-800 first:ms-0 first:rounded-s-lg last:rounded-e-lg hover:bg-gray-50 focus:z-10 focus:bg-gray-50 focus:outline-hidden disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:bg-neutral-900 dark:text-white dark:hover:bg-neutral-800 dark:focus:bg-neutral-800"
                                     >
                                         <svg
                                             class="size-4 shrink-0"
@@ -295,7 +295,7 @@ const getImageUrl = (key: string): string => new URL(`../../../images/flags/${ke
                                     <button
                                         type="button"
                                         data-hs-theme-click-value="auto"
-                                        class="hs-dark-mode -ms-px inline-flex w-full items-center justify-center gap-2 border border-gray-200 bg-white px-3 py-2 text-sm font-medium text-gray-800 first:ms-0 first:rounded-s-lg last:rounded-e-lg hover:bg-gray-50 focus:z-10 focus:bg-gray-50 focus:outline-none disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:bg-neutral-900 dark:text-white dark:hover:bg-neutral-800 dark:focus:bg-neutral-800"
+                                        class="hs-dark-mode -ms-px inline-flex w-full items-center justify-center gap-2 border border-gray-200 bg-white px-3 py-2 text-sm font-medium text-gray-800 first:ms-0 first:rounded-s-lg last:rounded-e-lg hover:bg-gray-50 focus:z-10 focus:bg-gray-50 focus:outline-hidden disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:bg-neutral-900 dark:text-white dark:hover:bg-neutral-800 dark:focus:bg-neutral-800"
                                     >
                                         <svg
                                             class="size-4 shrink-0"
@@ -326,10 +326,10 @@ const getImageUrl = (key: string): string => new URL(`../../../images/flags/${ke
                             <div class="p-1">
                                 <Link
                                     :href="route('dashboard.profile.edit')"
-                                    class="flex items-center gap-x-3 rounded-lg px-3 py-2 text-sm text-gray-800 hover:bg-gray-100 focus:bg-gray-100 focus:outline-none disabled:pointer-events-none disabled:opacity-50 dark:text-neutral-300 dark:hover:bg-neutral-800 dark:focus:bg-neutral-800"
+                                    class="flex items-center gap-x-3 rounded-lg px-3 py-2 text-sm text-gray-800 hover:bg-gray-100 focus:bg-gray-100 focus:outline-hidden disabled:pointer-events-none disabled:opacity-50 dark:text-neutral-300 dark:hover:bg-neutral-800 dark:focus:bg-neutral-800"
                                 >
                                     <svg
-                                        class="size-4 flex-shrink-0"
+                                        class="size-4 shrink-0"
                                         xmlns="http://www.w3.org/2000/svg"
                                         width="24"
                                         height="24"
@@ -351,10 +351,10 @@ const getImageUrl = (key: string): string => new URL(`../../../images/flags/${ke
                                     :href="route('dashboard.logout')"
                                     method="post"
                                     as="button"
-                                    class="flex w-full items-center gap-x-3 rounded-lg px-3 py-2 text-sm text-gray-800 hover:bg-gray-100 focus:bg-gray-100 focus:outline-none disabled:pointer-events-none disabled:opacity-50 dark:text-neutral-300 dark:hover:bg-neutral-800 dark:focus:bg-neutral-800"
+                                    class="flex w-full items-center gap-x-3 rounded-lg px-3 py-2 text-sm text-gray-800 hover:bg-gray-100 focus:bg-gray-100 focus:outline-hidden disabled:pointer-events-none disabled:opacity-50 dark:text-neutral-300 dark:hover:bg-neutral-800 dark:focus:bg-neutral-800"
                                 >
                                     <svg
-                                        class="size-4 flex-shrink-0"
+                                        class="size-4 shrink-0"
                                         xmlns="http://www.w3.org/2000/svg"
                                         width="24"
                                         height="24"

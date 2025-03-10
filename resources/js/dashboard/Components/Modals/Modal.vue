@@ -3,9 +3,7 @@ import { filter } from 'lodash';
 import { HSOverlay, ICollectionItem } from 'preline/preline';
 import { computed, nextTick, onBeforeUnmount, onMounted, onUnmounted, Ref, ref, useAttrs } from 'vue';
 
-defineOptions({
-    inheritAttrs: false,
-});
+defineOptions({ inheritAttrs: false });
 
 const props = withDefaults(
     defineProps<{
@@ -41,7 +39,7 @@ const sizesClasses = computed(() => {
 const isWindow = computed(() => props.modalStyle === 'window');
 
 const contentClasses = computed(() => {
-    let windowedClasses: Record<string, string> = isWindow.value ? sizesClasses.value : {};
+    const windowedClasses: Record<string, string> = isWindow.value ? sizesClasses.value : {};
 
     return filter([windowedClasses[props.size], isWindow.value ? 'hs-overlay-open:mt-7' : 'h-full']);
 });
@@ -90,7 +88,7 @@ onBeforeUnmount(() => {
     <div
         ref="modal"
         :id="name"
-        class="hs-overlay pointer-events-none fixed start-0 top-0 z-[80] hidden size-full overflow-y-auto overflow-x-hidden"
+        class="hs-overlay pointer-events-none fixed start-0 top-0 z-80 hidden size-full overflow-y-auto overflow-x-hidden"
         role="dialog"
         tabindex="-1"
         :aria-labelledby="name + '-label'"
@@ -104,7 +102,7 @@ onBeforeUnmount(() => {
                     'h-full max-h-full': !isWindow,
                 }"
                 v-bind="attrs"
-                class="flex flex-col w-full bg-white border shadow-sm pointer-events-auto rounded-xl dark:border-neutral-800 dark:bg-neutral-800"
+                class="flex flex-col w-full bg-white border border-gray-200 shadow-2xs pointer-events-auto rounded-xl dark:border-neutral-800 dark:bg-neutral-800"
             >
                 <slot />
             </div>

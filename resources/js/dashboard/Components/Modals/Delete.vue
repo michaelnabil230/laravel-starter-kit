@@ -20,7 +20,7 @@ defineProps<{
         <div class="absolute end-2 top-2">
             <button
                 @click="emit('close')"
-                class="inline-flex size-8 items-center justify-center gap-x-2 rounded-full border border-transparent bg-gray-100 text-gray-800 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none disabled:pointer-events-none disabled:opacity-50 dark:bg-neutral-700 dark:text-neutral-400 dark:hover:bg-neutral-600 dark:focus:bg-neutral-600"
+                class="inline-flex size-8 items-center justify-center gap-x-2 rounded-full border border-transparent bg-gray-100 text-gray-800 hover:bg-gray-200 focus:bg-gray-200 focus:outline-hidden disabled:pointer-events-none disabled:opacity-50 dark:bg-neutral-700 dark:text-neutral-400 dark:hover:bg-neutral-600 dark:focus:bg-neutral-600"
                 aria-label="Close"
             >
                 <span class="sr-only">{{ __('global.closure.close') }}</span>
@@ -82,7 +82,7 @@ defineProps<{
         </div>
 
         <div
-            class="flex items-center justify-end gap-x-2 border-t bg-gray-50 px-4 py-3 dark:border-neutral-800 dark:bg-neutral-950"
+            class="flex items-center justify-end gap-x-2 border-t border-gray-200 bg-gray-50 px-4 py-3 dark:border-neutral-800 dark:bg-neutral-950"
         >
             <Buttons.White.White @click="emit('close')" :value="__('global.closure.close')" />
             <Buttons.Solid.Danger @click="emit('confirm')" :value="__('global.crud.delete')" />

@@ -17,7 +17,7 @@ const breadcrumbs: Breadcrumbs = [
     <AppLayout :title="__('profile.name')" :breadcrumbs="breadcrumbs">
         <div class="pt-2">
             <div
-                class="rounded-xl border border-gray-200 bg-white p-5 shadow-sm dark:border-neutral-700 dark:bg-neutral-800 md:p-8"
+                class="rounded-xl border border-gray-200 bg-white p-5 shadow-2xs dark:border-neutral-700 dark:bg-neutral-800 md:p-8"
             >
                 <div class="mb-4 xl:mb-8">
                     <h1 class="text-lg font-semibold text-gray-800 dark:text-neutral-200">

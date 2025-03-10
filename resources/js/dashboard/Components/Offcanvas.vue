@@ -77,7 +77,7 @@ onBeforeUnmount(() => {
         :id="name"
         :aria-labelledby="name + '-label'"
         :class="contentClasses"
-        class="hs-overlay fixed end-0 top-0 z-[80] flex hidden size-full flex-1 translate-x-full transform flex-col border-s bg-white transition-all duration-300 hs-overlay-open:translate-x-0 dark:border-neutral-700 dark:bg-neutral-800 rtl:-translate-x-full"
+        class="hs-overlay fixed end-0 top-0 z-80 flex hidden size-full flex-1 translate-x-full transform flex-col border-s bg-white transition-all duration-300 hs-overlay-open:translate-x-0 dark:border-neutral-700 dark:bg-neutral-800 rtl:-translate-x-full"
         role="dialog"
     >
         <slot />

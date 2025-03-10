@@ -42,7 +42,7 @@ const resourceCountLabel = computed(() => {
                 <button
                     id="hs-default-bordered-pagination-dropdown"
                     type="button"
-                    class="hs-dropdown-toggle inline-flex items-center gap-x-1 rounded-lg border border-gray-200 px-2.5 py-2 text-sm text-gray-800 shadow-sm hover:bg-gray-50 focus:bg-gray-100 focus:outline-none disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-700 dark:focus:bg-neutral-700"
+                    class="hs-dropdown-toggle inline-flex items-center gap-x-1 rounded-lg border border-gray-200 px-2.5 py-2 text-sm text-gray-800 shadow-2xs hover:bg-gray-50 focus:bg-gray-100 focus:outline-hidden disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-700 dark:focus:bg-neutral-700"
                     aria-haspopup="menu"
                     aria-expanded="false"
                     aria-label="Dropdown"
@@ -73,7 +73,7 @@ const resourceCountLabel = computed(() => {
                         v-for="perPage in perPages"
                         :key="perPage"
                         @click="onchangePerPage(perPage)"
-                        class="flex w-full items-center gap-x-3.5 rounded-lg px-3 py-2 text-sm text-gray-800 hover:bg-gray-100 focus:bg-gray-100 focus:outline-none disabled:pointer-events-none disabled:opacity-50 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-neutral-300 dark:focus:bg-neutral-700"
+                        class="flex w-full items-center gap-x-3.5 rounded-lg px-3 py-2 text-sm text-gray-800 hover:bg-gray-100 focus:bg-gray-100 focus:outline-hidden disabled:pointer-events-none disabled:opacity-50 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-neutral-300 dark:focus:bg-neutral-700"
                     >
                         {{ perPage }} {{ __('pagination.page') }}
                         <svg
@@ -105,7 +105,7 @@ const resourceCountLabel = computed(() => {
                 preserve-scroll
                 :is="pagination.links.prev ? Link : 'span'"
                 :href="pagination.links.prev ?? ''"
-                class="inline-flex min-h-[38px] min-w-[38px] items-center justify-center gap-x-1.5 border border-gray-200 px-2.5 py-2 text-sm text-gray-800 first:rounded-s-lg last:rounded-e-lg hover:bg-gray-100 focus:bg-gray-100 focus:outline-none disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:text-white dark:hover:bg-white/10 dark:focus:bg-white/10"
+                class="inline-flex min-h-[38px] min-w-[38px] items-center justify-center gap-x-1.5 border border-gray-200 px-2.5 py-2 text-sm text-gray-800 first:rounded-s-lg last:rounded-e-lg hover:bg-gray-100 focus:bg-gray-100 focus:outline-hidden disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:text-white dark:hover:bg-white/10 dark:focus:bg-white/10"
                 aria-label="Previous"
             >
                 <svg
@@ -132,7 +132,7 @@ const resourceCountLabel = computed(() => {
                     :is="pagination.active || !pagination.url ? 'span' : Link"
                     :href="pagination.url ?? '#'"
                     :disabled="pagination.active"
-                    class="flex min-h-[38px] min-w-[38px] items-center justify-center border border-gray-200 px-3 py-2 text-sm text-gray-800 first:rounded-s-lg last:rounded-e-lg focus:outline-none disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700"
+                    class="flex min-h-[38px] min-w-[38px] items-center justify-center border border-gray-200 px-3 py-2 text-sm text-gray-800 first:rounded-s-lg last:rounded-e-lg focus:outline-hidden disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700"
                     :class="{
                         'bg-gray-200 focus:bg-gray-300 dark:bg-neutral-600 dark:text-white dark:focus:bg-neutral-500':
                             pagination.active,
@@ -148,7 +148,7 @@ const resourceCountLabel = computed(() => {
                 preserve-scroll
                 :is="pagination.links.next ? Link : 'span'"
                 :href="pagination.links.next ?? ''"
-                class="inline-flex min-h-[38px] min-w-[38px] items-center justify-center gap-x-1.5 border border-gray-200 px-2.5 py-2 text-sm text-gray-800 first:rounded-s-lg last:rounded-e-lg hover:bg-gray-100 focus:bg-gray-100 focus:outline-none disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:text-white dark:hover:bg-white/10 dark:focus:bg-white/10"
+                class="inline-flex min-h-[38px] min-w-[38px] items-center justify-center gap-x-1.5 border border-gray-200 px-2.5 py-2 text-sm text-gray-800 first:rounded-s-lg last:rounded-e-lg hover:bg-gray-100 focus:bg-gray-100 focus:outline-hidden disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:text-white dark:hover:bg-white/10 dark:focus:bg-white/10"
                 aria-label="Next"
             >
                 <span class="hidden sm:block">

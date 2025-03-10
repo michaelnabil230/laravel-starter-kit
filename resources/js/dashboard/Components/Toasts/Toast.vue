@@ -88,7 +88,7 @@ const remove = () => {
                 <button
                     type="button"
                     @click="remove()"
-                    class="inline-flex size-5 shrink-0 items-center justify-center rounded-lg text-white opacity-50 hover:text-white hover:opacity-100 focus:opacity-100 focus:outline-none"
+                    class="inline-flex size-5 shrink-0 items-center justify-center rounded-lg text-white opacity-50 hover:text-white hover:opacity-100 focus:opacity-100 focus:outline-hidden"
                     aria-label="Close"
                 >
                     <span class="sr-only">{{ __('global.closure.close') }}</span>

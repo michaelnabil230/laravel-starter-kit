@@ -66,7 +66,7 @@ const submit = () => {
 
                         <a
                             href="#"
-                            class="inline-flex items-center gap-x-1.5 text-xs text-gray-600 decoration-2 hover:text-gray-700 hover:underline focus:underline focus:outline-none dark:text-neutral-500 dark:hover:text-neutral-600"
+                            class="inline-flex items-center gap-x-1.5 text-xs text-gray-600 decoration-2 hover:text-gray-700 hover:underline focus:underline focus:outline-hidden dark:text-neutral-500 dark:hover:text-neutral-600"
                         >
                             {{ __('authentication.login.forgot_your_password') }}
                         </a>

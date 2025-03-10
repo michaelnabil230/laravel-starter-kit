@@ -2,11 +2,10 @@
 import HSRangeSlider from '@preline/range-slider';
 import { computed, nextTick, onMounted, ref } from 'vue';
 
-const model = defineModel<number>({ required: true });
-
 const input = ref<HTMLInputElement | null>(null);
 
 const props = defineProps<{
+    defaultValue?: number;
     start: number;
     range: {
         min: number;
@@ -14,11 +13,17 @@ const props = defineProps<{
     };
 }>();
 
+const model = defineModel<number | null>();
+
+if (model.value === undefined) {
+    model.value = props.defaultValue;
+}
+
 onMounted(() => {
     nextTick(() => {
         const { element } = HSRangeSlider.getInstance(input.value as HTMLElement, true) as any;
 
-        element.el.noUiSlider.on('update', (values: any) => {
+        element.el.noUiSlider.on('update', () => {
             model.value = parseFloat(element.formattedValue);
         });
     });

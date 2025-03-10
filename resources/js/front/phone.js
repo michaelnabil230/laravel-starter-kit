@@ -13,7 +13,7 @@ export default (model, initValue = null, initCountryCode = null) => ({
 
         try {
             this.phone = parsePhoneNumberWithError(initValue).nationalNumber;
-        } catch (error) {}
+        } catch {}
 
         let selectedCountry;
 
@@ -27,7 +27,7 @@ export default (model, initValue = null, initCountryCode = null) => ({
         this.choose(selectedCountry ?? countries[0]);
     },
     watch() {
-        this.$watch('show', (value) => {
+        this.$watch('show', () => {
             this.activeIndex = null;
             this.search = '';
         });
@@ -35,7 +35,7 @@ export default (model, initValue = null, initCountryCode = null) => ({
         this.$watch('phone', (value) => {
             try {
                 this.phone = parsePhoneNumber(value, this.selectedCountry.dialCode).nationalNumber;
-            } catch (error) {
+            } catch {
                 return;
             }
         });
@@ -95,7 +95,7 @@ export default (model, initValue = null, initCountryCode = null) => ({
     },
     onMouseEnter() {
         this.activeIndex = null;
-        this.$refs.list.querySelectorAll('[role="option"]').forEach((item, index) => {
+        this.$refs.list.querySelectorAll('[role="option"]').forEach((item) => {
             item.removeAttribute('tabindex');
         });
     },

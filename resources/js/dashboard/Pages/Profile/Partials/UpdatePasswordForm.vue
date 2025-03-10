@@ -46,7 +46,7 @@ const submit = () => {
             <!-- Tooltip -->
             <div class="hs-tooltip inline-block">
                 <svg
-                    class="hs-tooltip-toggle ms-1 size-3 flex-shrink-0 text-gray-500 dark:text-neutral-500"
+                    class="hs-tooltip-toggle ms-1 size-3 shrink-0 text-gray-500 dark:text-neutral-500"
                     xmlns="http://www.w3.org/2000/svg"
                     width="16"
                     height="16"
@@ -59,7 +59,7 @@ const submit = () => {
                     />
                 </svg>
                 <div
-                    class="hs-tooltip-content invisible absolute z-[60] inline-block w-96 rounded-xl bg-white p-4 opacity-0 shadow-xl transition-opacity hs-tooltip-shown:visible hs-tooltip-shown:opacity-100 dark:bg-neutral-900 dark:text-neutral-400"
+                    class="hs-tooltip-content invisible absolute z-60 inline-block w-96 rounded-xl bg-white p-4 opacity-0 shadow-xl transition-opacity hs-tooltip-shown:visible hs-tooltip-shown:opacity-100 dark:bg-neutral-900 dark:text-neutral-400"
                     role="tooltip"
                 >
                     <p class="font-medium text-gray-800 dark:text-neutral-200">Password requirements:</p>
@@ -171,7 +171,7 @@ const submit = () => {
                             />
                             <a
                                 href="#"
-                                class="text-sm font-medium text-blue-700 decoration-2 hover:underline focus:underline focus:outline-none dark:text-blue-400 dark:hover:text-blue-500"
+                                class="text-sm font-medium text-blue-700 decoration-2 hover:underline focus:underline focus:outline-hidden dark:text-blue-400 dark:hover:text-blue-500"
                             >
                                 I forgot my password
                             </a>

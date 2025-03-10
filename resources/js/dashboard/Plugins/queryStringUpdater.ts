@@ -1,10 +1,10 @@
 import { router } from '@inertiajs/vue3';
 import { identity, pickBy } from 'lodash';
 import qs from 'qs';
-import { App, Plugin } from 'vue';
+import { Plugin } from 'vue';
 
 export const queryStringUpdater: Plugin = {
-    install(app: App) {
+    install() {
         const updateQueryString = () => {
             const urlParams = new URLSearchParams(window.location.search);
             const entries = Object.fromEntries(urlParams.entries());

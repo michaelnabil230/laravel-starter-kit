@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 use Illuminate\View\View;
 
-final class PageController
+final class LegalController
 {
     public function __invoke(string $page): View
     {
@@ -19,16 +19,16 @@ final class PageController
 
         $content = Str::markdown(File::get($file));
 
-        return view('information-page', ['content' => $content, 'page' => $page]);
+        return view('legal', ['content' => $content]);
     }
 
     protected function localizedMarkdownPath(string $name): ?string
     {
-        $localName = preg_replace('#(\.md)$#i', '/'.app()->getLocale().'$1', $name);
+        $localName = preg_replace('#(\.md)$#i', '/' . app()->getLocale() . '$1', $name);
 
         return Arr::first([
             resource_path("markdown/$localName"),
             resource_path("markdown/$name"),
-        ], fn (string $path): bool => file_exists($path));
+        ], fn(string $path): bool => file_exists($path));
     }
 }

@@ -1,10 +1,10 @@
 import { router, usePage } from '@inertiajs/vue3';
-import { App, Plugin } from 'vue';
+import { Plugin } from 'vue';
 import toasts from '../Stores/toasts';
 
 export const toast: Plugin = {
-    install(app: App) {
-        router.on('finish', (event) => {
+    install() {
+        router.on('finish', () => {
             const { props } = usePage();
 
             const toast = props.toast;

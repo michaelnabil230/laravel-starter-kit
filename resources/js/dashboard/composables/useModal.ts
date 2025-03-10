@@ -16,7 +16,7 @@ const nonce = ref();
 const applyHeaders = (headers: Record<string, string | null>) => {
     Object.entries(headers).forEach(([headerKey, value]) => {
         ['post', 'put', 'patch', 'delete'].forEach((method) => {
-            // @ts-ignore
+            // @ts-expect-error @ts-ignore
             axios.defaults.headers[method][headerKey] = value;
         });
     });
@@ -25,7 +25,7 @@ const applyHeaders = (headers: Record<string, string | null>) => {
 const clearHeaders = () => {
     ['X-Inertia-Modal-Key', 'X-Inertia-Modal-Redirect'].forEach((header) => {
         ['get', 'post', 'put', 'patch', 'delete'].forEach((method) => {
-            // @ts-ignore
+            // @ts-expect-error @ts-ignore
             delete axios.defaults.headers[method][header];
         });
     });

@@ -28,7 +28,7 @@ defineProps<{
                         class="inline-flex w-full items-center justify-center gap-x-2 rounded-lg border border-transparent bg-blue-700 px-4 py-3 text-sm font-semibold text-white hover:bg-blue-700 disabled:pointer-events-none disabled:opacity-50 sm:w-auto"
                     >
                         <svg
-                            class="size-4 flex-shrink-0"
+                            class="size-4 shrink-0"
                             xmlns="http://www.w3.org/2000/svg"
                             width="24"
                             height="24"

@@ -10,7 +10,7 @@ import useLocalization from '@/dashboard/composables/useLocalization';
 import AppLayout from '@/dashboard/Layouts/AppLayout.vue';
 import { Gender } from '@/dashboard/types/enums/gender';
 import { App } from '@/dashboard/types/models';
-import { Select } from '@/dashboard/types/select';
+import { Option } from '@/dashboard/types/option';
 import { useForm } from '@inertiajs/vue3';
 import { computed } from 'vue';
 
@@ -55,7 +55,7 @@ const genders = computed(() => {
         return {
             label: __('global.enums.gender.' + gender),
             value: gender,
-        } as Select;
+        } as Option;
     });
 });
 </script>
@@ -72,7 +72,7 @@ const genders = computed(() => {
         <!-- Card -->
         <form
             @submit.prevent="submit()"
-            class="flex flex-col rounded-xl border border-stone-200 bg-white shadow-sm dark:border-neutral-700 dark:bg-neutral-800"
+            class="flex flex-col rounded-xl border border-stone-200 bg-white shadow-2xs dark:border-neutral-700 dark:bg-neutral-800"
         >
             <!-- Header -->
             <div

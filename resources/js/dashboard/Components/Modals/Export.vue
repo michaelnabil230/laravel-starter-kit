@@ -23,7 +23,7 @@ defineProps<{
             </h3>
             <button
                 @click="emit('close')"
-                class="inline-flex size-8 items-center justify-center gap-x-2 rounded-full border border-transparent bg-stone-100 text-stone-800 hover:bg-stone-200 focus:bg-stone-200 focus:outline-none disabled:pointer-events-none disabled:opacity-50 dark:bg-neutral-700 dark:text-neutral-400 dark:hover:bg-neutral-600 dark:focus:bg-neutral-600"
+                class="inline-flex size-8 items-center justify-center gap-x-2 rounded-full border border-transparent bg-stone-100 text-stone-800 hover:bg-stone-200 focus:bg-stone-200 focus:outline-hidden disabled:pointer-events-none disabled:opacity-50 dark:bg-neutral-700 dark:text-neutral-400 dark:hover:bg-neutral-600 dark:focus:bg-neutral-600"
                 aria-label="Close"
             >
                 <span class="sr-only">{{ __('global.closure.close') }}</span>

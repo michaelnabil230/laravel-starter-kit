@@ -94,7 +94,7 @@ const breadcrumbs: Breadcrumbs = [
         </div>
 
         <div
-            class="flex flex-col space-y-4 rounded-xl border border-gray-200 bg-white p-5 shadow-sm dark:border-neutral-700 dark:bg-neutral-800"
+            class="flex flex-col space-y-4 rounded-xl border border-gray-200 bg-white p-5 shadow-2xs dark:border-neutral-700 dark:bg-neutral-800"
         >
             <div class="grid gap-y-2 md:grid-cols-2 md:gap-x-5 md:gap-y-0">
                 <div>
@@ -154,7 +154,7 @@ const breadcrumbs: Breadcrumbs = [
                 <div class="-m-1.5 overflow-x-auto">
                     <div class="inline-block min-w-full p-1.5 align-middle">
                         <div
-                            class="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm dark:border-neutral-700 dark:bg-neutral-800"
+                            class="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-2xs dark:border-neutral-700 dark:bg-neutral-800"
                         >
                             <!-- Header -->
                             <div
@@ -198,7 +198,7 @@ const breadcrumbs: Breadcrumbs = [
                                                     :checked="isAllSelected"
                                                     :indeterminate="isIndeterminate"
                                                     @click="toggleSelectAll"
-                                                    class="shrink-0 rounded border-gray-300 text-blue-700 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-600 dark:bg-neutral-800 dark:checked:border-blue-500 dark:checked:bg-blue-500 dark:focus:ring-offset-gray-800"
+                                                    class="shrink-0 rounded-sm border-gray-300 text-blue-700 focus:ring-blue-500 checked:border-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800"
                                                 />
                                             </div>
                                         </th>
@@ -259,7 +259,7 @@ const breadcrumbs: Breadcrumbs = [
                                                     :checked="selectedList.includes(admin)"
                                                     @click="toggleItemSelect(admin)"
                                                     type="checkbox"
-                                                    class="shrink-0 rounded border-gray-300 text-blue-700 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-600 dark:bg-neutral-800 dark:checked:border-blue-500 dark:checked:bg-blue-500 dark:focus:ring-offset-gray-800"
+                                                    class="shrink-0 rounded-sm border-gray-300 text-blue-700 focus:ring-blue-500 checked:border-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800"
                                                 />
                                             </div>
                                         </td>
@@ -302,12 +302,12 @@ const breadcrumbs: Breadcrumbs = [
                                         <td class="size-px whitespace-nowrap px-6 py-3">
                                             <div class="flex items-center justify-end -space-x-px">
                                                 <div
-                                                    class="hs-dropdown relative inline-flex border border-stone-200 bg-white shadow-sm [--auto-close:inside] [--placement:top-right] first:rounded-s-lg last:rounded-e-lg hover:bg-stone-50 dark:border-neutral-700 dark:bg-neutral-800 dark:hover:bg-neutral-700"
+                                                    class="hs-dropdown relative inline-flex border border-stone-200 bg-white shadow-2xs [--auto-close:inside] [--placement:top-right] first:rounded-s-lg last:rounded-e-lg hover:bg-stone-50 dark:border-neutral-700 dark:bg-neutral-800 dark:hover:bg-neutral-700"
                                                 >
                                                     <button
                                                         :id="'menu-item-' + admin.id"
                                                         type="button"
-                                                        class="inline-flex size-8 items-center justify-center gap-x-2 rounded-e-lg text-stone-800 focus:bg-stone-50 focus:outline-none disabled:pointer-events-none disabled:opacity-50 dark:text-neutral-300 dark:focus:bg-neutral-700"
+                                                        class="inline-flex size-8 items-center justify-center gap-x-2 rounded-e-lg text-stone-800 focus:bg-stone-50 focus:outline-hidden disabled:pointer-events-none disabled:opacity-50 dark:text-neutral-300 dark:focus:bg-neutral-700"
                                                         aria-haspopup="menu"
                                                         aria-expanded="false"
                                                         aria-label="Dropdown"
@@ -339,7 +339,7 @@ const breadcrumbs: Breadcrumbs = [
                                                         <div class="p-1">
                                                             <Link
                                                                 :href="route('dashboard.admins.edit', admin.id)"
-                                                                class="flex w-full items-center gap-x-3 rounded-lg px-2 py-1.5 text-[13px] text-stone-800 hover:bg-stone-100 focus:bg-stone-100 focus:outline-none disabled:pointer-events-none disabled:opacity-50 dark:text-neutral-300 dark:hover:bg-neutral-800 dark:focus:bg-neutral-800"
+                                                                class="flex w-full items-center gap-x-3 rounded-lg px-2 py-1.5 text-[13px] text-stone-800 hover:bg-stone-100 focus:bg-stone-100 focus:outline-hidden disabled:pointer-events-none disabled:opacity-50 dark:text-neutral-300 dark:hover:bg-neutral-800 dark:focus:bg-neutral-800"
                                                             >
                                                                 {{ __('global.crud.edit') }}
                                                             </Link>
@@ -350,7 +350,7 @@ const breadcrumbs: Breadcrumbs = [
 
                                                             <button
                                                                 @click="openDeleteModal(admin)"
-                                                                class="flex w-full items-center gap-x-3 rounded-lg px-2 py-1.5 text-[13px] text-stone-800 hover:bg-stone-100 focus:bg-stone-100 focus:outline-none disabled:pointer-events-none disabled:opacity-50 dark:text-neutral-300 dark:hover:bg-neutral-800 dark:focus:bg-neutral-800"
+                                                                class="flex w-full items-center gap-x-3 rounded-lg px-2 py-1.5 text-[13px] text-stone-800 hover:bg-stone-100 focus:bg-stone-100 focus:outline-hidden disabled:pointer-events-none disabled:opacity-50 dark:text-neutral-300 dark:hover:bg-neutral-800 dark:focus:bg-neutral-800"
                                                             >
                                                                 {{ __('global.crud.delete') }}
                                                             </button>

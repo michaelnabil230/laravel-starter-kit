@@ -3,7 +3,6 @@ import { SearchResponse } from '@/dashboard/types/search';
 import { Link } from '@inertiajs/vue3';
 import axios from 'axios';
 import { throttle } from 'lodash';
-import { ExtendedKeyboardEvent } from 'mousetrap';
 import { HSOverlay, ICollectionItem } from 'preline/preline';
 import { nextTick, onBeforeUnmount, onMounted, onUnmounted, Ref, ref } from 'vue';
 
@@ -15,7 +14,7 @@ const searchResults = ref<SearchResponse>({});
 
 const modal: Ref = ref<Element>();
 
-const onInput = (event: Event) => {
+const onInput = () => {
     loading.value = true;
     searchRequest();
 };
@@ -52,14 +51,14 @@ onMounted(() => {
     });
 });
 
-const openOnPress = (event: ExtendedKeyboardEvent, combo: string) => HSOverlay.open(modal.value);
+const openOnPress = () => HSOverlay.open(modal.value);
 </script>
 
 <template>
     <div
         id="global-search"
         ref="modal"
-        class="hs-overlay pointer-events-none fixed start-0 top-0 z-[80] hidden size-full overflow-y-auto overflow-x-hidden hs-overlay-backdrop-open:backdrop-blur-md dark:hs-overlay-backdrop-open:bg-neutral-900/30"
+        class="hs-overlay pointer-events-none fixed start-0 top-0 z-80 hidden size-full overflow-y-auto overflow-x-hidden hs-overlay-backdrop-open:backdrop-blur-md dark:hs-overlay-backdrop-open:bg-neutral-900/30"
     >
         <div
             class="m-3 flex h-[calc(100%-3.5rem)] min-h-[calc(100%-3.5rem)] items-center opacity-0 transition-all ease-out hs-overlay-open:opacity-100 hs-overlay-open:duration-500 sm:mx-auto sm:w-full sm:max-w-lg"
@@ -70,7 +69,7 @@ const openOnPress = (event: ExtendedKeyboardEvent, combo: string) => HSOverlay.o
                 <div class="relative">
                     <div class="pointer-events-none absolute inset-y-0 start-0 z-20 flex items-center ps-3.5">
                         <svg
-                            class="flex-shrink-0 text-gray-400 size-4 dark:text-white/60"
+                            class="shrink-0 text-gray-400 size-4 dark:text-white/60"
                             xmlns="http://www.w3.org/2000/svg"
                             width="24"
                             height="24"
@@ -93,7 +92,7 @@ const openOnPress = (event: ExtendedKeyboardEvent, combo: string) => HSOverlay.o
                         @input="onInput"
                         v-model="input"
                         id="global-search-input"
-                        class="block w-full p-3 text-sm bg-white border-transparent rounded-t-lg border-b-gray-200 ps-10 focus:border-transparent focus:border-b-gray-200 focus:outline-none focus:ring-0 disabled:pointer-events-none disabled:opacity-50 dark:border-transparent dark:border-b-neutral-700 dark:bg-neutral-800 dark:text-neutral-400 dark:placeholder:text-neutral-400"
+                        class="block w-full p-3 text-sm bg-white border-transparent rounded-t-lg border-b-gray-200 ps-10 focus:border-transparent focus:border-b-gray-200 focus:outline-hidden focus:ring-0 disabled:pointer-events-none disabled:opacity-50 dark:border-transparent dark:border-b-neutral-700 dark:bg-neutral-800 dark:text-neutral-400 dark:placeholder:text-neutral-400"
                         :placeholder="__('global.search.global.label')"
                         autofocus
                     />
@@ -102,37 +101,39 @@ const openOnPress = (event: ExtendedKeyboardEvent, combo: string) => HSOverlay.o
                 <div
                     class="h-[500px] overflow-hidden overflow-y-auto p-4 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-gray-300 dark:[&::-webkit-scrollbar-thumb]:bg-neutral-500 [&::-webkit-scrollbar-track]:bg-gray-100 dark:[&::-webkit-scrollbar-track]:bg-neutral-700 [&::-webkit-scrollbar]:w-2"
                 >
-                    <template v-if="!loading" v-for="(searchResult, key, index) in searchResults">
-                        <div
-                            :class="{
-                                'mb-4 border-b border-gray-200 pb-4 dark:border-neutral-700':
-                                    index == Object.keys(searchResults).length,
-                            }"
-                        >
-                            <span class="block mb-2 text-xs text-gray-500 capitalize dark:text-neutral-500">
-                                {{ __('global.search.global.resources.' + key) }}
-                                ({{ searchResult.length }})
-                            </span>
+                    <template v-if="!loading">
+                        <template v-for="(searchResult, key, index) in searchResults" :key="key">
+                            <div
+                                :class="{
+                                    'mb-4 border-b border-gray-200 pb-4 dark:border-neutral-700':
+                                        index == Object.keys(searchResults).length,
+                                }"
+                            >
+                                <span class="block mb-2 text-xs text-gray-500 capitalize dark:text-neutral-500">
+                                    {{ __('global.search.global.resources.' + key) }}
+                                    ({{ searchResult.length }})
+                                </span>
 
-                            <!-- List Group -->
-                            <ul class="-mx-2.5">
-                                <template v-for="result in searchResult">
-                                    <li>
-                                        <Link
-                                            :href="result.url"
-                                            class="flex items-center px-3 py-2 rounded-lg gap-x-3 hover:bg-gray-100 focus:bg-gray-100 focus:outline-none dark:hover:bg-neutral-700 dark:focus:bg-neutral-700"
-                                        >
-                                            <span class="text-sm text-gray-800 dark:text-neutral-200">
-                                                {{ result.title }}
-                                            </span>
-                                            <span class="text-xs text-gray-400 dark:text-neutral-500">
-                                                {{ result.searchable.created_at }}
-                                            </span>
-                                        </Link>
-                                    </li>
-                                </template>
-                            </ul>
-                        </div>
+                                <!-- List Group -->
+                                <ul class="-mx-2.5">
+                                    <template v-for="result in searchResult" :key="result.id">
+                                        <li>
+                                            <Link
+                                                :href="result.url"
+                                                class="flex items-center px-3 py-2 rounded-lg gap-x-3 hover:bg-gray-100 focus:bg-gray-100 focus:outline-hidden dark:hover:bg-neutral-700 dark:focus:bg-neutral-700"
+                                            >
+                                                <span class="text-sm text-gray-800 dark:text-neutral-200">
+                                                    {{ result.title }}
+                                                </span>
+                                                <span class="text-xs text-gray-400 dark:text-neutral-500">
+                                                    {{ result.searchable.created_at }}
+                                                </span>
+                                            </Link>
+                                        </li>
+                                    </template>
+                                </ul>
+                            </div>
+                        </template>
                     </template>
 
                     <div v-if="loading" class="flex items-center justify-center h-full">
@@ -156,10 +157,10 @@ const openOnPress = (event: ExtendedKeyboardEvent, combo: string) => HSOverlay.o
                 <div class="flex items-center justify-between p-4 border-t border-gray-200 dark:border-neutral-700">
                     <div class="inline-flex items-center gap-x-2">
                         <div
-                            class="flex flex-col items-center justify-center text-xs text-gray-400 uppercase bg-white border border-gray-200 rounded shadow-sm size-5 dark:border-neutral-700 dark:bg-neutral-800"
+                            class="flex flex-col items-center justify-center text-xs text-gray-400 uppercase bg-white border border-gray-200 rounded-xs shadow-2xs size-5 dark:border-neutral-700 dark:bg-neutral-800"
                         >
                             <svg
-                                class="flex-shrink-0 text-gray-400 size-3 dark:text-neutral-500"
+                                class="shrink-0 text-gray-400 size-3 dark:text-neutral-500"
                                 xmlns="http://www.w3.org/2000/svg"
                                 width="24"
                                 height="24"

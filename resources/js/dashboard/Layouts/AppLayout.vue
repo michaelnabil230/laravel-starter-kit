@@ -17,7 +17,6 @@ defineProps<{
 onMounted(() => dashboardApp.preline());
 
 onBeforeUnmount(() => {
-    // @ts-ignore
     const hsOverlay = HSOverlay.getInstance('#sidebar', true) as ICollectionItem<HSOverlay>;
     hsOverlay.element.close(true);
     hsOverlay.element.destroy();

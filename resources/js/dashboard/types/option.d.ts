@@ -1,6 +1,6 @@
 export type ModelValue = string | string[];
 
-export interface Select {
+export interface Option {
     value: string;
     label: string;
 }

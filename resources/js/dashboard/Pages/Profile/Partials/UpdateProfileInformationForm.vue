@@ -114,7 +114,7 @@ const clearPhotoFileInput = (): void => {
 
                         <div class="grow">
                             <div class="flex items-center gap-x-2">
-                                <Buttons.Solid.Primary @click.prevent="selectNewPhoto" class="!text-xs !font-medium">
+                                <Buttons.Solid.Primary @click.prevent="selectNewPhoto" class="text-xs! font-medium!">
                                     <svg
                                         class="size-4 shrink-0"
                                         xmlns="http://www.w3.org/2000/svg"
