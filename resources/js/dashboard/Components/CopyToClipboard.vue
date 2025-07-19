@@ -5,9 +5,11 @@ const props = withDefaults(
     defineProps<{
         text: string;
         as?: string;
+        selectAll?: boolean;
     }>(),
     {
         as: 'div',
+        selectAll: true,
     },
 );
 
@@ -41,7 +43,7 @@ const copy = () => {
 </script>
 
 <template>
-    <component :is="as" class="inline-flex items-center justify-center gap-2 select-all">
+    <component :is="as" class="inline-flex items-center justify-center gap-2" :class="{ 'select-all': selectAll }">
         <slot :error="error" :success="success" />
 
         <svg
