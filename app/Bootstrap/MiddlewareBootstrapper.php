@@ -11,7 +11,9 @@ final class MiddlewareBootstrapper
     public function __invoke(Middleware $middleware): void
     {
         $middleware
+            ->encryptCookies(['appearance'])
             ->web(append: [
+                \App\Http\Middleware\HandleAppearance::class,
                 \Illuminate\Http\Middleware\AddLinkHeadersForPreloadedAssets::class,
             ])
             ->alias([

@@ -2,6 +2,7 @@
 <html
     lang="{{ LaravelLocalization::getCurrentLocale() }}"
     dir="{{ LaravelLocalization::getCurrentLocaleDirection() }}"
+    @class(['dark' => ($appearance ?? 'system') == 'dark'])
 >
     <head>
         <meta charset="UTF-8" />
@@ -40,6 +41,21 @@
         <link rel="icon" type="image/x-icon" href="{{ asset('logo.ico') }}" />
 
         <title inertia>{{ config('app.name', 'Laravel') }}</title>
+
+        {{-- Inline script to detect system dark mode preference and apply it immediately --}}
+        <script>
+            (function () {
+                const appearance = '{{ $appearance }}' ?? 'system';
+
+                if (appearance === 'system') {
+                    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+                    if (prefersDark) {
+                        document.documentElement.classList.add('dark');
+                    }
+                }
+            })();
+        </script>
 
         <!-- Scripts -->
         @routes

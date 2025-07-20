@@ -1,9 +1,14 @@
+import { setCookie } from '@/dashboard/lib/cookie';
 import { onMounted, ref } from 'vue';
 
 type Appearance = 'light' | 'dark' | 'system';
 
 export function updateTheme(value: Appearance) {
-    if (typeof window === 'undefined') {
+    const systemTheme = mediaQuery().matches ? 'dark' : 'light';
+    const desiredTheme = value === 'system' ? systemTheme : value;
+    const currentTheme = getCurrentTheme();
+
+    if (currentTheme === desiredTheme) {
         return;
     }
 
@@ -24,19 +29,15 @@ export function updateTheme(value: Appearance) {
     }
 }
 
-const mediaQuery = () => {
-    if (typeof window === 'undefined') {
-        return null;
-    }
+const getCurrentTheme = (): Appearance => {
+    return document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+};
 
+const mediaQuery = () => {
     return window.matchMedia('(prefers-color-scheme: dark)');
 };
 
 const getStoredAppearance = () => {
-    if (typeof window === 'undefined') {
-        return null;
-    }
-
     return localStorage.getItem('appearance') as Appearance | null;
 };
 
@@ -46,23 +47,17 @@ const handleSystemThemeChange = () => {
     updateTheme(currentAppearance || 'system');
 };
 
-export function initializeTheme() {
-    if (typeof window === 'undefined') {
-        return;
-    }
-
+export const initializeTheme = () => {
     const savedAppearance = getStoredAppearance();
     updateTheme(savedAppearance || 'system');
 
-    mediaQuery()?.addEventListener('change', handleSystemThemeChange);
-}
+    mediaQuery().addEventListener('change', handleSystemThemeChange);
+};
 
 export function useAppearance() {
     const appearance = ref<Appearance>('system');
 
     onMounted(() => {
-        initializeTheme();
-
         const savedAppearance = localStorage.getItem('appearance') as Appearance | null;
 
         if (savedAppearance) {
@@ -74,6 +69,8 @@ export function useAppearance() {
         appearance.value = value;
 
         localStorage.setItem('appearance', value);
+
+        setCookie('appearance', value);
 
         updateTheme(value);
     }
