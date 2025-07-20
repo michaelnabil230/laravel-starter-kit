@@ -1,11 +1,11 @@
 <script setup lang="ts">
 defineProps<{
-    message?: string;
+    message?: string | null;
 }>();
 </script>
 
 <template>
-    <p v-show="message" class="mt-2 inline-flex items-center gap-1 text-sm text-red-600">
+    <p v-if="message" class="mt-2 inline-flex items-center gap-1 text-sm text-red-600">
         <svg
             class="size-4"
             xmlns="http://www.w3.org/2000/svg"

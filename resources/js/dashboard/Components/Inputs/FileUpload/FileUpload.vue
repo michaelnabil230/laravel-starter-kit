@@ -322,7 +322,7 @@ const totalUploadProgress = computed(() => {
             </div>
         </div>
 
-        <InputError v-if="error" :message="error" />
+        <InputError :message="error" />
 
         <input
             :id="id"

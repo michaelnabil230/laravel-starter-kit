@@ -58,7 +58,7 @@ const submit = () => {
                         autocomplete="email"
                     />
 
-                    <InputError v-if="form.errors.email" :message="form.errors.email" />
+                    <InputError :message="form.errors.email" />
                 </div>
 
                 <div>

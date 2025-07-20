@@ -148,7 +148,7 @@ const clearPhotoFileInput = (): void => {
                             </div>
                         </div>
 
-                        <InputError v-if="form.errors.photo" :message="form.errors.photo" />
+                        <InputError :message="form.errors.photo" />
                     </div>
                     <!-- End Upload Group -->
                 </div>
