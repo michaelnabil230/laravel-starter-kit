@@ -1,12 +1,11 @@
-import resolver from '@/dashboard/resolverModal';
-import { App, Plugin } from 'vue';
+import { App, Plugin, ref } from 'vue';
 
-export type ModalPluginOptions = {
-    resolve: (name: string) => void;
-};
+const resolveCallback = ref<CallableFunction>();
 
 export const modal: Plugin = {
-    install(app: App, options: ModalPluginOptions) {
-        resolver.setResolveCallback(options.resolve);
+    install(app: App, resolve: (name: string) => void) {
+        resolveCallback.value = resolve;
     },
 };
+
+export const resolverModal = (name: string) => resolveCallback.value!(name);

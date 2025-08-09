@@ -17,15 +17,9 @@ use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Vite;
 use Illuminate\Support\Number;
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Str;
 use Illuminate\Validation\Rules\Email;
 use Illuminate\Validation\Rules\Password;
 use Inertia\ResponseFactory;
-use League\CommonMark\Environment\Environment;
-use League\CommonMark\Extension\CommonMark\CommonMarkCoreExtension;
-use League\CommonMark\Extension\ExternalLink\ExternalLinkExtension;
-use League\CommonMark\Extension\GithubFlavoredMarkdownExtension;
-use League\CommonMark\MarkdownConverter;
 use Mcamara\LaravelLocalization\Traits\LoadsTranslatedCachedRoutes;
 
 final class AppServiceProvider extends ServiceProvider
@@ -99,7 +93,6 @@ final class AppServiceProvider extends ServiceProvider
     protected function configureMacros(): void
     {
         $this->configureInertiaMacros();
-        $this->configureStrMacros();
     }
 
     protected function configureInertiaMacros(): void
@@ -108,29 +101,5 @@ final class AppServiceProvider extends ServiceProvider
             'modal',
             fn (string $component, array $props = []): Modal => new Modal($component, $props),
         );
-    }
-
-    protected function configureStrMacros(): void
-    {
-        Str::macro('toMarkdown', function (string $string): string {
-            $environment = new Environment([
-                'html_input' => 'escape',
-                'max_nesting_level' => 10,
-                'allow_unsafe_links' => false,
-                'external_link' => [
-                    'open_in_new_window' => true,
-                    'nofollow' => 'external',
-                ],
-            ]);
-
-            $environment
-                ->addExtension(new CommonMarkCoreExtension)
-                ->addExtension(new GithubFlavoredMarkdownExtension)
-                ->addExtension(new ExternalLinkExtension);
-
-            $converter = new MarkdownConverter($environment);
-
-            return $converter->convert($string)->getContent();
-        });
     }
 }

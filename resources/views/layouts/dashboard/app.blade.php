@@ -18,6 +18,7 @@
         <meta name="publisher" content="App" />
         <meta name="copyright" content="{{ now()->rawFormat('Y') }} App" />
         <meta name="theme-color" content="#1845e7" />
+        <meta name="csrf-token" content="{{ csrf_token() }}" />
 
         <!-- Meta Tags -->
         <meta property="og:url" content="{{ config('app.url') }}" />

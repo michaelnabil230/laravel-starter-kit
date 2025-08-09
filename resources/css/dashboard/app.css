@@ -1,4 +1,5 @@
 @import 'tailwindcss';
+@plugin '@tailwindcss/typography';
 @custom-variant dark (&:where(.dark, .dark *));
 @import '.././flag.css' layer(base);
 @source '../../js/dashboard/Pages/*.vue';
@@ -35,6 +36,31 @@
     .no-scrollbar {
         -ms-overflow-style: none;
         scrollbar-width: none;
+    }
+}
+
+@theme {
+    --animate-collapsible-down: collapsible-down 0.2s ease-out;
+    --animate-collapsible-up: collapsible-up 0.2s ease-out;
+
+    @keyframes collapsible-down {
+        from {
+            height: 0;
+        }
+
+        to {
+            height: var(--reka-collapsible-content-height);
+        }
+    }
+
+    @keyframes collapsible-up {
+        from {
+            height: var(--reka-collapsible-content-height);
+        }
+
+        to {
+            height: 0;
+        }
     }
 }
 
@@ -100,23 +126,15 @@
     background-size: 100% 100%;
 }
 
-.ProseMirror:focus {
-    @apply outline-hidden;
-}
-
-.tiptap ul p,
-.tiptap ol p {
-    @apply inline;
-}
-
-.tiptap p.is-editor-empty:first-child::before {
-    content: attr(data-placeholder);
-}
-
-pre .hljs {
-    @apply rounded-md;
-}
-
 .spin-button-none {
     @apply [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none;
+}
+
+.prose code:before,
+.prose code:after {
+    content: '';
+}
+
+.prose pre {
+    @apply bg-transparent p-0;
 }

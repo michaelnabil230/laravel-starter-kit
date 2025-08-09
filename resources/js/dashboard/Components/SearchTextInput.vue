@@ -5,8 +5,6 @@ import TextInput from '@/dashboard/Components/Inputs/TextInput.vue';
 defineProps<{
     resource: string;
 }>();
-
-const model = defineModel<string>();
 </script>
 
 <template>
@@ -15,8 +13,6 @@ const model = defineModel<string>();
             <svg
                 class="size-4 shrink-0 text-gray-500 dark:text-neutral-400"
                 xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
@@ -34,7 +30,7 @@ const model = defineModel<string>();
             :for="'search_' + resource"
         />
         <TextInput
-            v-model="model"
+            type="text"
             :id="'search_' + resource"
             class="bg-gray-100 py-[7px] ps-10 pe-8 focus:bg-white dark:bg-neutral-700 dark:focus:bg-neutral-800"
             :placeholder="__('global.search.resource', { resource: __('resources.' + resource + '.plural') })"

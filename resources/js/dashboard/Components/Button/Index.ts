@@ -1,7 +1,7 @@
-import { cva, type VariantProps } from 'class-variance-authority';
+import { cva } from 'class-variance-authority';
 
 export const buttonVariants = cva(
-    'inline-flex items-center justify-center gap-2 cursor-pointer whitespace-nowrap rounded-lg text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[disabled=true]:opacity-50 data-[disabled=true]:pointer-events-none [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0',
+    'ring-offset-background focus-visible:ring-ring inline-flex cursor-pointer items-center justify-center gap-2 rounded-lg text-sm font-medium whitespace-nowrap transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0',
     {
         variants: {
             variant: {
@@ -15,8 +15,8 @@ export const buttonVariants = cva(
                 danger: '',
             },
             size: {
-                small: 'py-2 px-3',
-                medium: 'py-3 px-4',
+                small: 'px-3 py-2',
+                medium: 'px-4 py-3',
                 large: 'p-4 sm:p-5',
             },
         },
@@ -30,7 +30,7 @@ export const buttonVariants = cva(
             {
                 variant: 'contained',
                 color: 'secondary',
-                class: 'bg-white text-gray-800 hover:bg-gray-50 dark:bg-neutral-800 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-700',
+                class: 'bg-white text-gray-800 hover:bg-gray-50 dark:border-neutral-700 dark:bg-neutral-800 dark:text-white dark:hover:bg-neutral-700',
             },
             {
                 variant: 'contained',
@@ -41,12 +41,12 @@ export const buttonVariants = cva(
             {
                 variant: 'outlined',
                 color: 'primary',
-                class: 'border-blue-600 text-blue-600 hover:border-blue-500 hover:text-blue-500 dark:border-blue-500 dark:text-blue-500 dark:hover:text-blue-400 dark:hover:border-blue-400',
+                class: 'border-blue-600 text-blue-600 hover:border-blue-500 hover:text-blue-500 dark:border-blue-500 dark:text-blue-500 dark:hover:border-blue-400 dark:hover:text-blue-400',
             },
             {
                 variant: 'outlined',
                 color: 'secondary',
-                class: 'border-neutral-200 text-gray-800 hover:border-neutral-300 hover:text-gray-900  dark:border-neutral-700 dark:text-neutral-300 dark:hover:border-neutral-600 dark:hover:text-neutral-200',
+                class: 'border-neutral-200 text-gray-800 hover:border-neutral-300 hover:text-gray-900 dark:border-neutral-700 dark:text-neutral-300 dark:hover:border-neutral-600 dark:hover:text-neutral-200',
             },
             {
                 variant: 'outlined',
@@ -67,5 +67,3 @@ export const buttonVariants = cva(
         },
     },
 );
-
-export type ButtonVariants = VariantProps<typeof buttonVariants>;

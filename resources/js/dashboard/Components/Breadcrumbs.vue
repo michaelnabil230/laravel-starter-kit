@@ -30,8 +30,6 @@ defineProps<{
                 v-if="index !== breadcrumbs.length - 1"
                 class="mx-1 size-4 shrink-0 overflow-visible text-gray-400 dark:text-neutral-600"
                 xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"

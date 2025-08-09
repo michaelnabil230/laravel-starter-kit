@@ -19,10 +19,12 @@ import {
     PopoverPortal,
     PopoverRoot,
     PopoverTrigger,
+    useForwardProps,
 } from 'reka-ui';
 import { computed, onMounted, ref } from 'vue';
 import Flag from '../Flag.vue';
 import TextInput from './TextInput.vue';
+import { type PhoneInputProps } from './types';
 
 interface Country {
     iso2: CountryCode;
@@ -35,22 +37,16 @@ defineOptions({ inheritAttrs: false });
 const initialSharedData = useInitialSharedData();
 const { __ } = useLocalization();
 
-const props = withDefaults(
-    defineProps<{
-        defaultPhoneValue?: string;
-        defaultPhoneCountryValue?: string;
-        hasError?: boolean;
-        countryCode?: CountryCode;
-    }>(),
-    {
-        hasError: false,
-    },
-);
+const props = withDefaults(defineProps<PhoneInputProps>(), {
+    hasError: false,
+});
+
+const forwardedProps = useForwardProps(props);
 
 const phoneModel = defineModel<string>('phone');
 
 if (phoneModel.value === undefined) {
-    phoneModel.value = props.defaultPhoneValue;
+    phoneModel.value = props.defaultPhoneValue ?? '';
 }
 
 const phoneCountryModel = defineModel<string>('phone_country', { default: '' });
@@ -150,8 +146,6 @@ const updateInputValue = (countryCode: CountryCode) => {
                     <svg
                         class="size-3.5 shrink-0 text-gray-500 dark:text-neutral-500"
                         xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
                         viewBox="0 0 24 24"
                         fill="none"
                         stroke="currentColor"
@@ -208,13 +202,7 @@ const updateInputValue = (countryCode: CountryCode) => {
                 class="spin-button-none rounded-s-none"
                 type="number"
                 v-model="phoneModel"
-                :hasError="hasError"
-                :placeholder="
-                    __('global.placeholder', {
-                        attribute: __('global.attributes.phone'),
-                    })
-                "
-                v-bind="$attrs"
+                v-bind="forwardedProps"
             />
         </div>
     </div>

@@ -5,7 +5,7 @@ import InputLabel from '@/dashboard/Components/Inputs/InputLabel.vue';
 import PasswordInput from '@/dashboard/Components/Inputs/PasswordInput.vue';
 import useLocalization from '@/dashboard/composables/useLocalization';
 import useToasts from '@/dashboard/composables/useToasts';
-import { useForm } from '@inertiajs/vue3';
+import { Link, useForm } from '@inertiajs/vue3';
 
 const { __ } = useLocalization();
 const toasts = useToasts();
@@ -39,24 +39,25 @@ const submit = () => {
 </script>
 
 <template>
-    <div class="border-t border-gray-200 py-6 first:border-t-0 sm:py-8 dark:border-neutral-700">
-        <div class="inline-flex items-center gap-x-2">
-            <h2 class="font-semibold text-gray-800 dark:text-neutral-200">
+    <!-- Card -->
+    <form
+        @submit.prevent="submit()"
+        class="flex flex-col rounded-xl border border-stone-200 bg-white shadow-2xs dark:border-neutral-700 dark:bg-neutral-800"
+    >
+        <!-- Header -->
+        <div class="border-b border-stone-200 px-5 py-3 dark:border-neutral-700">
+            <h2 class="inline-block font-semibold text-stone-800 dark:text-neutral-200">
                 {{ __('profile.password.title') }}
             </h2>
         </div>
+        <!-- End Header -->
 
-        <form @submit.prevent="submit()" class="space-y-5">
-            <slot />
-
+        <!-- Body -->
+        <div class="space-y-4 p-5">
             <!-- Grid -->
             <div class="grid gap-y-1.5 sm:grid-cols-12 sm:gap-x-5 sm:gap-y-0">
                 <div class="sm:col-span-4 xl:col-span-3 2xl:col-span-2">
-                    <InputLabel
-                        for="current-password"
-                        :value="__('global.attributes.current_password')"
-                        class="sm:mt-2.5"
-                    />
+                    <InputLabel for="current-password" :value="__('global.attributes.current_password')" />
                 </div>
                 <!-- End Col -->
 
@@ -80,7 +81,7 @@ const submit = () => {
             <!-- Grid -->
             <div class="grid gap-y-1.5 sm:grid-cols-12 sm:gap-x-5 sm:gap-y-0">
                 <div class="sm:col-span-4 xl:col-span-3 2xl:col-span-2">
-                    <InputLabel for="password" :value="__('global.attributes.new_password')" class="sm:mt-2.5" />
+                    <InputLabel for="password" :value="__('global.attributes.new_password')" />
 
                     <InputLabel
                         for="password_confirmation"
@@ -123,26 +124,23 @@ const submit = () => {
                 </div>
                 <!-- End Col -->
             </div>
+        </div>
+        <!-- End Body -->
 
-            <div class="grid gap-y-1.5 sm:grid-cols-12 sm:gap-x-5 sm:gap-y-0">
-                <div class="sm:col-span-4 xl:col-span-3 2xl:col-span-2"></div>
+        <!-- Footer -->
+        <div
+            class="flex items-center justify-end gap-x-2.5 border-t border-stone-200 px-5 py-3 dark:border-neutral-700"
+        >
+            <Link
+                href="#"
+                class="text-sm font-medium text-blue-700 decoration-2 hover:underline focus:underline focus:outline-hidden dark:text-blue-400 dark:hover:text-blue-500"
+            >
+                I forgot my password
+            </Link>
 
-                <div class="sm:col-span-8 xl:col-span-4">
-                    <!-- Button Group -->
-                    <div class="flex items-center gap-x-3">
-                        <Button type="submit" :disabled="form.processing" :value="__('profile.password.button')" />
-
-                        <a
-                            href="#"
-                            class="text-sm font-medium text-blue-700 decoration-2 hover:underline focus:underline focus:outline-hidden dark:text-blue-400 dark:hover:text-blue-500"
-                        >
-                            I forgot my password
-                        </a>
-                    </div>
-                    <!-- End Button Group -->
-                </div>
-            </div>
-            <!-- End Grid -->
-        </form>
-    </div>
+            <Button type="submit" :value="__('profile.password.button')" :disabled="form.processing" />
+        </div>
+        <!-- End Footer -->
+    </form>
+    <!-- End Card -->
 </template>

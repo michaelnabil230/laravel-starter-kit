@@ -1,17 +1,21 @@
 <script setup lang="ts">
 import Tooltip from '@/dashboard/Components/Tooltip.vue';
+import { cn } from '@/dashboard/lib/utils';
+import { HTMLAttributes } from 'vue';
 
-defineProps<{
-    value?: string;
+const props = defineProps<{
+    value: string;
+    for: string;
+    class?: HTMLAttributes['class'];
+    labelClass?: HTMLAttributes['class'];
     contentTooltip?: string;
 }>();
 </script>
 
 <template>
-    <div class="flex items-center gap-x-2">
-        <label class="block text-sm text-gray-500 dark:text-neutral-500">
-            <template v-if="value">{{ value }}</template>
-            <template v-else><slot /></template>
+    <div :class="cn('mb-2 flex items-center gap-x-2', props.class)">
+        <label :for="props.for" :class="cn('block text-sm text-gray-500 dark:text-neutral-500', props.labelClass)">
+            {{ value }}
         </label>
 
         <Tooltip v-if="contentTooltip" :content="contentTooltip">
@@ -19,8 +23,6 @@ defineProps<{
                 <svg
                     class="size-4 text-gray-500 dark:text-neutral-500"
                     xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
                     viewBox="0 0 24 24"
                     fill="none"
                     stroke="currentColor"

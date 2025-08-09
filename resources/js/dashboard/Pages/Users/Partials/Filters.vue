@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import Trashed from '@/dashboard/Components/Filters/Trashed.vue';
-import InputLabel from '@/dashboard/Components/Inputs/InputLabel.vue';
 import Select from '@/dashboard/Components/Inputs/Select/Select.vue';
+import { Option } from '@/dashboard/Components/Inputs/types';
 import Sheet from '@/dashboard/Components/Sheet/Sheet.vue';
 import SheetDescription from '@/dashboard/Components/Sheet/SheetDescription.vue';
 import SheetHeader from '@/dashboard/Components/Sheet/SheetHeader.vue';
@@ -9,7 +9,6 @@ import SheetTitle from '@/dashboard/Components/Sheet/SheetTitle.vue';
 import { Filter } from '@/dashboard/composables/useFilter';
 import useLocalization from '@/dashboard/composables/useLocalization';
 import { App } from '@/dashboard/types/app';
-import { Option } from '@/dashboard/types/option';
 import { computed } from 'vue';
 
 const { __ } = useLocalization();
@@ -52,7 +51,7 @@ const genders = computed(() => {
                 </div>
 
                 <div>
-                    <InputLabel :value="__('global.gender')" for="gender" class="mb-2" />
+                    <InputLabel :value="__('global.gender')" for="gender" />
                     <Select :attribute="__('global.gender')" v-model="form.gender" :options="genders" id="gender" />
                 </div>
             </div>

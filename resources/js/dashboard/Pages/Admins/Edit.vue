@@ -6,11 +6,11 @@ import InputLabel from '@/dashboard/Components/Inputs/InputLabel.vue';
 import PhoneInput from '@/dashboard/Components/Inputs/PhoneInput.vue';
 import Select from '@/dashboard/Components/Inputs/Select/Select.vue';
 import TextInput from '@/dashboard/Components/Inputs/TextInput.vue';
+import { Option } from '@/dashboard/Components/Inputs/types';
 import useLocalization from '@/dashboard/composables/useLocalization';
 import useToasts from '@/dashboard/composables/useToasts';
 import AppLayout from '@/dashboard/Layouts/AppLayout.vue';
 import { App } from '@/dashboard/types/app';
-import { Option } from '@/dashboard/types/option';
 import { useForm } from '@inertiajs/vue3';
 import { computed } from 'vue';
 
@@ -19,10 +19,7 @@ const toasts = useToasts();
 
 const breadcrumbs: Breadcrumbs = [
     { text: __('dashboard'), href: route('dashboard.welcome') },
-    {
-        text: __('resources.admin.plural'),
-        href: route('dashboard.admins.index'),
-    },
+    { text: __('resources.admin.plural'), href: route('dashboard.admins.index') },
     { text: __('global.crud.edit') },
 ];
 
@@ -92,9 +89,10 @@ const roles = computed(() => {
             <div class="space-y-4 p-5">
                 <div class="grid gap-y-1.5 sm:grid-cols-12 sm:gap-x-5 sm:gap-y-0">
                     <div class="col-span-6">
-                        <InputLabel :value="__('global.attributes.name')" for="name" class="mb-2" />
+                        <InputLabel :value="__('global.attributes.name')" for="name" />
 
                         <TextInput
+                            id="name"
                             v-model="form.name"
                             type="text"
                             :placeholder="
@@ -109,9 +107,10 @@ const roles = computed(() => {
                     </div>
 
                     <div class="col-span-6">
-                        <InputLabel :value="__('global.attributes.email')" for="email" class="mb-2" />
+                        <InputLabel :value="__('global.attributes.email')" for="email" />
 
                         <TextInput
+                            id="email"
                             v-model="form.email"
                             type="email"
                             :placeholder="
@@ -127,9 +126,10 @@ const roles = computed(() => {
                 </div>
 
                 <div>
-                    <InputLabel :value="__('global.attributes.phone')" for="phone" class="mb-2" />
+                    <InputLabel :value="__('global.attributes.phone')" for="phone" />
 
                     <PhoneInput
+                        id="phone"
                         v-model:phone="form.phone"
                         v-model:phone_country="form.phone_country"
                         :placeholder="
@@ -144,7 +144,7 @@ const roles = computed(() => {
                 </div>
 
                 <div>
-                    <InputLabel :value="__('resources.admin.attributes.role')" for="role" class="mb-2" />
+                    <InputLabel :value="__('resources.admin.attributes.role')" for="role" />
 
                     <Select
                         :attribute="__('resources.admin.attributes.role')"

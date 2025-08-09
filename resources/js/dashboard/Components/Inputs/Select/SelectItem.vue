@@ -16,8 +16,6 @@ const props = defineProps<SelectItemProps>();
             <svg
                 class="size-3.5 shrink-0 text-blue-700 dark:text-blue-500"
                 xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"

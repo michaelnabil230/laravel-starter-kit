@@ -1,19 +1,15 @@
 <script setup lang="ts">
-import { type HTMLAttributes } from 'vue';
+import { useForwardProps } from 'reka-ui';
 import TextInput from './TextInput.vue';
+import { type InputWithDefaultValueProps } from './types';
 
-withDefaults(
-    defineProps<{
-        defaultValue?: string | number;
-        class?: HTMLAttributes['class'];
-        hasError?: boolean;
-    }>(),
-    {
-        hasError: false,
-    },
-);
+const props = withDefaults(defineProps<InputWithDefaultValueProps>(), {
+    hasError: false,
+});
+
+const forwardedProps = useForwardProps(props);
 </script>
 
 <template>
-    <TextInput v-bind="$attrs" type="time" />
+    <TextInput v-bind="forwardedProps" type="time" />
 </template>

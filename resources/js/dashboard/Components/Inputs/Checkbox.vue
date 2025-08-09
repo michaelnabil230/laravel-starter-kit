@@ -1,12 +1,16 @@
 <script setup lang="ts">
 import { cn } from '@/dashboard/lib/utils';
-import { HTMLAttributes } from 'vue';
+import { type CheckboxProps } from './types';
 
-const props = defineProps<{
-    class?: HTMLAttributes['class'];
-}>();
+const props = withDefaults(defineProps<CheckboxProps>(), {
+    hasError: false,
+});
 
-const model = defineModel<any | null>();
+const model = defineModel<boolean | null>();
+
+if (model.value === undefined) {
+    model.value = props.defaultValue ?? null;
+}
 </script>
 
 <template>

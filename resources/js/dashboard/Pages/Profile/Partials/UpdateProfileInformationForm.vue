@@ -81,21 +81,25 @@ const clearPhotoFileInput = (): void => {
 </script>
 
 <template>
-    <div class="border-t border-gray-200 py-6 first:border-t-0 sm:py-8 dark:border-neutral-700">
-        <div class="mb-4 xl:mb-8">
-            <h1 class="text-lg font-semibold text-gray-800 dark:text-neutral-200">
+    <!-- Card -->
+    <form
+        @submit.prevent="submit()"
+        class="flex flex-col rounded-xl border border-stone-200 bg-white shadow-2xs dark:border-neutral-700 dark:bg-neutral-800"
+    >
+        <!-- Header -->
+        <div class="border-b border-stone-200 px-5 py-3 dark:border-neutral-700">
+            <h2 class="inline-block font-semibold text-stone-800 dark:text-neutral-200">
                 {{ __('profile.personal_info.title') }}
-            </h1>
-            <p class="text-sm text-gray-500 dark:text-neutral-500">
-                {{ __('profile.personal_info.description') }}
-            </p>
+            </h2>
         </div>
+        <!-- End Header -->
 
-        <form @submit.prevent="submit()" class="space-y-5">
+        <!-- Body -->
+        <div class="space-y-4 p-5">
             <!-- Grid -->
             <div class="grid gap-y-1.5 sm:grid-cols-12 sm:gap-x-5 sm:gap-y-0">
                 <div class="sm:col-span-4 xl:col-span-3 2xl:col-span-2">
-                    <InputLabel for="photo" value="Photo" class="sm:mt-2.5" />
+                    <InputLabel for="photo" value="Photo" />
                 </div>
                 <!-- End Col -->
 
@@ -122,8 +126,6 @@ const clearPhotoFileInput = (): void => {
                                 <Button @click.prevent="selectNewPhoto" class="text-xs! font-medium!">
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
-                                        width="24"
-                                        height="24"
                                         viewBox="0 0 24 24"
                                         fill="none"
                                         stroke="currentColor"
@@ -159,7 +161,7 @@ const clearPhotoFileInput = (): void => {
             <!-- Grid -->
             <div class="grid gap-y-1.5 sm:grid-cols-12 sm:gap-x-5 sm:gap-y-0">
                 <div class="sm:col-span-4 xl:col-span-3 2xl:col-span-2">
-                    <InputLabel for="name" value="Name" class="sm:mt-2.5" />
+                    <InputLabel for="name" value="Name" />
                 </div>
                 <!-- End Col -->
 
@@ -168,6 +170,7 @@ const clearPhotoFileInput = (): void => {
                         v-model="form.name"
                         :hasError="form.errors.hasOwnProperty('name')"
                         id="name"
+                        type="text"
                         :placeholder="__('profile.personal_info.placeholder.name')"
                         required
                         autofocus
@@ -183,7 +186,7 @@ const clearPhotoFileInput = (): void => {
             <!-- Grid -->
             <div class="grid gap-y-1.5 sm:grid-cols-12 sm:gap-x-5 sm:gap-y-0">
                 <div class="sm:col-span-4 xl:col-span-3 2xl:col-span-2">
-                    <InputLabel for="email" value="Email" class="sm:mt-2.5" />
+                    <InputLabel for="email" value="Email" />
                 </div>
                 <!-- End Col -->
 
@@ -207,12 +210,13 @@ const clearPhotoFileInput = (): void => {
             <!-- Grid -->
             <div class="grid gap-y-1.5 sm:grid-cols-12 sm:gap-x-5 sm:gap-y-0">
                 <div class="sm:col-span-4 xl:col-span-3 2xl:col-span-2">
-                    <InputLabel for="phone" value="Phone" class="sm:mt-2.5" />
+                    <InputLabel for="phone" value="Phone" />
                 </div>
                 <!-- End Col -->
 
                 <div class="sm:col-span-8 xl:col-span-4">
                     <PhoneInput
+                        id="phone"
                         v-model:phone="form.phone"
                         v-model:phone_country="form.phone_country"
                         :placeholder="
@@ -228,14 +232,14 @@ const clearPhotoFileInput = (): void => {
                 <!-- End Col -->
             </div>
             <!-- End Grid -->
+        </div>
+        <!-- End Body -->
 
-            <div class="grid gap-y-1.5 sm:grid-cols-12 sm:gap-x-5 sm:gap-y-0">
-                <div class="sm:col-span-4 xl:col-span-3 2xl:col-span-2"></div>
-
-                <div class="sm:col-span-8 xl:col-span-4">
-                    <Button type="submit" :disabled="form.processing" :value="__('global.crud.save')" />
-                </div>
-            </div>
-        </form>
-    </div>
+        <!-- Footer -->
+        <div class="flex items-center justify-end border-t border-stone-200 px-5 py-3 dark:border-neutral-700">
+            <Button type="submit" :value="__('global.crud.save')" :disabled="form.processing" />
+        </div>
+        <!-- End Footer -->
+    </form>
+    <!-- End Card -->
 </template>

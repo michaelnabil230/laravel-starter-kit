@@ -17,7 +17,7 @@ final class Rule extends BaseRule
     {
         return self::date()
             ->format('Y-m-d')
-            ->before(now()->subYears(16));
+            ->beforeOrEqual(now()->subYears(18)->format('Y-m-d'));
     }
 
     /**

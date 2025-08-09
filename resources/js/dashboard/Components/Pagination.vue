@@ -4,8 +4,9 @@ import useLocalization from '@/dashboard/composables/useLocalization';
 import { App } from '@/dashboard/types/app';
 import { Link } from '@inertiajs/vue3';
 import { computed } from 'vue';
-import { Option } from '../types/option';
+import InputLabel from './Inputs/InputLabel.vue';
 import Select from './Inputs/Select/Select.vue';
+import { Option } from './Inputs/types';
 
 const { __ } = useLocalization();
 
@@ -52,7 +53,9 @@ const perPage = computed({
         <div class="inline-flex items-center gap-x-2">
             <p class="text-sm text-gray-600 dark:text-neutral-400">{{ __('pagination.showing') }}:</p>
 
+            <InputLabel for="per-page-select" class="sr-only" :value="__('pagination.page')" />
             <Select
+                id="per-page-select"
                 :attribute="__('pagination.page')"
                 :options="perPages"
                 v-model="perPage"
@@ -78,8 +81,6 @@ const perPage = computed({
                 <svg
                     class="size-3.5 shrink-0 rtl:rotate-180"
                     xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
                     viewBox="0 0 24 24"
                     fill="none"
                     stroke="currentColor"
@@ -124,8 +125,6 @@ const perPage = computed({
                 <svg
                     class="size-3.5 shrink-0 rtl:rotate-180"
                     xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
                     viewBox="0 0 24 24"
                     fill="none"
                     stroke="currentColor"

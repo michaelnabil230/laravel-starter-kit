@@ -1,22 +1,26 @@
 <script setup lang="ts">
+import { useForwardProps } from 'reka-ui';
 import { ref } from 'vue';
 import TextInput from './TextInput.vue';
+import { type InputWithDefaultValueProps } from './types';
 
-const props = defineProps<{
-    defaultValue?: string;
-}>();
+const props = withDefaults(defineProps<InputWithDefaultValueProps>(), {
+    hasError: false,
+});
+
+const forwardedProps = useForwardProps(props);
 
 const model = defineModel<string | null>();
 
 if (model.value === undefined) {
-    model.value = props.defaultValue;
+    model.value = props.defaultValue ?? null;
 }
 
 const toggle = ref(false);
 </script>
 
 <template>
-    <TextInput v-model="model" :type="toggle ? 'text' : 'password'" placeholder="********">
+    <TextInput v-model="model" :type="toggle ? 'text' : 'password'" v-bind="forwardedProps" placeholder="********">
         <template #icon>
             <button
                 type="button"
@@ -25,8 +29,6 @@ const toggle = ref(false);
             >
                 <svg
                     class="size-4 shrink-0"
-                    width="24"
-                    height="24"
                     viewBox="0 0 24 24"
                     fill="none"
                     stroke="currentColor"

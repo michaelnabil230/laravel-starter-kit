@@ -1,12 +1,16 @@
 <script setup lang="ts">
 import { cn } from '@/dashboard/lib/utils';
-import { HTMLAttributes } from 'vue';
+import { type RadioProps } from './types';
 
-const props = defineProps<{
-    class?: HTMLAttributes['class'];
-}>();
+const props = withDefaults(defineProps<RadioProps>(), {
+    hasError: false,
+});
 
-const model = defineModel<any | null>();
+const model = defineModel<string | null>();
+
+if (model.value === undefined) {
+    model.value = props.defaultValue ?? null;
+}
 </script>
 
 <template>

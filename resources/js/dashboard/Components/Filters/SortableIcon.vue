@@ -34,8 +34,6 @@ const handleClick = () => {
         <svg
             class="group ms-1 size-3.5 text-gray-400 dark:text-neutral-500"
             xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"

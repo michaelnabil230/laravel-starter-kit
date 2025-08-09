@@ -1,10 +1,10 @@
+import { AppPageProps } from '@/dashboard/types/index';
 import { PageProps as InertiaPageProps } from '@inertiajs/core';
 import { AxiosInstance } from 'axios';
-import 'vue';
+import dayjs from 'dayjs';
 import { route as ziggyRoute } from 'ziggy-js';
 import mixin from '../mixins/index';
 import { Loading } from '../Plugins/loading';
-import { PageProps as AppPageProps } from './';
 import { SharedData } from './shared-data';
 
 declare global {
@@ -25,6 +25,7 @@ declare module 'vue' {
         initialSharedData: typeof mixin.methods.initialSharedData;
         truncate: typeof mixin.methods.truncate;
         $loading: Loading;
+        $day: typeof dayjs;
     }
 }
 

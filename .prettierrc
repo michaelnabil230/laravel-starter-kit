@@ -4,6 +4,7 @@
     "singleQuote": true,
     "tabWidth": 4,
     "singleAttributePerLine": false,
+    "htmlWhitespaceSensitivity": "css",
     "plugins": [
         "prettier-plugin-organize-imports",
         "prettier-plugin-tailwindcss",
@@ -11,7 +12,8 @@
     ],
     "tailwindFunctions": [
         "clsx",
-        "cn"
+        "cn",
+        "cva"
     ],
     "overrides": [
         {

@@ -51,10 +51,10 @@ final class DimensionsRule implements ValidationRule
                 $this->requiredWidth && $this->requiredHeight => 'validation.incorrect_dimensions.both',
                 $this->requiredWidth !== 0 => 'validation.incorrect_dimensions.width',
                 $this->requiredHeight !== 0 => 'validation.incorrect_dimensions.height',
-                default => '',
+                default => null,
             };
 
-            if (! $massage) {
+            if ($massage === null) {
                 return;
             }
 

@@ -28,8 +28,8 @@ final class SendCodeResetPassword extends Mailable implements ShouldQueue
     {
         return new Envelope(
             from: new Address(
-                name: 'App',
                 address: 'password-reset-noreply@app.com',
+                name: 'App',
             ),
             subject: 'Send Code Reset Password',
         );

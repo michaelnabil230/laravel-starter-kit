@@ -1,191 +1,71 @@
 <script setup lang="ts">
-import { Editor } from '@tiptap/core';
-import Blockquote from '@tiptap/extension-blockquote';
-import Bold from '@tiptap/extension-bold';
-import BulletList from '@tiptap/extension-bullet-list';
-import { Color } from '@tiptap/extension-color';
-import Link from '@tiptap/extension-link';
-import ListItem from '@tiptap/extension-list-item';
-import OrderedList from '@tiptap/extension-ordered-list';
-import Paragraph from '@tiptap/extension-paragraph';
-import Placeholder from '@tiptap/extension-placeholder';
-import TextAlign from '@tiptap/extension-text-align';
-import { TextStyle } from '@tiptap/extension-text-style';
-import Underline from '@tiptap/extension-underline';
-import StarterKit from '@tiptap/starter-kit';
-import { onBeforeUnmount, onMounted } from 'vue';
+import Button from '@/dashboard/Components/Button/Button.vue';
+import Textarea from '@/dashboard/Components/Inputs/Textarea.vue';
+import Renderer from '@/dashboard/Components/Markdown/Renderer.vue';
+import Modal from '@/dashboard/Components/Modal/Modal.vue';
+import ModalDescription from '@/dashboard/Components/Modal/ModalDescription.vue';
+import ModalHeader from '@/dashboard/Components/Modal/ModalHeader.vue';
+import ModalTitle from '@/dashboard/Components/Modal/ModalTitle.vue';
+import useLocalization from '@/dashboard/composables/useLocalization';
+import { useForwardProps } from 'reka-ui';
+import { ref } from 'vue';
+import { TextareaEditorProps } from './types';
 
-let editor: Editor;
+const { __ } = useLocalization();
 
-const props = withDefaults(
-    defineProps<{
-        defaultValue?: string;
-        hasError?: boolean;
-        placeholder: string;
-        autofocus?: boolean;
-        editable?: boolean;
-    }>(),
-    {
-        hasError: false,
-        autofocus: false,
-        editable: true,
-    },
-);
+defineOptions({ inheritAttrs: false });
+
+const props = withDefaults(defineProps<TextareaEditorProps>(), {
+    hasError: false,
+});
+
+const forwardedProps = useForwardProps(props);
 
 const model = defineModel<string | null>();
 
 if (model.value === undefined) {
-    model.value = props.defaultValue;
+    model.value = props.defaultValue ?? null;
 }
 
-defineExpose({ focus: () => editor.commands.focus() });
+const insertOrWrapMarkdown = (before: string, after: string = before, placeholder = '', multiline = false) => {
+    // For now, we'll just insert the markdown at the end of the current value
+    // This is a simplified version without cursor position handling
+    const currentValue = model.value ?? '';
+    let insertText = '';
 
-onMounted(() => {
-    editor = new Editor({
-        element: document.querySelector('#editor-tiptap [data-editor-field]') as HTMLElement,
-        editorProps: {
-            attributes: {
-                class: 'relative min-h-40 p-3',
-            },
-        },
-        autofocus: props.autofocus,
-        editable: props.editable,
-        onUpdate: ({ editor }) => {
-            model.value = editor.getHTML();
-        },
-        content: model.value,
-        extensions: [
-            StarterKit.configure(),
-            Placeholder.configure({
-                placeholder: props.placeholder,
-                emptyNodeClass: 'text-gray-400 dark:text-white/60',
-            }),
-            Paragraph.configure({
-                HTMLAttributes: {
-                    class: 'text-gray-800 dark:text-neutral-300',
-                },
-            }),
-            Bold.configure({
-                HTMLAttributes: {
-                    class: 'font-bold',
-                },
-            }),
-            Underline,
-            Color.configure({ types: [TextStyle.name, ListItem.name] }),
-            TextStyle,
-            TextAlign.configure({
-                types: ['heading', 'paragraph'],
-            }),
-            Link.configure({
-                HTMLAttributes: {
-                    class: 'inline-flex items-center gap-x-1 text-blue-600 decoration-2 hover:underline focus:outline-hidden focus:underline font-medium dark:text-white',
-                },
-            }),
-            BulletList.configure({
-                HTMLAttributes: {
-                    class: 'list-disc list-inside text-gray-800 dark:text-white',
-                },
-            }),
-            OrderedList.configure({
-                HTMLAttributes: {
-                    class: 'list-decimal list-inside text-gray-800 dark:text-white',
-                },
-            }),
-            ListItem.configure({
-                HTMLAttributes: {
-                    class: 'marker:text-sm',
-                },
-            }),
-            Blockquote.configure({
-                HTMLAttributes: {
-                    class: 'relative border-s-4 ps-4 sm:ps-6 dark:border-neutral-700 sm:[&>p]:text-lg',
-                },
-            }),
-        ],
-    });
-    const actions = [
-        {
-            id: '#editor-tiptap [data-editor-bold]',
-            onClick: () => editor.chain().focus().toggleBold().run(),
-        },
-        {
-            id: '#editor-tiptap [data-editor-italic]',
-            onClick: () => editor.chain().focus().toggleItalic().run(),
-        },
-        {
-            id: '#editor-tiptap [data-editor-underline]',
-            onClick: () => editor.chain().focus().toggleUnderline().run(),
-        },
-        {
-            id: '#editor-tiptap [data-editor-strike]',
-            onClick: () => editor.chain().focus().toggleStrike().run(),
-        },
-        {
-            id: '#editor-tiptap [data-editor-link]',
-            onClick: () => {
-                const url = window.prompt('URL');
+    if (multiline) {
+        // For multiline (e.g., lists, blockquote), add before each line
+        const lines = [placeholder];
+        insertText = lines.map((line) => before + line).join('\n');
+    } else {
+        insertText = before + placeholder + after;
+    }
 
-                if (url === null) return;
-
-                editor.chain().focus().extendMarkRange('link').setLink({ href: url }).run();
-            },
-        },
-        {
-            id: '#editor-tiptap [data-editor-ol]',
-            onClick: () => editor.chain().focus().toggleOrderedList().run(),
-        },
-        {
-            id: '#editor-tiptap [data-editor-ul]',
-            onClick: () => editor.chain().focus().toggleBulletList().run(),
-        },
-        {
-            id: '#editor-tiptap [data-editor-blockquote]',
-            onClick: () => editor.chain().focus().toggleBlockquote().run(),
-        },
-        {
-            id: '#editor-tiptap [data-editor-color]',
-            onClick: () => document.getElementById('color-picker')?.click(),
-        },
-        {
-            id: '#editor-tiptap [data-editor-undo]',
-            onClick: () => editor.chain().focus().undo().run(),
-        },
-        {
-            id: '#editor-tiptap [data-editor-redo]',
-            onClick: () => editor.chain().focus().redo().run(),
-        },
-        {
-            id: '#editor-tiptap [data-editor-left]',
-            onClick: () => editor.chain().focus().setTextAlign('left').run(),
-        },
-        {
-            id: '#editor-tiptap [data-editor-center]',
-            onClick: () => editor.chain().focus().setTextAlign('center').run(),
-        },
-        {
-            id: '#editor-tiptap [data-editor-right]',
-            onClick: () => editor.chain().focus().setTextAlign('right').run(),
-        },
-    ];
-
-    actions.forEach(({ id, onClick }) => {
-        const action = document.querySelector(id);
-
-        if (action === null) return;
-
-        action.addEventListener('click', onClick);
-    });
-});
-
-const changeColor = (event: Event) => {
-    editor
-        .chain()
-        .focus()
-        .setColor((event.target as HTMLInputElement).value)
-        .run();
+    // Add to the end of current content
+    const newValue = currentValue + (currentValue ? '\n' : '') + insertText;
+    model.value = newValue;
 };
 
-onBeforeUnmount(() => editor.destroy());
+const handleBold = () => insertOrWrapMarkdown('**', '**', 'bold');
+const handleItalic = () => insertOrWrapMarkdown('*', '*', 'italic');
+const handleStrike = () => insertOrWrapMarkdown('~~', '~~', 'strikethrough');
+const handleLink = () => insertOrWrapMarkdown('[', '](url)', 'text');
+const handleOl = () => insertOrWrapMarkdown('1. ', '', 'list item', true);
+const handleUl = () => insertOrWrapMarkdown('- ', '', 'list item', true);
+const handleBlockquote = () => insertOrWrapMarkdown('> ', '', 'quote', true);
+const handleHeading = () => insertOrWrapMarkdown('### ', '', 'Heading');
+const handleCode = () => insertOrWrapMarkdown('`', '`', 'code');
+
+const previewMode = ref(false);
+const showCheatsheet = ref(false);
+
+const closeCheatsheet = () => {
+    showCheatsheet.value = false;
+};
+
+const togglePreview = () => {
+    previewMode.value = !previewMode.value;
+};
 </script>
 
 <template>
@@ -193,20 +73,30 @@ onBeforeUnmount(() => editor.destroy());
         class="overflow-hidden rounded-xl border border-gray-200 bg-white dark:border-neutral-700 dark:bg-neutral-800"
         :class="{ '!border-red-500': hasError }"
     >
-        <div id="editor-tiptap">
-            <div
-                class="sticky top-0 flex gap-x-0.5 border-b border-gray-200 bg-white p-2 align-middle dark:border-neutral-700 dark:bg-neutral-800"
+        <!-- Markdown Toolbar -->
+        <div
+            class="flex justify-between border-b border-gray-200 bg-white p-2 dark:border-neutral-700 dark:bg-neutral-800"
+        >
+            <Button
+                type="button"
+                size="small"
+                variant="outlined"
+                color="secondary"
+                class="border-none px-2 py-1"
+                @click="togglePreview"
             >
+                {{ previewMode ? __('markdown.edit') : __('markdown.preview') }}
+            </Button>
+
+            <div v-if="!previewMode" class="flex gap-x-0.5">
                 <button
-                    class="inline-flex size-8 cursor-pointer items-center justify-center gap-x-2 rounded-full border border-transparent text-sm font-semibold text-gray-800 hover:bg-gray-100 focus:border-blue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50 dark:text-white dark:hover:bg-neutral-700 dark:focus:ring-neutral-600"
+                    @click="handleBold"
+                    class="inline-flex size-8 cursor-pointer items-center justify-center gap-x-2 rounded-full border border-transparent text-sm font-semibold text-gray-800 hover:bg-gray-100 focus:border-blue-500 focus:ring-blue-500 dark:text-white dark:hover:bg-neutral-700 dark:focus:ring-neutral-600"
                     type="button"
-                    data-editor-bold
                 >
                     <svg
                         class="size-4 shrink-0"
                         xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
                         viewBox="0 0 24 24"
                         fill="none"
                         stroke="currentColor"
@@ -219,15 +109,13 @@ onBeforeUnmount(() => editor.destroy());
                     </svg>
                 </button>
                 <button
-                    class="inline-flex size-8 cursor-pointer items-center justify-center gap-x-2 rounded-full border border-transparent text-sm font-semibold text-gray-800 hover:bg-gray-100 focus:bg-gray-100 focus:outline-hidden disabled:pointer-events-none disabled:opacity-50 dark:text-white dark:hover:bg-neutral-700 dark:focus:bg-neutral-700"
+                    @click="handleItalic"
+                    class="inline-flex size-8 cursor-pointer items-center justify-center gap-x-2 rounded-full border border-transparent text-sm font-semibold text-gray-800 hover:bg-gray-100 focus:bg-gray-100 focus:outline-hidden dark:text-white dark:hover:bg-neutral-700 dark:focus:bg-neutral-700"
                     type="button"
-                    data-editor-italic
                 >
                     <svg
                         class="size-4 shrink-0"
                         xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
                         viewBox="0 0 24 24"
                         fill="none"
                         stroke="currentColor"
@@ -241,15 +129,13 @@ onBeforeUnmount(() => editor.destroy());
                     </svg>
                 </button>
                 <button
-                    class="inline-flex size-8 cursor-pointer items-center justify-center gap-x-2 rounded-full border border-transparent text-sm font-semibold text-gray-800 hover:bg-gray-100 focus:bg-gray-100 focus:outline-hidden disabled:pointer-events-none disabled:opacity-50 dark:text-white dark:hover:bg-neutral-700 dark:focus:bg-neutral-700"
+                    @click="handleHeading"
+                    class="inline-flex size-8 cursor-pointer items-center justify-center gap-x-2 rounded-full border border-transparent text-sm font-semibold text-gray-800 hover:bg-gray-100 focus:bg-gray-100 focus:outline-hidden dark:text-white dark:hover:bg-neutral-700 dark:focus:bg-neutral-700"
                     type="button"
-                    data-editor-underline
                 >
                     <svg
                         class="size-4 shrink-0"
                         xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
                         viewBox="0 0 24 24"
                         fill="none"
                         stroke="currentColor"
@@ -257,20 +143,19 @@ onBeforeUnmount(() => editor.destroy());
                         stroke-linecap="round"
                         stroke-linejoin="round"
                     >
-                        <path d="M6 4v6a6 6 0 0 0 12 0V4" />
-                        <line x1="4" x2="20" y1="20" y2="20" />
+                        <path d="M6 4V20" />
+                        <path d="M18 4V20" />
+                        <path d="M6 12H18" />
                     </svg>
                 </button>
                 <button
-                    class="inline-flex size-8 cursor-pointer items-center justify-center gap-x-2 rounded-full border border-transparent text-sm font-semibold text-gray-800 hover:bg-gray-100 focus:bg-gray-100 focus:outline-hidden disabled:pointer-events-none disabled:opacity-50 dark:text-white dark:hover:bg-neutral-700 dark:focus:bg-neutral-700"
+                    @click="handleStrike"
+                    class="inline-flex size-8 cursor-pointer items-center justify-center gap-x-2 rounded-full border border-transparent text-sm font-semibold text-gray-800 hover:bg-gray-100 focus:bg-gray-100 focus:outline-hidden dark:text-white dark:hover:bg-neutral-700 dark:focus:bg-neutral-700"
                     type="button"
-                    data-editor-strike
                 >
                     <svg
                         class="size-4 shrink-0"
                         xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
                         viewBox="0 0 24 24"
                         fill="none"
                         stroke="currentColor"
@@ -284,15 +169,13 @@ onBeforeUnmount(() => editor.destroy());
                     </svg>
                 </button>
                 <button
-                    class="inline-flex size-8 cursor-pointer items-center justify-center gap-x-2 rounded-full border border-transparent text-sm font-semibold text-gray-800 hover:bg-gray-100 focus:bg-gray-100 focus:outline-hidden disabled:pointer-events-none disabled:opacity-50 dark:text-white dark:hover:bg-neutral-700 dark:focus:bg-neutral-700"
+                    @click="handleLink"
+                    class="inline-flex size-8 cursor-pointer items-center justify-center gap-x-2 rounded-full border border-transparent text-sm font-semibold text-gray-800 hover:bg-gray-100 focus:bg-gray-100 focus:outline-hidden dark:text-white dark:hover:bg-neutral-700 dark:focus:bg-neutral-700"
                     type="button"
-                    data-editor-link
                 >
                     <svg
                         class="size-4 shrink-0"
                         xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
                         viewBox="0 0 24 24"
                         fill="none"
                         stroke="currentColor"
@@ -305,15 +188,13 @@ onBeforeUnmount(() => editor.destroy());
                     </svg>
                 </button>
                 <button
-                    class="inline-flex size-8 cursor-pointer items-center justify-center gap-x-2 rounded-full border border-transparent text-sm font-semibold text-gray-800 hover:bg-gray-100 focus:bg-gray-100 focus:outline-hidden disabled:pointer-events-none disabled:opacity-50 dark:text-white dark:hover:bg-neutral-700 dark:focus:bg-neutral-700"
+                    @click="handleOl"
+                    class="inline-flex size-8 cursor-pointer items-center justify-center gap-x-2 rounded-full border border-transparent text-sm font-semibold text-gray-800 hover:bg-gray-100 focus:bg-gray-100 focus:outline-hidden dark:text-white dark:hover:bg-neutral-700 dark:focus:bg-neutral-700"
                     type="button"
-                    data-editor-ol
                 >
                     <svg
                         class="size-4 shrink-0"
                         xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
                         viewBox="0 0 24 24"
                         fill="none"
                         stroke="currentColor"
@@ -330,15 +211,13 @@ onBeforeUnmount(() => editor.destroy());
                     </svg>
                 </button>
                 <button
-                    class="inline-flex size-8 cursor-pointer items-center justify-center gap-x-2 rounded-full border border-transparent text-sm font-semibold text-gray-800 hover:bg-gray-100 focus:bg-gray-100 focus:outline-hidden disabled:pointer-events-none disabled:opacity-50 dark:text-white dark:hover:bg-neutral-700 dark:focus:bg-neutral-700"
+                    @click="handleUl"
+                    class="inline-flex size-8 cursor-pointer items-center justify-center gap-x-2 rounded-full border border-transparent text-sm font-semibold text-gray-800 hover:bg-gray-100 focus:bg-gray-100 focus:outline-hidden dark:text-white dark:hover:bg-neutral-700 dark:focus:bg-neutral-700"
                     type="button"
-                    data-editor-ul
                 >
                     <svg
                         class="size-4 shrink-0"
                         xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
                         viewBox="0 0 24 24"
                         fill="none"
                         stroke="currentColor"
@@ -355,15 +234,13 @@ onBeforeUnmount(() => editor.destroy());
                     </svg>
                 </button>
                 <button
-                    class="inline-flex size-8 cursor-pointer items-center justify-center gap-x-2 rounded-full border border-transparent text-sm font-semibold text-gray-800 hover:bg-gray-100 focus:bg-gray-100 focus:outline-hidden disabled:pointer-events-none disabled:opacity-50 dark:text-white dark:hover:bg-neutral-700 dark:focus:bg-neutral-700"
+                    @click="handleBlockquote"
+                    class="inline-flex size-8 cursor-pointer items-center justify-center gap-x-2 rounded-full border border-transparent text-sm font-semibold text-gray-800 hover:bg-gray-100 focus:bg-gray-100 focus:outline-hidden dark:text-white dark:hover:bg-neutral-700 dark:focus:bg-neutral-700"
                     type="button"
-                    data-editor-blockquote
                 >
                     <svg
                         class="size-4 shrink-0"
                         xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
                         viewBox="0 0 24 24"
                         fill="none"
                         stroke="currentColor"
@@ -378,18 +255,13 @@ onBeforeUnmount(() => editor.destroy());
                     </svg>
                 </button>
                 <button
-                    class="inline-flex size-8 cursor-pointer items-center justify-center gap-x-2 rounded-full border border-transparent text-sm font-semibold text-gray-800 hover:bg-gray-100 focus:bg-gray-100 focus:outline-hidden disabled:pointer-events-none disabled:opacity-50 dark:text-white dark:hover:bg-neutral-700 dark:focus:bg-neutral-700"
-                    :class="{
-                        'bg-blue-500 text-white hover:text-gray-800': editor?.isActive({ textAlign: 'left' }) ?? false,
-                    }"
+                    @click="handleCode"
+                    class="inline-flex size-8 cursor-pointer items-center justify-center gap-x-2 rounded-full border border-transparent text-sm font-semibold text-gray-800 hover:bg-gray-100 focus:bg-gray-100 focus:outline-hidden dark:text-white dark:hover:bg-neutral-700 dark:focus:bg-neutral-700"
                     type="button"
-                    data-editor-left
                 >
                     <svg
                         class="size-4 shrink-0"
                         xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
                         viewBox="0 0 24 24"
                         fill="none"
                         stroke="currentColor"
@@ -397,26 +269,19 @@ onBeforeUnmount(() => editor.destroy());
                         stroke-linecap="round"
                         stroke-linejoin="round"
                     >
-                        <path d="M3 3H21" />
-                        <path d="M3 9H11" />
-                        <path d="M3 15H21" />
-                        <path d="M3 21H11" />
+                        <polyline points="16 18 22 12 16 6" />
+                        <polyline points="8 6 2 12 8 18" />
                     </svg>
                 </button>
+
                 <button
-                    class="inline-flex size-8 cursor-pointer items-center justify-center gap-x-2 rounded-full border border-transparent text-sm font-semibold text-gray-800 hover:bg-gray-100 focus:bg-gray-100 focus:outline-hidden disabled:pointer-events-none disabled:opacity-50 dark:text-white dark:hover:bg-neutral-700 dark:focus:bg-neutral-700"
-                    :class="{
-                        'bg-blue-500 text-white hover:text-gray-800':
-                            editor?.isActive({ textAlign: 'center' }) ?? false,
-                    }"
                     type="button"
-                    data-editor-center
+                    @click="showCheatsheet = true"
+                    class="inline-flex size-8 cursor-pointer items-center justify-center gap-x-2 rounded-full border border-transparent text-sm font-semibold text-gray-800 hover:bg-gray-100 focus:bg-gray-100 focus:outline-hidden dark:text-white dark:hover:bg-neutral-700 dark:focus:bg-neutral-700"
                 >
                     <svg
                         class="size-4 shrink-0"
                         xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
                         viewBox="0 0 24 24"
                         fill="none"
                         stroke="currentColor"
@@ -424,110 +289,86 @@ onBeforeUnmount(() => editor.destroy());
                         stroke-linecap="round"
                         stroke-linejoin="round"
                     >
-                        <path d="M3 3H21" />
-                        <path d="M8 9H16" />
-                        <path d="M3 15H21" />
-                        <path d="M8 21H16" />
-                    </svg>
-                </button>
-                <button
-                    class="inline-flex size-8 cursor-pointer items-center justify-center gap-x-2 rounded-full border border-transparent text-sm font-semibold text-gray-800 hover:bg-gray-100 focus:bg-gray-100 focus:outline-hidden disabled:pointer-events-none disabled:opacity-50 dark:text-white dark:hover:bg-neutral-700 dark:focus:bg-neutral-700"
-                    :class="{
-                        'bg-blue-500 text-white hover:text-gray-800': editor?.isActive({ textAlign: 'right' }) ?? false,
-                    }"
-                    type="button"
-                    data-editor-right
-                >
-                    <svg
-                        class="size-4 shrink-0"
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                    >
-                        <path d="M3 3H21" />
-                        <path d="M13 9H21" />
-                        <path d="M3 15H21" />
-                        <path d="M13 21H21" />
-                    </svg>
-                </button>
-                <input id="color-picker" type="color" class="size-0" :onchange="changeColor" />
-                <button
-                    class="inline-flex size-8 cursor-pointer items-center justify-center gap-x-2 rounded-full border border-transparent text-sm font-semibold text-gray-800 hover:bg-gray-100 focus:bg-gray-100 focus:outline-hidden disabled:pointer-events-none disabled:opacity-50 dark:text-white dark:hover:bg-neutral-700 dark:focus:bg-neutral-700"
-                    type="button"
-                    data-editor-color
-                >
-                    <svg
-                        class="size-4 shrink-0"
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                    >
+                        <circle cx="12" cy="12" r="10" />
                         <path
-                            d="M17.5798 9.71016C17.0765 9.57314 16.5468 9.5 16 9.5C13.4668 9.5 11.3002 11.0699 10.4202 13.2898M17.5798 9.71016C20.1271 10.4036 22 12.7331 22 15.5C22 18.8137 19.3137 21.5 16 21.5C14.4633 21.5 13.0615 20.9223 12 19.9722M17.5798 9.71016C17.851 9.02618 18 8.2805 18 7.5C18 4.18629 15.3137 1.5 12 1.5C8.68629 1.5 6 4.18629 6 7.5C6 8.2805 6.14903 9.02618 6.42018 9.71016M10.4202 13.2898C10.149 13.9738 10 14.7195 10 15.5C10 17.277 10.7725 18.8736 12 19.9722M10.4202 13.2898C8.59146 12.792 7.11029 11.451 6.42018 9.71016M6.42018 9.71016C3.87294 10.4036 2 12.7331 2 15.5C2 18.8137 4.68629 21.5 8 21.5C9.53671 21.5 10.9385 20.9223 12 19.9722"
+                            d="M9.5 9.5C9.5 8.11929 10.6193 7 12 7C13.3807 7 14.5 8.11929 14.5 9.5C14.5 10.5353 13.8707 11.4236 12.9737 11.8033C12.4651 12.0186 12 12.4477 12 13V13.5"
                         />
-                    </svg>
-                </button>
-                <button
-                    class="inline-flex size-8 cursor-pointer items-center justify-center gap-x-2 rounded-full border border-transparent text-sm font-semibold text-gray-800 hover:bg-gray-100 focus:bg-gray-100 focus:outline-hidden disabled:pointer-events-none disabled:opacity-50 dark:text-white dark:hover:bg-neutral-700 dark:focus:bg-neutral-700"
-                    type="button"
-                    data-editor-undo
-                >
-                    <svg
-                        class="size-4 shrink-0"
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                    >
-                        <path d="M3 8H15C18.3137 8 21 10.6863 21 14C21 17.3137 18.3137 20 15 20H11" />
-                        <path
-                            d="M7 4L5.8462 4.87652C3.94873 6.31801 3 7.03875 3 8C3 8.96125 3.94873 9.68199 5.8462 11.1235L7 12"
-                        />
-                    </svg>
-                </button>
-                <button
-                    class="inline-flex size-8 cursor-pointer items-center justify-center gap-x-2 rounded-full border border-transparent text-sm font-semibold text-gray-800 hover:bg-gray-100 focus:bg-gray-100 focus:outline-hidden disabled:pointer-events-none disabled:opacity-50 dark:text-white dark:hover:bg-neutral-700 dark:focus:bg-neutral-700"
-                    type="button"
-                    data-editor-redo
-                >
-                    <svg
-                        class="size-4 shrink-0"
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                    >
-                        <path d="M21 8H9C5.68629 8 3 10.6863 3 14C3 17.3137 5.68629 20 9 20H13" />
-                        <path
-                            d="M17 4L18.1538 4.87652C20.0513 6.31801 21 7.03875 21 8C21 8.96125 20.0513 9.68199 18.1538 11.1235L17 12"
-                        />
+                        <path d="M12.0001 17H12.009" />
                     </svg>
                 </button>
             </div>
-
-            <div class="h-40 overflow-auto" data-editor-field></div>
         </div>
+
+        <!-- Textarea Editor -->
+
+        <Textarea
+            v-show="!previewMode"
+            v-model="model"
+            v-bind="forwardedProps"
+            class="min-h-40 border-0 focus:ring-0"
+        />
+
+        <!-- Preview Mode -->
+        <div v-show="previewMode" class="min-h-40 max-w-none px-3 py-2">
+            <Renderer :markdown="model ?? __('markdown.nothing_to_preview')" />
+        </div>
+
+        <!-- Markdown Cheatsheet Modal -->
+        <Modal v-model="showCheatsheet" @closed="closeCheatsheet">
+            <ModalHeader>
+                <ModalTitle>
+                    {{ __('markdown.cheatsheet') }}
+                </ModalTitle>
+                <ModalDescription />
+            </ModalHeader>
+            <div class="space-y-6 p-4 text-gray-800 dark:text-white">
+                <div>
+                    <h3 class="mb-2 text-sm font-semibold text-gray-900 dark:text-neutral-100">
+                        {{ __('markdown.headings') }}
+                    </h3>
+                    <ul class="ms-2 list-inside list-disc space-y-1 text-sm text-gray-800 dark:text-white">
+                        <li><span># H1</span></li>
+                        <li><span>## H2</span></li>
+                        <li><span>### H3</span></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="mb-2 text-sm font-semibold text-gray-900 dark:text-neutral-100">
+                        {{ __('markdown.text_styles') }}
+                    </h3>
+                    <ul class="ms-2 list-inside list-disc space-y-1 text-sm text-gray-800 dark:text-white">
+                        <li><span>**bold**</span> → <b>bold</b></li>
+                        <li><span>*italic*</span> → <i>italic</i></li>
+                        <li><span>~~strike~~</span> → <span class="line-through">strike</span></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="mb-2 text-sm font-semibold text-gray-900 dark:text-neutral-100">
+                        {{ __('markdown.code') }}
+                    </h3>
+                    <ul class="ms-2 list-inside list-disc space-y-1 text-sm text-gray-800 dark:text-white">
+                        <li><span>`inline code`</span></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="mb-2 text-sm font-semibold text-gray-900 dark:text-neutral-100">
+                        {{ __('markdown.lists_links') }}
+                    </h3>
+                    <ul class="ms-2 list-inside list-disc space-y-1 text-sm text-gray-800 dark:text-white">
+                        <li><span>- item</span> (unordered)</li>
+                        <li><span>1. item</span> (ordered)</li>
+                        <li><span>[text](url)</span> (link)</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="mb-2 text-sm font-semibold text-gray-900 dark:text-neutral-100">
+                        {{ __('markdown.blockquotes') }}
+                    </h3>
+                    <ul class="ms-2 list-inside list-disc space-y-1 text-sm text-gray-800 dark:text-white">
+                        <li><span>&gt; quote</span></li>
+                    </ul>
+                </div>
+            </div>
+        </Modal>
     </div>
 </template>

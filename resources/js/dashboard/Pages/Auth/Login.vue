@@ -42,11 +42,7 @@ const submit = () => {
         <form @submit.prevent="submit">
             <div class="space-y-5">
                 <div>
-                    <InputLabel
-                        for="email"
-                        :value="__('global.attributes.email')"
-                        class="mb-2 font-medium text-gray-800 dark:text-white"
-                    />
+                    <InputLabel for="email" :value="__('global.attributes.email')" />
 
                     <TextInput
                         v-model="form.email"
@@ -63,11 +59,7 @@ const submit = () => {
 
                 <div>
                     <div class="mb-2 flex items-center justify-between">
-                        <InputLabel
-                            for="password"
-                            :value="__('global.attributes.password')"
-                            class="mb-2 font-medium text-gray-800 dark:text-white"
-                        />
+                        <InputLabel for="password" :value="__('global.attributes.password')" class="!mb-0" />
 
                         <a
                             href="#"

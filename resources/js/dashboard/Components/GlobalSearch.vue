@@ -63,8 +63,6 @@ const open = () => {
             <svg
                 class="size-4 shrink-0"
                 xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
@@ -83,8 +81,6 @@ const open = () => {
                 <svg
                     class="size-4 shrink-0 text-gray-400 dark:text-white/60"
                     xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
                     viewBox="0 0 24 24"
                     fill="none"
                     stroke="currentColor"
@@ -110,8 +106,6 @@ const open = () => {
                 <svg
                     class="size-3 shrink-0 text-gray-400 dark:text-white/60"
                     xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
                     viewBox="0 0 24 24"
                     fill="none"
                     stroke="currentColor"
@@ -125,8 +119,6 @@ const open = () => {
                     <svg
                         class="size-3 shrink-0 text-gray-400 dark:text-white/60"
                         xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
                         viewBox="0 0 24 24"
                         fill="none"
                         stroke="currentColor"
@@ -162,8 +154,6 @@ const open = () => {
                             <svg
                                 class="size-4 shrink-0 text-gray-400 dark:text-white/60"
                                 xmlns="http://www.w3.org/2000/svg"
-                                width="24"
-                                height="24"
                                 viewBox="0 0 24 24"
                                 fill="none"
                                 stroke="currentColor"
@@ -244,8 +234,6 @@ const open = () => {
                                 <svg
                                     class="size-3 shrink-0 text-gray-400 dark:text-neutral-500"
                                     xmlns="http://www.w3.org/2000/svg"
-                                    width="24"
-                                    height="24"
                                     viewBox="0 0 24 24"
                                     fill="none"
                                     stroke="currentColor"

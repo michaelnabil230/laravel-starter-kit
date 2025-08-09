@@ -1,4 +1,4 @@
-import resolver from '@/dashboard/resolverModal';
+import { resolverModal } from '@/dashboard/Plugins/modal';
 import { router, usePage } from '@inertiajs/vue3';
 import axios from 'axios';
 import { computed, defineAsyncComponent, h, nextTick, Ref, ref, shallowRef, VNode, watch } from 'vue';
@@ -73,7 +73,7 @@ export default function useModal(): Modal {
         if (componentName.value !== modal.value?.component) {
             componentName.value = modal.value.component;
             component.value = componentName.value
-                ? defineAsyncComponent(() => resolver.resolve(componentName.value))
+                ? defineAsyncComponent(() => resolverModal(componentName.value))
                 : null;
         }
 

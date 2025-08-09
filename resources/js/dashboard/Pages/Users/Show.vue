@@ -7,10 +7,7 @@ const { __ } = useLocalization();
 
 const breadcrumbs: Breadcrumbs = [
     { text: __('dashboard'), href: route('dashboard.welcome') },
-    {
-        text: __('resources.user.plural'),
-        href: route('dashboard.users.index'),
-    },
+    { text: __('resources.user.plural'), href: route('dashboard.users.index') },
     { text: __('global.crud.show') },
 ];
 

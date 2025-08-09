@@ -153,8 +153,6 @@ const breadcrumbs: Breadcrumbs = [
                                 <Button variant="text" color="danger" :onClick="openDeleteItemsModal">
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
-                                        width="24"
-                                        height="24"
                                         viewBox="0 0 24 24"
                                         fill="none"
                                         stroke="currentColor"
@@ -198,7 +196,6 @@ const breadcrumbs: Breadcrumbs = [
                                                 </span>
                                             </div>
                                         </th>
-
                                         <th scope="col" class="px-6 py-3 text-start">
                                             <div class="flex items-center gap-x-2">
                                                 <span

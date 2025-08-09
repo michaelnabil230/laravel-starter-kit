@@ -1,24 +1,27 @@
 <script setup lang="ts">
 import { cn } from '@/dashboard/lib/utils';
-import { type HTMLAttributes } from 'vue';
+import { useForwardProps } from 'reka-ui';
+import { type InputWithDefaultValueProps } from './types';
 
 defineOptions({ inheritAttrs: false });
 
 const props = withDefaults(
-    defineProps<{
-        defaultValue?: string | number;
-        class?: HTMLAttributes['class'];
-        hasError?: boolean;
-    }>(),
+    defineProps<
+        InputWithDefaultValueProps & {
+            type: string;
+        }
+    >(),
     {
         hasError: false,
     },
 );
 
-const model = defineModel<string | number | null>({});
+const forwardedProps = useForwardProps(props);
+
+const model = defineModel<string | number | null>();
 
 if (model.value === undefined) {
-    model.value = props.defaultValue;
+    model.value = props.defaultValue ?? null;
 }
 </script>
 
@@ -26,14 +29,14 @@ if (model.value === undefined) {
     <div class="relative">
         <input
             v-model="model"
-            v-bind="$attrs"
+            v-bind="forwardedProps"
             :class="
                 cn(
                     'block w-full rounded-lg border-gray-200 px-3 py-2 text-sm placeholder:text-gray-400 focus:border-blue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:bg-transparent dark:text-neutral-300 dark:placeholder:text-white/60 dark:focus:ring-neutral-600',
                     props.class,
                     {
                         'border-red-500 focus:border-red-500 focus:ring-red-500 dark:border-red-500 dark:focus:border-red-500 dark:focus:ring-red-500':
-                            props.hasError,
+                            hasError,
                     },
                 )
             "
@@ -46,8 +49,6 @@ if (model.value === undefined) {
                 v-if="hasError"
                 class="size-4 shrink-0 text-red-500"
                 xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"

@@ -23,8 +23,8 @@ final class NewsletterConfirmation extends Mailable implements ShouldQueue
     {
         return new Envelope(
             from: new Address(
-                name: 'App',
                 address: 'noreply@app.com',
+                name: 'App',
             ),
             subject: 'Newsletter Confirmation',
         );

@@ -13,13 +13,7 @@ export function updateTheme(value: Appearance) {
     }
 
     const toggleMode = () => {
-        if (value === 'system') {
-            const systemTheme = mediaQuery()?.matches ? 'dark' : 'light';
-
-            document.documentElement.classList.toggle('dark', systemTheme === 'dark');
-        } else {
-            document.documentElement.classList.toggle('dark', value === 'dark');
-        }
+        document.documentElement.classList.toggle('dark', desiredTheme === 'dark');
     };
 
     if (typeof document.startViewTransition === 'function') {
@@ -65,7 +59,7 @@ export function useAppearance() {
         }
     });
 
-    function updateAppearance(value: Appearance) {
+    const updateAppearance = (value: Appearance) => {
         appearance.value = value;
 
         localStorage.setItem('appearance', value);
@@ -73,7 +67,7 @@ export function useAppearance() {
         setCookie('appearance', value);
 
         updateTheme(value);
-    }
+    };
 
     return {
         appearance,

@@ -24,7 +24,7 @@ const trashed = computed({
 
 <template>
     <div>
-        <InputLabel :value="__('filters.trashed.name')" for="trashed" class="mb-2" />
+        <InputLabel :value="__('filters.trashed.name')" for="trashed" />
         <Select
             id="trashed"
             :attribute="__('filters.trashed.name')"

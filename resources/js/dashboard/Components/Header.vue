@@ -38,7 +38,7 @@ const { updateAppearance, appearance } = useAppearance();
             class="flex w-full basis-full items-center justify-between px-2 py-2.5 sm:px-5 xl:grid xl:grid-cols-3"
             aria-label="Global"
         >
-            <div class="flex items-center md:gap-x-3 xl:col-span-1">
+            <div class="flex items-center xl:col-span-1">
                 <div id="button-sidebar" />
 
                 <GlobalSearch />
@@ -79,8 +79,6 @@ const { updateAppearance, appearance } = useAppearance();
                                         <svg
                                             class="size-3.5 shrink-0 text-gray-800 dark:text-neutral-200"
                                             xmlns="http://www.w3.org/2000/svg"
-                                            width="24"
-                                            height="24"
                                             viewBox="0 0 24 24"
                                             fill="none"
                                             stroke="currentColor"
@@ -139,8 +137,6 @@ const { updateAppearance, appearance } = useAppearance();
                                         <svg
                                             class="size-4 shrink-0"
                                             xmlns="http://www.w3.org/2000/svg"
-                                            width="24"
-                                            height="24"
                                             viewBox="0 0 24 24"
                                             fill="none"
                                             stroke="currentColor"
@@ -170,8 +166,6 @@ const { updateAppearance, appearance } = useAppearance();
                                         <svg
                                             class="size-4 shrink-0"
                                             xmlns="http://www.w3.org/2000/svg"
-                                            width="24"
-                                            height="24"
                                             viewBox="0 0 24 24"
                                             fill="none"
                                             stroke="currentColor"
@@ -193,8 +187,6 @@ const { updateAppearance, appearance } = useAppearance();
                                         <svg
                                             class="size-4 shrink-0"
                                             xmlns="http://www.w3.org/2000/svg"
-                                            width="24"
-                                            height="24"
                                             viewBox="0 0 24 24"
                                             fill="none"
                                             stroke="currentColor"
@@ -220,8 +212,6 @@ const { updateAppearance, appearance } = useAppearance();
                                     <svg
                                         class="size-4 shrink-0"
                                         xmlns="http://www.w3.org/2000/svg"
-                                        width="24"
-                                        height="24"
                                         viewBox="0 0 24 24"
                                         fill="none"
                                         stroke="currentColor"
@@ -245,8 +235,6 @@ const { updateAppearance, appearance } = useAppearance();
                                     <svg
                                         class="size-4 shrink-0"
                                         xmlns="http://www.w3.org/2000/svg"
-                                        width="24"
-                                        height="24"
                                         viewBox="0 0 24 24"
                                         fill="none"
                                         stroke="currentColor"

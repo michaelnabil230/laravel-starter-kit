@@ -1,6 +1,6 @@
 <script setup lang="ts">
+import { Option } from '@/dashboard/Components/Inputs/types';
 import { cn } from '@/dashboard/lib/utils';
-import { Option } from '@/dashboard/types/option';
 import { debounce, uniqBy } from 'lodash';
 import type { SelectRootEmits, SelectRootProps } from 'reka-ui';
 import {
@@ -14,22 +14,11 @@ import {
     useFilter,
     useForwardPropsEmits,
 } from 'reka-ui';
-import { computed, HTMLAttributes, onMounted, onUnmounted, ref, watch } from 'vue';
+import { computed, onMounted, onUnmounted, ref, watch } from 'vue';
+import { type SelectProps } from '../types';
 import SelectItem from './SelectItem.vue';
 
-interface Props {
-    attribute: string;
-    hasError?: boolean;
-    endPoint?: string;
-    options?: Option[];
-    selected?: Option | Option[] | null;
-    class?: HTMLAttributes['class'];
-    classViewPort?: HTMLAttributes['class'];
-    hasSearch?: boolean;
-    allowEmpty?: boolean;
-}
-
-const props = withDefaults(defineProps<SelectRootProps & Props>(), {
+const props = withDefaults(defineProps<SelectRootProps & SelectProps>(), {
     hasError: false,
     options: () => [] as Option[],
     hasSearch: true,
@@ -109,25 +98,24 @@ if (props.endPoint) {
 <template>
     <SelectRoot v-bind="forwarded">
         <SelectTrigger
+            :id="props.id"
             :class="
                 cn(
                     'flex w-full cursor-pointer items-center justify-between gap-x-2 rounded-lg border border-gray-200 bg-white px-3 py-2 text-start text-sm text-nowrap focus:ring-2 focus:ring-blue-500 focus:outline-hidden disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:bg-transparent dark:text-neutral-300 dark:focus:ring-1 dark:focus:ring-neutral-600 dark:focus:outline-hidden',
                     {
                         'border-red-500 focus:border-red-500 focus:ring-red-500 dark:border-red-500 dark:focus:border-red-500 dark:focus:ring-red-500':
-                            hasError,
+                            props.hasError,
                     },
                     props.class,
                 )
             "
         >
-            <SelectValue :placeholder="__('global.choose', { attribute: attribute })" class="truncate" />
+            <SelectValue :placeholder="__('global.choose', { attribute: props.attribute })" class="truncate" />
             <SelectIcon class="flex items-center justify-center gap-2">
                 <svg
-                    v-if="hasError"
+                    v-if="props.hasError"
                     class="size-3.5 shrink-0 text-red-500"
                     xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
                     viewBox="0 0 24 24"
                     fill="none"
                     stroke="currentColor"
@@ -142,8 +130,6 @@ if (props.endPoint) {
                 <svg
                     class="size-3.5 shrink-0 text-gray-500 dark:text-neutral-500"
                     xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
                     viewBox="0 0 24 24"
                     fill="none"
                     stroke="currentColor"
@@ -162,7 +148,7 @@ if (props.endPoint) {
                 position="popper"
                 class="data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 z-100 max-h-72 space-y-0.5 overflow-hidden overflow-y-auto rounded-lg border border-gray-200 bg-white p-1 data-[side=bottom]:translate-y-1 data-[side=left]:-translate-x-1 data-[side=right]:translate-x-1 data-[side=top]:-translate-y-1 dark:border-neutral-700 dark:bg-neutral-900"
             >
-                <div v-if="hasSearch" class="sticky top-0 -mx-1 bg-white p-2 dark:bg-neutral-900">
+                <div v-if="props.hasSearch" class="sticky top-0 -mx-1 bg-white p-2 dark:bg-neutral-900">
                     <input
                         v-model="search"
                         :placeholder="__('global.search.name')"
@@ -171,7 +157,7 @@ if (props.endPoint) {
                     />
                 </div>
 
-                <SelectViewport :class="cn('', classViewPort)">
+                <SelectViewport :class="cn('', props.classViewPort)">
                     <span
                         v-if="filteredOptions.length === 0"
                         class="inline-flex w-full px-4 py-2 text-sm text-gray-800 dark:text-neutral-200"
@@ -186,7 +172,7 @@ if (props.endPoint) {
                             </SelectItem>
                         </template>
 
-                        <slot v-else :options="options" />
+                        <slot v-else :options="props.options" />
                     </template>
                 </SelectViewport>
             </SelectContent>

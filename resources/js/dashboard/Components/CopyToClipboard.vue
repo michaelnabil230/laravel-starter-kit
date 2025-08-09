@@ -4,10 +4,12 @@ import { ref } from 'vue';
 const props = withDefaults(
     defineProps<{
         text: string;
+        showText?: boolean;
         as?: string;
         selectAll?: boolean;
     }>(),
     {
+        showText: true,
         as: 'div',
         selectAll: true,
     },
@@ -27,7 +29,7 @@ const success = ref(false);
 const error = ref(false);
 
 const copy = () => {
-    window.navigator.clipboard
+    navigator.clipboard
         .writeText(props.text)
         .then(() => {
             emit('success');
@@ -44,6 +46,13 @@ const copy = () => {
 
 <template>
     <component :is="as" class="inline-flex items-center justify-center gap-2" :class="{ 'select-all': selectAll }">
+        <template v-if="showText">
+            {{ text }}
+        </template>
+        <template v-else>
+            {{ __('global.copy_to_clipboard') }}
+        </template>
+
         <slot :error="error" :success="success" />
 
         <svg
@@ -51,8 +60,6 @@ const copy = () => {
             v-if="!success"
             class="size-4 cursor-pointer"
             xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
@@ -68,8 +75,6 @@ const copy = () => {
             v-else
             class="size-4 text-blue-600"
             xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"

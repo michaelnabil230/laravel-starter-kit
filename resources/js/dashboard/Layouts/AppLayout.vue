@@ -4,12 +4,15 @@ import Header from '@/dashboard/Components/Header.vue';
 import Modal from '@/dashboard/Components/Modal';
 import Sidebar from '@/dashboard/Components/Sidebar.vue';
 import Toasts from '@/dashboard/Components/Toasts/Index.vue';
+import { cn } from '@/dashboard/lib/utils';
 import { Head } from '@inertiajs/vue3';
+import { HTMLAttributes } from 'vue';
 import App from './App.vue';
 
-defineProps<{
+const props = defineProps<{
     title?: string;
     breadcrumbs?: Breadcrumbs;
+    class?: HTMLAttributes['class'];
 }>();
 </script>
 
@@ -25,7 +28,7 @@ defineProps<{
 
         <Modal />
 
-        <main class="h-full min-h-screen pt-[59px] lg:ms-[260px]">
+        <main :class="cn('h-full min-h-screen pt-[59px] lg:ms-[260px]', props.class)">
             <div class="space-y-5 p-2 sm:p-5 sm:py-0 md:pt-5">
                 <Breadcrumbs v-if="breadcrumbs" :breadcrumbs="breadcrumbs" />
                 <slot />
