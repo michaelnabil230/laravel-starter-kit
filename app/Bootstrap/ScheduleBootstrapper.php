@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Bootstrap;
 
 use Illuminate\Console\Scheduling\Schedule;
+use Spatie\ScheduleMonitor\Models\MonitoredScheduledTaskLogItem;
 
 final class ScheduleBootstrapper
 {
@@ -16,6 +17,7 @@ final class ScheduleBootstrapper
             ->sendOutputTo(storage_path('/logs/queue-jobs.log'));
 
         $schedule->command('model:prune')->daily();
+        $schedule->command('model:prune', ['--model' => MonitoredScheduledTaskLogItem::class])->daily();
         $schedule->command('auth:clear-resets')->everyFifteenMinutes();
 
         $schedule->command('horizon')->everyMinute()->withoutOverlapping();

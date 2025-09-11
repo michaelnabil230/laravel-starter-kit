@@ -3,39 +3,39 @@ name: Tests
 on: push
 
 jobs:
-    tests:
-        runs-on: ubuntu-latest
-        steps:
-            - name: Checkout
-              uses: actions/checkout@v4
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
 
-            - name: Setup PHP
-              uses: shivammathur/setup-php@v2
-              with:
-                  php-version: '8.3'
-                  extensions: json, dom, curl, libxml, mbstring, zip
-                  tools: composer:v2
-                  coverage: xdebug
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          extensions: json, dom, curl, libxml, mbstring, zip
+          tools: composer:v2
+          coverage: xdebug
 
-            - name: Setup Node
-              uses: actions/setup-node@v4
-              with:
-                  node-version: '22'
-                  cache: 'npm'
+      - name: Setup Node
+        uses: actions/setup-node@v5
+        with:
+          node-version: '22'
+          cache: 'npm'
 
-            - name: Install Dependencies
-              run: |
-                  composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
-                  npm install --force
+      - name: Install Dependencies
+        run: |
+          composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+          npm install --force
 
-            - name: Copy Environment File
-              run: cp .env.example .env
+      - name: Copy Environment File
+        run: cp .env.example .env
 
-            - name: Generate Application Key
-              run: php artisan key:generate
+      - name: Generate Application Key
+        run: php artisan key:generate
 
-            - name: Build Assets
-              run: npm run build
+      - name: Build Assets
+        run: npm run build
 
-            - name: Tests
-              run: composer test
+      - name: Tests
+        run: composer test
