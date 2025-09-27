@@ -9,14 +9,13 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 use Inertia\Response;
-use Inertia\ResponseFactory;
 
 final class ConfirmablePasswordController
 {
     /**
      * Show the confirm password page.
      */
-    public function show(): Response|ResponseFactory
+    public function show(): Response
     {
         return inertia('Auth/ConfirmPassword');
     }

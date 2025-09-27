@@ -32,7 +32,6 @@ final class Modal implements Responsable
 
     public function toResponse(mixed $request): mixed
     {
-        // @phpstan-ignore-next-line
         inertia()->share('modal', $this->component($request));
 
         $response = app(DispatchBaseUrlRequest::class)($request, $this->baseUrl);

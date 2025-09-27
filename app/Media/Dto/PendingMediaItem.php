@@ -78,7 +78,7 @@ final class PendingMediaItem
 
         return collect($customPropertyNames)
             ->filter(fn (string $customProperty) => Arr::has($this->customProperties, $customProperty))
-            ->mapWithKeys(fn ($name) => [$name => Arr::get($this->customProperties, $name)])
+            ->mapWithKeys(fn (string $name): array => [$name => Arr::get($this->customProperties, $name)])
             ->toArray();
     }
 }

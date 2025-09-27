@@ -13,7 +13,6 @@ use App\Traits\SendToasts;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Inertia\Response;
-use Inertia\ResponseFactory;
 
 final class UserController
 {
@@ -22,7 +21,7 @@ final class UserController
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request): Response|ResponseFactory
+    public function index(Request $request): Response
     {
         $filters = [
             'search' => $request->string('search')->value(),
@@ -44,7 +43,7 @@ final class UserController
     /**
      * Show the form for creating a new resource.
      */
-    public function create(): Response|ResponseFactory
+    public function create(): Response
     {
         return inertia('Users/Create');
     }
@@ -64,7 +63,7 @@ final class UserController
     /**
      * Display the specified resource.
      */
-    public function show(User $user): Response|ResponseFactory
+    public function show(User $user): Response
     {
         return inertia('Users/Show', [
             'user' => UserResource::make($user),
@@ -74,7 +73,7 @@ final class UserController
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(User $user): Response|ResponseFactory
+    public function edit(User $user): Response
     {
         return inertia('Users/Edit', ['user' => UserResource::make($user)]);
     }

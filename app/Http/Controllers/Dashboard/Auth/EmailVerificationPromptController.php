@@ -7,14 +7,13 @@ namespace App\Http\Controllers\Dashboard\Auth;
 use App\Models\Admin;
 use Illuminate\Http\RedirectResponse;
 use Inertia\Response;
-use Inertia\ResponseFactory;
 
 final class EmailVerificationPromptController
 {
     /**
      * Show the email verification prompt page.
      */
-    public function __invoke(): RedirectResponse|Response|ResponseFactory
+    public function __invoke(): RedirectResponse|Response
     {
         $admin = type(auth()->user())->as(Admin::class);
 

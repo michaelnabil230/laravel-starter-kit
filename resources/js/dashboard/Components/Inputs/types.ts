@@ -60,7 +60,7 @@ export interface SwitchProps extends BaseInputProps {
 }
 
 export interface CheckboxProps extends BaseInputProps {
-    defaultValue?: boolean | null;
+    defaultValue?: boolean | null | string[];
 }
 
 export interface RadioProps extends BaseInputProps {

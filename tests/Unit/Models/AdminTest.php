@@ -7,8 +7,8 @@ use App\Models\Admin;
 test('to array', function (): void {
     $admin = Admin::factory()->create();
 
-    expect(array_keys($admin->toArray()))
-        ->toBe([
+    expect($admin->toArray())
+        ->toHaveKeys([
             'id',
             'name',
             'email',

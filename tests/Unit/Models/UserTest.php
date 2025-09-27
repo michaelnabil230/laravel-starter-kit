@@ -7,8 +7,8 @@ use App\Models\User;
 test('to array', function (): void {
     $user = User::factory()->create();
 
-    expect(array_keys($user->toArray()))
-        ->toBe([
+    expect($user->toArray())
+        ->toHaveKeys([
             'id',
             'name',
             'email',

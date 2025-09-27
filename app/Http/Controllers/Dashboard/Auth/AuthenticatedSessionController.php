@@ -10,7 +10,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 use Inertia\Response;
-use Inertia\ResponseFactory;
 use Symfony\Component\HttpFoundation\Response as HttpFoundationResponse;
 
 final class AuthenticatedSessionController
@@ -18,7 +17,7 @@ final class AuthenticatedSessionController
     /**
      * Show the login page.
      */
-    public function create(): Response|ResponseFactory
+    public function create(): Response
     {
         return inertia('Auth/Login', [
             'status' => session('status'),

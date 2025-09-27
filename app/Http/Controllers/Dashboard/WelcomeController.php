@@ -6,11 +6,10 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Models\User;
 use Inertia\Response;
-use Inertia\ResponseFactory;
 
 final class WelcomeController
 {
-    public function __invoke(): Response|ResponseFactory
+    public function __invoke(): Response
     {
         $usersCount = User::count();
 

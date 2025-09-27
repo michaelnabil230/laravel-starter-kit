@@ -14,7 +14,7 @@ final class Media extends Model
 {
     /**
      * @param  string[]  $uuids
-     * @return MediaCollection<int, covariant $this>
+     * @return MediaCollection<int, self>
      */
     public static function findWithTemporaryUploadInCurrentSession(array $uuids): MediaCollection
     {

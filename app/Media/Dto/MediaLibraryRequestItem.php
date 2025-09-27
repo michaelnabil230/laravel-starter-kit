@@ -27,7 +27,7 @@ final class MediaLibraryRequestItem
     public static function fromArray(array $properties): self
     {
         $properties = collect($properties)
-            ->keyBy(fn ($value, $key) => Str::snake($key));
+            ->keyBy(fn ($value, $key): string => Str::snake($key));
 
         return new self(
             $properties['uuid'],

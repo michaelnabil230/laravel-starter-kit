@@ -9,14 +9,13 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Password;
 use Inertia\Response;
-use Inertia\ResponseFactory;
 
 final class PasswordResetLinkController
 {
     /**
      * Show the password reset link request page.
      */
-    public function create(): Response|ResponseFactory
+    public function create(): Response
     {
         return inertia('Auth/ForgotPassword', [
             'status' => session('status'),

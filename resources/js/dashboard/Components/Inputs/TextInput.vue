@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { cn } from '@/dashboard/lib/utils';
 import { useForwardProps } from 'reka-ui';
+import { computed } from 'vue';
 import { type InputWithDefaultValueProps } from './types';
 
 defineOptions({ inheritAttrs: false });
@@ -16,7 +17,14 @@ const props = withDefaults(
     },
 );
 
-const forwardedProps = useForwardProps(props);
+const delegatedProps = computed(() => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { class: _, hasError, defaultValue, ...delegated } = props;
+
+    return delegated;
+});
+
+const forwardedProps = useForwardProps(delegatedProps);
 
 const model = defineModel<string | number | null>();
 

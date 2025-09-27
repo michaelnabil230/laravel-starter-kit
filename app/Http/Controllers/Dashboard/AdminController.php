@@ -13,7 +13,6 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Inertia\Response;
-use Inertia\ResponseFactory;
 
 final class AdminController
 {
@@ -22,7 +21,7 @@ final class AdminController
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request): Response|ResponseFactory
+    public function index(Request $request): Response
     {
         $filters = [
             'search' => $request->string('search')->value(),
@@ -50,7 +49,7 @@ final class AdminController
     /**
      * Show the form for creating a new resource.
      */
-    public function create(): Response|ResponseFactory
+    public function create(): Response
     {
         return inertia('Admins/Create');
     }
@@ -68,7 +67,7 @@ final class AdminController
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Admin $admin): Response|ResponseFactory
+    public function edit(Admin $admin): Response
     {
         return inertia('Admins/Edit', ['admin' => AdminResource::make($admin)]);
     }

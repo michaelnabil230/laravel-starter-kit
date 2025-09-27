@@ -11,7 +11,6 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\UploadedFile;
 use Inertia\Inertia;
 use Inertia\Response;
-use Inertia\ResponseFactory;
 use Symfony\Component\HttpFoundation\Response as HttpFoundationResponse;
 
 final class ProfileController
@@ -19,7 +18,7 @@ final class ProfileController
     /**
      * Display the admin's profile form.
      */
-    public function edit(): Response|ResponseFactory
+    public function edit(): Response
     {
         return inertia('Profile/Edit');
     }

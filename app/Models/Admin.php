@@ -56,7 +56,7 @@ final class Admin extends Authenticatable implements Searchable
     /**
      * Get the prunable model query.
      *
-     * @return \Illuminate\Database\Eloquent\Builder<covariant $this>
+     * @return Builder<self>
      */
     public function prunable(): Builder
     {

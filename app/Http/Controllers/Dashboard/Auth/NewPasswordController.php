@@ -14,14 +14,13 @@ use Illuminate\Support\Str;
 use Illuminate\Validation\Rules;
 use Illuminate\Validation\ValidationException;
 use Inertia\Response;
-use Inertia\ResponseFactory;
 
 final class NewPasswordController
 {
     /**
      * Show the password reset page.
      */
-    public function create(Request $request): Response|ResponseFactory
+    public function create(Request $request): Response
     {
         return inertia('Auth/ResetPassword', [
             'email' => $request->email,
