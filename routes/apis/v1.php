@@ -15,19 +15,19 @@ use App\Http\Controllers\Api\V1\MainController;
 use App\Http\Controllers\Api\V1\NotificationController;
 use Illuminate\Support\Facades\Route;
 
-Route::prefix('V1')->name('v1.')->group(function () {
+Route::prefix('V1')->name('v1.')->group(function (): void {
     // Auth
-    Route::prefix('auth')->name('auth.')->group(function () {
+    Route::prefix('auth')->name('auth.')->group(function (): void {
 
         Route::post('login', LoginController::class)->name('login');
 
-        Route::prefix('password')->group(function () {
+        Route::prefix('password')->group(function (): void {
             Route::post('/email', ForgotPasswordController::class);
             Route::post('/code/check', CodeCheckController::class);
             Route::post('/reset', ResetPasswordController::class);
         });
 
-        Route::middleware('auth:api')->group(function () {
+        Route::middleware('auth:api')->group(function (): void {
             Route::get('user', UserController::class);
 
             Route::post('logout', LogoutController::class);
@@ -40,7 +40,7 @@ Route::prefix('V1')->name('v1.')->group(function () {
         });
     });
 
-    Route::middleware('auth:api')->group(function () {
+    Route::middleware('auth:api')->group(function (): void {
         // Main
         Route::get('/main', MainController::class);
 

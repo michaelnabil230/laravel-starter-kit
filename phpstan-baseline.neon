@@ -29,3 +29,9 @@ parameters:
 			identifier: trait.unused
 			count: 1
 			path: app/Traits/GeoIp.php
+
+		-
+			rawMessage: 'Match expression does not handle remaining value: string'
+			identifier: match.unhandled
+			count: 3
+			path: database/migrations/0001_01_01_000007_create_pulse_tables.php

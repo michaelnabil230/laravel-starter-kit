@@ -28,7 +28,7 @@ final class ResetPasswordController
         }
 
         /** @var User $user */
-        $user = User::firstWhere('email', $request->email);
+        $user = User::query()->firstWhere('email', $request->email);
 
         $user->update($request->only('password'));
 

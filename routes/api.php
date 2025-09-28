@@ -6,7 +6,7 @@ use App\Http\Controllers\Api\CheckVersionController;
 use App\Http\Controllers\Api\FileUploadController;
 use Illuminate\Support\Facades\Route;
 
-Route::name('api.')->middleware('localize')->group(function () {
+Route::name('api.')->middleware('localize')->group(function (): void {
     // Check Version
     Route::post('/check-version', CheckVersionController::class)->name('check-version');
 

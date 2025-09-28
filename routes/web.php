@@ -9,7 +9,7 @@ use Spatie\Health\Http\Controllers\HealthCheckResultsController;
 
 Route::prefix(LaravelLocalization::setLocale())
     ->middleware(['localeSessionRedirect', 'localizationRedirect', 'localeViewPath'])
-    ->group(function () {
+    ->group(function (): void {
         Route::get('health', HealthCheckResultsController::class);
 
         Route::view('/', 'welcome')->name('welcome');

@@ -59,7 +59,7 @@ final class AdminController
      */
     public function store(StoreRequest $request): RedirectResponse
     {
-        Admin::create($request->validated());
+        Admin::query()->create($request->validated());
 
         return to_route('dashboard.admins.index');
     }

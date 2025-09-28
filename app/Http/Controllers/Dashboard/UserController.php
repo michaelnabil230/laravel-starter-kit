@@ -53,7 +53,7 @@ final class UserController
      */
     public function store(StoreRequest $request): RedirectResponse
     {
-        $user = User::create($request->safe()->except('password_confirmation'));
+        $user = User::query()->create($request->safe()->except('password_confirmation'));
 
         $user->notify(new Welcome);
 

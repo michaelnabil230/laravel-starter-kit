@@ -85,7 +85,7 @@ final class UsersImport implements ShouldQueue, SkipsEmptyRows, ToCollection, Wi
      */
     protected function model(Collection $row): User
     {
-        $user = User::create([
+        $user = User::query()->create([
             'name' => $row->get('name'),
             'email' => $row->get('email'),
             'password' => $row->get('password'),

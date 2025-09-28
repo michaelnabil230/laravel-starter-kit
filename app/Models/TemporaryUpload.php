@@ -82,7 +82,7 @@ final class TemporaryUpload extends Model implements HasMedia
         string $name
     ): self {
         /** @var self $temporaryUpload */
-        $temporaryUpload = self::create([
+        $temporaryUpload = self::query()->create([
             'session_id' => $sessionId,
         ]);
 
@@ -113,7 +113,7 @@ final class TemporaryUpload extends Model implements HasMedia
         string $name,
     ): self {
         /** @var self $temporaryUpload */
-        $temporaryUpload = self::create([
+        $temporaryUpload = self::query()->create([
             'session_id' => $sessionId,
         ]);
 
@@ -129,17 +129,6 @@ final class TemporaryUpload extends Model implements HasMedia
             ->toMediaCollection('default', config('media-library.disk_name'));
 
         return $temporaryUpload->fresh();
-    }
-
-    /**
-     * Scope a query to only include old temporary uploads.
-     *
-     * @param  Builder<self>  $builder
-     * @return Builder<self>
-     */
-    public function scopeOld(Builder $builder): Builder
-    {
-        return $builder->where('created_at', '<=', now()->subDay()->toDateTimeString());
     }
 
     /**
@@ -179,5 +168,17 @@ final class TemporaryUpload extends Model implements HasMedia
         $newMedia->update(['uuid' => $uuid]);
 
         return $newMedia;
+    }
+
+    /**
+     * Scope a query to only include old temporary uploads.
+     *
+     * @param  Builder<self>  $builder
+     * @return Builder<self>
+     */
+    #[\Illuminate\Database\Eloquent\Attributes\Scope]
+    protected function old(Builder $builder): Builder
+    {
+        return $builder->where('created_at', '<=', now()->subDay()->toDateTimeString());
     }
 }

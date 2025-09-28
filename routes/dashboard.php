@@ -21,8 +21,8 @@ use Illuminate\Support\Facades\Route;
 Route::middleware(App\Http\Middleware\HandleInertiaRequests::class)
     ->prefix('/dashboard')
     ->name('dashboard.')
-    ->group(function () {
-        Route::middleware('guest')->group(function () {
+    ->group(function (): void {
+        Route::middleware('guest')->group(function (): void {
             Route::get('/login', [AuthenticatedSessionController::class, 'create'])->name('login');
 
             Route::post('/login', [AuthenticatedSessionController::class, 'store']);
@@ -36,7 +36,7 @@ Route::middleware(App\Http\Middleware\HandleInertiaRequests::class)
             Route::post('/reset-password', [NewPasswordController::class, 'store'])->name('password.store');
         });
 
-        Route::middleware('auth')->group(function () {
+        Route::middleware('auth')->group(function (): void {
             Route::get('/verify-email', EmailVerificationPromptController::class)->name('verification.notice');
 
             Route::get('/verify-email/{id}/{hash}', VerifyEmailController::class)
@@ -58,7 +58,7 @@ Route::middleware(App\Http\Middleware\HandleInertiaRequests::class)
             Route::controller(ProfileController::class)
                 ->prefix('profile')
                 ->name('profile.')
-                ->group(function () {
+                ->group(function (): void {
                     Route::get('/', 'edit')->name('edit');
                     Route::put('/', 'update')->name('update');
                     Route::delete('/', 'destroy')->name('destroy');
@@ -73,10 +73,10 @@ Route::middleware(App\Http\Middleware\HandleInertiaRequests::class)
             Route::get('/', WelcomeController::class)->name('welcome');
 
             // Users
-            Route::prefix('users')->name('users.')->controller(UserController::class)->group(function () {
+            Route::prefix('users')->name('users.')->controller(UserController::class)->group(function (): void {
                 Route::delete('/pluck-destroy', 'pluckDestroy')->name('pluck-destroy');
 
-                Route::controller(UserImportExportController::class)->group(function () {
+                Route::controller(UserImportExportController::class)->group(function (): void {
                     Route::post('/export', 'export')->name('export');
                     Route::post('/import', 'import')->name('import');
                 });
@@ -84,7 +84,7 @@ Route::middleware(App\Http\Middleware\HandleInertiaRequests::class)
             Route::resource('users', UserController::class);
 
             // Admins
-            Route::prefix('admins')->name('admins.')->controller(AdminController::class)->group(function () {
+            Route::prefix('admins')->name('admins.')->controller(AdminController::class)->group(function (): void {
                 Route::delete('/pluck-destroy', 'pluckDestroy')->name('pluck-destroy');
             });
             Route::resource('admins', AdminController::class)->except('show');

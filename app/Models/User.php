@@ -102,7 +102,8 @@ final class User extends Authenticatable implements Searchable
      * @param  Fluent<string, mixed>  $data
      * @return Builder<self>
      */
-    public function scopeFilter(Builder $builder, Fluent $data): Builder
+    #[\Illuminate\Database\Eloquent\Attributes\Scope]
+    protected function filter(Builder $builder, Fluent $data): Builder
     {
         return $builder
             ->when(

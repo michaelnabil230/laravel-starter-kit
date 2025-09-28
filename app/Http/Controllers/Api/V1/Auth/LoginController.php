@@ -17,7 +17,7 @@ final class LoginController
     public function __invoke(LoginRequest $request): JsonResponse
     {
         /** @var User $user */
-        $user = User::firstWhere('email', $request->email);
+        $user = User::query()->firstWhere('email', $request->email);
 
         throw_unless(Hash::check($request->password, $user->password), ValidationException::withMessages([
             'password' => __('auth.password'),

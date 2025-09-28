@@ -11,7 +11,7 @@ final class WelcomeController
 {
     public function __invoke(): Response
     {
-        $usersCount = User::count();
+        $usersCount = User::query()->count();
 
         return inertia('Welcome', [
             'usersCount' => $usersCount,
