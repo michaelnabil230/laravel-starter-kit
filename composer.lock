@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0c06126b58374906fcc8543324c6c56d",
+    "content-hash": "4c00b16de0ab456294705a8802344f8e",
     "packages": [
         {
             "name": "beste/clock",
@@ -495,16 +495,16 @@
         },
         {
             "name": "cuyz/valinor",
-            "version": "2.1.2",
+            "version": "2.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/CuyZ/Valinor.git",
-                "reference": "03521de8bc7fbf52b0bd07094809ff8f616bbf2d"
+                "reference": "35470e576041dd9695ef36aceaab8925bc676586"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/CuyZ/Valinor/zipball/03521de8bc7fbf52b0bd07094809ff8f616bbf2d",
-                "reference": "03521de8bc7fbf52b0bd07094809ff8f616bbf2d",
+                "url": "https://api.github.com/repos/CuyZ/Valinor/zipball/35470e576041dd9695ef36aceaab8925bc676586",
+                "reference": "35470e576041dd9695ef36aceaab8925bc676586",
                 "shasum": ""
             },
             "require": {
@@ -517,7 +517,7 @@
             },
             "require-dev": {
                 "friendsofphp/php-cs-fixer": "^3.4",
-                "infection/infection": "^0.29",
+                "infection/infection": "^0.31",
                 "marcocesarato/php-conventional-changelog": "^1.12",
                 "mikey179/vfsstream": "^1.6.10",
                 "phpbench/phpbench": "^1.3",
@@ -560,7 +560,7 @@
             ],
             "support": {
                 "issues": "https://github.com/CuyZ/Valinor/issues",
-                "source": "https://github.com/CuyZ/Valinor/tree/2.1.2"
+                "source": "https://github.com/CuyZ/Valinor/tree/2.2.0"
             },
             "funding": [
                 {
@@ -568,7 +568,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-08-28T12:41:24+00:00"
+            "time": "2025-09-29T13:07:34+00:00"
         },
         {
             "name": "dflydev/dot-access-data",
@@ -2280,16 +2280,16 @@
         },
         {
             "name": "inertiajs/inertia-laravel",
-            "version": "v2.0.9",
+            "version": "v2.0.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/inertiajs/inertia-laravel.git",
-                "reference": "82931953935e0b9b9a7f9ab26e3a9d4603e02917"
+                "reference": "07da425d58a3a0e3ace9c296e67bd897a6e47009"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/inertiajs/inertia-laravel/zipball/82931953935e0b9b9a7f9ab26e3a9d4603e02917",
-                "reference": "82931953935e0b9b9a7f9ab26e3a9d4603e02917",
+                "url": "https://api.github.com/repos/inertiajs/inertia-laravel/zipball/07da425d58a3a0e3ace9c296e67bd897a6e47009",
+                "reference": "07da425d58a3a0e3ace9c296e67bd897a6e47009",
                 "shasum": ""
             },
             "require": {
@@ -2344,9 +2344,9 @@
             ],
             "support": {
                 "issues": "https://github.com/inertiajs/inertia-laravel/issues",
-                "source": "https://github.com/inertiajs/inertia-laravel/tree/v2.0.9"
+                "source": "https://github.com/inertiajs/inertia-laravel/tree/v2.0.10"
             },
-            "time": "2025-09-26T17:20:38+00:00"
+            "time": "2025-09-28T21:21:36+00:00"
         },
         {
             "name": "jean85/pretty-package-versions",
@@ -7909,29 +7909,28 @@
         },
         {
             "name": "spatie/security-advisories-health-check",
-            "version": "1.2.1",
+            "version": "1.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/security-advisories-health-check.git",
-                "reference": "b98e85e9088039b6154bfb568770934dd46749f3"
+                "reference": "7ebe168f3da908ce6e87fe5811575c036ac92911"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/security-advisories-health-check/zipball/b98e85e9088039b6154bfb568770934dd46749f3",
-                "reference": "b98e85e9088039b6154bfb568770934dd46749f3",
+                "url": "https://api.github.com/repos/spatie/security-advisories-health-check/zipball/7ebe168f3da908ce6e87fe5811575c036ac92911",
+                "reference": "7ebe168f3da908ce6e87fe5811575c036ac92911",
                 "shasum": ""
             },
             "require": {
-                "php": "^8.0",
+                "php": "^8.3",
                 "spatie/packagist-api": "^2.1"
             },
             "require-dev": {
-                "nunomaduro/collision": "^6.1|^7.0|^8.0",
-                "pestphp/pest": "^1.21|^2.3",
+                "nunomaduro/collision": "^8.0",
+                "pestphp/pest": "^4.0",
                 "phpstan/extension-installer": "^1.1",
                 "phpstan/phpstan-deprecation-rules": "^1.0",
                 "phpstan/phpstan-phpunit": "^1.0",
-                "phpunit/phpunit": "^9.5.10|^10.5",
                 "spatie/laravel-health": "^1.22.0"
             },
             "type": "library",
@@ -7959,7 +7958,7 @@
                 "spatie"
             ],
             "support": {
-                "source": "https://github.com/spatie/security-advisories-health-check/tree/1.2.1"
+                "source": "https://github.com/spatie/security-advisories-health-check/tree/1.3.0"
             },
             "funding": [
                 {
@@ -7967,7 +7966,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-06-05T14:41:26+00:00"
+            "time": "2025-09-28T19:10:32+00:00"
         },
         {
             "name": "spatie/temporary-directory",

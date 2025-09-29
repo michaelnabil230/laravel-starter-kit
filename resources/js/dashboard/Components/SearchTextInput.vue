@@ -2,9 +2,13 @@
 import InputLabel from '@/dashboard/Components/Inputs/InputLabel.vue';
 import TextInput from '@/dashboard/Components/Inputs/TextInput.vue';
 
+defineOptions({ inheritAttrs: false });
+
 defineProps<{
     resource: string;
 }>();
+
+const model = defineModel<string | number | null>();
 </script>
 
 <template>
@@ -32,6 +36,7 @@ defineProps<{
         <TextInput
             type="text"
             :id="'search_' + resource"
+            v-model="model"
             class="bg-gray-100 py-[7px] ps-10 pe-8 focus:bg-white dark:bg-neutral-700 dark:focus:bg-neutral-800"
             :placeholder="__('global.search.resource', { resource: __('resources.' + resource + '.plural') })"
         />

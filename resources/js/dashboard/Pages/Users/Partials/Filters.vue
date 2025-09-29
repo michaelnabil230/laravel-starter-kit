@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import Trashed from '@/dashboard/Components/Filters/Trashed.vue';
+import InputLabel from '@/dashboard/Components/Inputs/InputLabel.vue';
 import Select from '@/dashboard/Components/Inputs/Select/Select.vue';
 import { Option } from '@/dashboard/Components/Inputs/types';
 import Sheet from '@/dashboard/Components/Sheet/Sheet.vue';
