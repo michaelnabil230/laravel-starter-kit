@@ -6,6 +6,9 @@ includes:
 
 parameters:
 
+    excludePaths:
+        - database/migrations
+
     paths:
         - app
         - bootstrap/app.php
