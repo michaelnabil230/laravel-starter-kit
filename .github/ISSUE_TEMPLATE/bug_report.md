@@ -8,8 +8,8 @@ assignees: ''
 
 ### Versions:
 
--   App Version: #.#.#
--   PHP Version: #.#.#
+- App Version: #.#.#
+- PHP Version: #.#.#
 
 ### Description:
 
@@ -21,4 +21,4 @@ The more, the better.
 
 ### Steps To Reproduce:
 
--   …
+- …
