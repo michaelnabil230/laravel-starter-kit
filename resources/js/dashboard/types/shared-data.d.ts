@@ -1,7 +1,9 @@
+export type LocaleKey = keyof Locales;
+
 export interface SharedData {
     appName: string;
     timezone: string;
-    locale: string;
+    locale: LocaleKey;
     translations: Translations;
     supportedLocales: Locales;
     sentry: Sentry;
@@ -13,7 +15,8 @@ export interface Translations {
 }
 
 export interface Locales {
-    [name: string]: Locale;
+    ar: Locale;
+    en: Locale;
 }
 
 export interface Locale {
