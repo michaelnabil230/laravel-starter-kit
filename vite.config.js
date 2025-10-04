@@ -3,6 +3,7 @@ import vue from '@vitejs/plugin-vue';
 import laravel from 'laravel-vite-plugin';
 import { resolve } from 'node:path';
 import { defineConfig } from 'vite';
+import svgLoader from './vite-svg-loader';
 
 export default defineConfig({
     plugins: [
@@ -11,6 +12,7 @@ export default defineConfig({
             refresh: true,
         }),
         tailwindcss(),
+        svgLoader(),
         vue({
             template: {
                 transformAssetUrls: {
