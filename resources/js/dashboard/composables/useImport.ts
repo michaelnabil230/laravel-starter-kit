@@ -6,9 +6,9 @@ import useLocalization from './useLocalization';
 import useToasts from './useToasts';
 
 interface Options {
-    onSuccess?: () => void;
-    onError?: () => void;
-    onFinish?: () => void;
+    onSuccess?: VoidFunction;
+    onError?: VoidFunction;
+    onFinish?: VoidFunction;
 }
 
 export default function useImport(routeName: RouteName, options?: Options) {

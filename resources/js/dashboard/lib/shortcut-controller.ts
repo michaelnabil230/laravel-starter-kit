@@ -17,6 +17,13 @@ export class ShortcutController {
     resumeShortcuts(): void {
         Mousetrap.unpause();
     }
+
+    save(callback: VoidFunction): void {
+        this.addShortcut('mod+s', (e: ExtendedKeyboardEvent) => {
+            e.preventDefault();
+            callback();
+        });
+    }
 }
 
 export const shortcutControllerKey = Symbol('shortcut-controller');

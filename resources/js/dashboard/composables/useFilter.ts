@@ -8,14 +8,14 @@ export interface Filter {
     openFilter: Ref<boolean>;
     queryBuilderData: Ref<Partial<Filters>>;
     canBeReset: ComputedRef<boolean>;
-    resetQuery: () => void;
+    resetQuery: VoidFunction;
     onPageChange: (value: number) => void;
     onPerPageChange: (value: number) => void;
     orderByField: (value: string) => void;
-    resetOrderBy: () => void;
+    resetOrderBy: VoidFunction;
     onTrashedChange: (value: string) => void;
-    openModal: () => void;
-    closeModal: () => void;
+    openModal: VoidFunction;
+    closeModal: VoidFunction;
 }
 
 export interface Filters {

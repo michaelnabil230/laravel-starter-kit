@@ -7,7 +7,7 @@ const props = withDefaults(defineProps<SwitchProps>(), {
     hasError: false,
 });
 
-const model = defineModel<boolean>();
+const model = defineModel<boolean>({ default: () => undefined });
 
 if (model.value === undefined) {
     model.value = props.defaultValue ?? false;

@@ -1,10 +1,12 @@
 <script setup lang="ts">
 import { cn } from '@/dashboard/lib/utils';
 import { useForwardProps } from 'reka-ui';
-import { computed } from 'vue';
+import { computed, useAttrs } from 'vue';
 import { type InputWithDefaultValueProps } from './types';
 
 defineOptions({ inheritAttrs: false });
+
+const attrs = useAttrs();
 
 const props = withDefaults(
     defineProps<
@@ -19,7 +21,7 @@ const props = withDefaults(
 
 const delegatedProps = computed(() => {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { class: _, hasError, defaultValue, ...delegated } = props;
+    const { class: _, hasError, defaultValue, ...delegated } = { ...attrs, ...props };
 
     return delegated;
 });

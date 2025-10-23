@@ -3,7 +3,7 @@ import Button from '@/dashboard/Components/Button/Button.vue';
 
 defineProps<{
     resource: string;
-    click: () => void;
+    click: VoidFunction;
 }>();
 </script>
 

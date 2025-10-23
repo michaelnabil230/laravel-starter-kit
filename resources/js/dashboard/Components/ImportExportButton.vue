@@ -5,8 +5,8 @@ import { DropdownMenuContent, DropdownMenuPortal, DropdownMenuRoot, DropdownMenu
 
 defineProps<{
     resource: string;
-    onImport: () => void;
-    onExport: () => void;
+    onImport: VoidFunction;
+    onExport: VoidFunction;
 }>();
 </script>
 

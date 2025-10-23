@@ -3,8 +3,8 @@ import { App, Plugin, reactive } from 'vue';
 
 export type Loading = {
     is: boolean;
-    start: () => void;
-    end: () => void;
+    start: VoidFunction;
+    end: VoidFunction;
 };
 
 export const loading: Plugin = {

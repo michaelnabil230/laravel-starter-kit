@@ -6,7 +6,7 @@ import { computed, defineAsyncComponent, h, nextTick, Ref, ref, shallowRef, VNod
 export interface Modal {
     show: Ref<boolean>;
     vnode: Ref<VNode | null>;
-    close: () => void;
+    close: VoidFunction;
 }
 
 export default function useModal(): Modal {

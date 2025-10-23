@@ -8,7 +8,7 @@ defineProps<{
     resource: string;
 }>();
 
-const model = defineModel<string | number | null>();
+const model = defineModel<string>();
 </script>
 
 <template>

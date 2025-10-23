@@ -3,9 +3,9 @@ import { ref } from 'vue';
 import { RouteName } from 'ziggy-js';
 
 interface Options {
-    onSuccess?: () => void;
-    onError?: () => void;
-    onFinish?: () => void;
+    onSuccess?: VoidFunction;
+    onError?: VoidFunction;
+    onFinish?: VoidFunction;
 }
 
 export default function useDeletion<T>({

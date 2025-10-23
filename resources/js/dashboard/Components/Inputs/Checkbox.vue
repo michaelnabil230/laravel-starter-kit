@@ -8,7 +8,7 @@ const props = withDefaults(defineProps<CheckboxProps>(), {
     hasError: false,
 });
 
-const model = defineModel<boolean | null | string[]>();
+const model = defineModel<boolean | null | string[]>({ default: () => undefined });
 
 const delegatedProps = computed(() => {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars

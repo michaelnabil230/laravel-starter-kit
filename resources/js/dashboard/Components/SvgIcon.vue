@@ -1,15 +1,11 @@
 <script setup lang="ts">
-import { defineAsyncComponent, onMounted, ref } from 'vue';
+import { defineAsyncComponent, onMounted, shallowRef } from 'vue';
 
 const props = defineProps<{
     name: string;
 }>();
 
-const icon = ref(null);
-
-const splitIcon = (icon: string): [string, string] => {
-    return icon.split('/') as [string, string];
-};
+const icon = shallowRef(null);
 
 const fallbackIconImport = async () => {
     return await import('./../../../svg/icons/image.svg');
@@ -18,9 +14,7 @@ const fallbackIconImport = async () => {
 const evaluateIcon = () => {
     return defineAsyncComponent(async () => {
         try {
-            const [set, file] = splitIcon(props.name);
-
-            return await import(`./../../../svg/${set}/${file}.svg`);
+            return await import(/* @vite-ignore */ `./../../../svg/${props.name}.svg`);
         } catch {
             return await fallbackIconImport();
         }
