@@ -4,12 +4,20 @@ declare(strict_types=1);
 
 use Rector\Caching\ValueObject\Storage\FileCacheStorage;
 use Rector\Config\RectorConfig;
+use Rector\Set\ValueObject\LevelSetList;
+use Rector\Set\ValueObject\SetList;
 use RectorLaravel\Set\LaravelSetList;
 use RectorLaravel\Set\LaravelSetProvider;
 
 return RectorConfig::configure()
+    ->withParallel()
     ->withSetProviders(LaravelSetProvider::class)
     ->withSets([
+        LevelSetList::UP_TO_PHP_84,
+        SetList::CODE_QUALITY,
+        SetList::DEAD_CODE,
+        SetList::EARLY_RETURN,
+        SetList::TYPE_DECLARATION,
         LaravelSetList::LARAVEL_ARRAYACCESS_TO_METHOD_CALL,
         LaravelSetList::LARAVEL_ARRAY_STR_FUNCTION_TO_STATIC_CALL,
         LaravelSetList::LARAVEL_CODE_QUALITY,
@@ -42,7 +50,6 @@ return RectorConfig::configure()
         codeQuality: true,
         typeDeclarations: true,
         earlyReturn: true,
-        strictBooleans: true,
     )
     ->withPhpSets()
     ->withRules([
@@ -54,10 +61,8 @@ return RectorConfig::configure()
         RectorLaravel\Rector\MethodCall\EloquentWhereRelationTypeHintingParameterRector::class,
         RectorLaravel\Rector\MethodCall\EloquentWhereTypeHintClosureParameterRector::class,
         RectorLaravel\Rector\MethodCall\UseComponentPropertyWithinCommandsRector::class,
-        RectorLaravel\Rector\MethodCall\ValidationRuleArrayStringValueToArrayRector::class,
         RectorLaravel\Rector\MethodCall\WhereToWhereLikeRector::class,
         RectorLaravel\Rector\FuncCall\ArgumentFuncCallToMethodCallRector::class,
         RectorLaravel\Rector\FuncCall\RemoveDumpDataDeadCodeRector::class,
         RectorLaravel\Rector\Class_\RemoveModelPropertyFromFactoriesRector::class,
-        RectorLaravel\Rector\Expr\SubStrToStartsWithOrEndsWithStaticMethodCallRector\SubStrToStartsWithOrEndsWithStaticMethodCallRector::class,
     ]);

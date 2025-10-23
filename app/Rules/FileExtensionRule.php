@@ -16,7 +16,7 @@ final class FileExtensionRule implements ValidationRule
     public function __construct(array $validExtensions = [])
     {
         $this->validExtensions = array_map(
-            fn (string $extension): string => mb_strtolower($extension),
+            mb_strtolower(...),
             $validExtensions,
         );
     }

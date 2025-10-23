@@ -60,7 +60,7 @@ final class DispatchBaseUrlRequest
     /**
      * Run the given callback with the EncryptCookies middleware disabled.
      */
-    private function withoutEncryptingCookies(Route $route, callable $callback): mixed
+    protected function withoutEncryptingCookies(Route $route, callable $callback): mixed
     {
         $middleware = $this->router->resolveMiddleware($route->gatherMiddleware());
 

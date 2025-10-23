@@ -27,7 +27,8 @@ final class PendingMediaItem
     ) {
         throw_if(
             ! ($temporaryUpload = TemporaryUpload::findByMediaUuidInCurrentSession($uuid)) instanceof TemporaryUpload,
-            new Exception('invalid uuid'),
+            Exception::class,
+            'invalid uuid',
         );
 
         $this->temporaryUpload = $temporaryUpload;

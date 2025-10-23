@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Fluent;
 use Propaganistas\LaravelPhone\Casts\RawPhoneNumberCast;
 use Spatie\Searchable\Searchable;
@@ -182,7 +183,7 @@ final class User extends Authenticatable implements Searchable
      */
     protected function age(): Attribute
     {
-        return Attribute::get(fn () => Carbon::parse($this->birth_date)->age);
+        return Attribute::get(fn () => Date::parse($this->birth_date)->age);
     }
 
     /**
@@ -192,6 +193,6 @@ final class User extends Authenticatable implements Searchable
      */
     protected function birthDateHumans(): Attribute
     {
-        return Attribute::get(fn (): string => Carbon::parse(now()->format('Y').$this->birth_date->format('-m-d'))->diffForHumans());
+        return Attribute::get(fn (): string => Date::parse(now()->format('Y').$this->birth_date->format('-m-d'))->diffForHumans());
     }
 }

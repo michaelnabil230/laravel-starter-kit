@@ -6,6 +6,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Date;
 
 /**
  * @property-read Carbon $created_at
@@ -84,7 +85,7 @@ final class PasswordResetCode extends Model
      */
     public function isExpired(): bool
     {
-        return Carbon::parse($this->created_at)->addSeconds($this->expires)->isPast();
+        return Date::parse($this->created_at)->addSeconds($this->expires)->isPast();
     }
 
     /**

@@ -13,8 +13,8 @@ use App\Rules\Rule;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Date;
 use Illuminate\Validation\Rules\Password;
 use Maatwebsite\Excel\Concerns\RegistersEventListeners;
 use Maatwebsite\Excel\Concerns\SkipsEmptyRows;
@@ -90,7 +90,7 @@ final class UsersImport implements ShouldQueue, SkipsEmptyRows, ToCollection, Wi
             'email' => $row->get('email'),
             'password' => $row->get('password'),
             'phone' => $row->get('phone'),
-            'birth_date' => Carbon::parse($row->get('birth_date')),
+            'birth_date' => Date::parse($row->get('birth_date')),
             'gender' => Gender::from($row->get('gender', 'male')),
         ]);
 

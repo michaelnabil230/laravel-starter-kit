@@ -26,9 +26,9 @@ final class LegalController
     {
         $localName = preg_replace('#(\.md)$#i', '/'.app()->getLocale().'$1', $name);
 
-        return Arr::first([
-            resource_path("markdown/$localName"),
-            resource_path("markdown/$name"),
-        ], fn (string $path): bool => file_exists($path));
+        return Arr::first(array_filter([
+            resource_path("markdown/{$localName}"),
+            resource_path("markdown/{$name}"),
+        ], file_exists(...)));
     }
 }

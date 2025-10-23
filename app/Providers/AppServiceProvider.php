@@ -86,7 +86,7 @@ final class AppServiceProvider extends ServiceProvider
         Model::shouldBeStrict(App::isLocal());
         Model::automaticallyEagerLoadRelationships(App::isLocal());
         DB::prohibitDestructiveCommands(App::isProduction());
-        RouteServiceProvider::loadCachedRoutesUsing(fn () => $this->loadCachedRoutes());
+        RouteServiceProvider::loadCachedRoutesUsing($this->loadCachedRoutes(...));
         Vite::prefetch(concurrency: 3);
     }
 
