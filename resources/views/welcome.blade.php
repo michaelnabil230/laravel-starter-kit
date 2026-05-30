@@ -14,9 +14,7 @@
                 <div class="mx-auto max-w-2xl text-center">
                     <p
                         class="inline-block bg-linear-to-l from-blue-600 to-violet-500 bg-clip-text text-sm font-medium text-transparent"
-                    >
-                    PRO release - Dashboard
-                </p>
+                    >PRO release - Dashboard</p>
 
                     <div class="mt-5 max-w-2xl">
                         <h1 class="block text-4xl font-semibold text-gray-800 md:text-5xl lg:text-6xl">

@@ -103,8 +103,6 @@ defineProps<{
             </div>
         </div>
 
-        
-
         <PhoneVerification :user />
     </AppLayout>
 </template>
