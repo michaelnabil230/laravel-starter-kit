@@ -1,3 +1,4 @@
+import { visitModal } from '@/dashboard/composables/modal/modalStack';
 import { router } from '@inertiajs/vue3';
 import { clone, debounce, forEach, identity, isEmpty, isEqual, pickBy } from 'lodash';
 import qs from 'qs';
@@ -5,7 +6,6 @@ import { computed, ComputedRef, Ref, ref, watch } from 'vue';
 import { RouteName } from 'ziggy-js';
 
 export interface Filter {
-    openFilter: Ref<boolean>;
     queryBuilderData: Ref<Partial<Filters>>;
     canBeReset: ComputedRef<boolean>;
     resetQuery: VoidFunction;
@@ -15,7 +15,6 @@ export interface Filter {
     resetOrderBy: VoidFunction;
     onTrashedChange: (value: string) => void;
     openModal: VoidFunction;
-    closeModal: VoidFunction;
 }
 
 export interface Filters {
@@ -28,17 +27,18 @@ export interface Filters {
     [key: string]: any;
 }
 
-export function useFilter(
-    routeName: RouteName,
-    filters?: Filters,
-    defaultFilters: Record<string, any> = {},
-    wait: number = 400,
-): Filter {
-    const openFilter = ref(false);
-
-    const openModal = () => (openFilter.value = true);
-
-    const closeModal = () => (openFilter.value = false);
+export function useFilter({
+    routeName,
+    filters,
+    defaultFilters = {},
+    wait = 400,
+}: {
+    routeName: RouteName;
+    filters?: Filters;
+    defaultFilters?: Record<string, any>;
+    wait?: number;
+}): Filter {
+    const openModal = () => visitModal('#filter');
 
     const _ignoredKeys = ['search', 'page', 'per_page', 'order_by', 'order_by_direction', 'trashed'];
 
@@ -147,7 +147,6 @@ export function useFilter(
     };
 
     return {
-        openFilter,
         queryBuilderData,
         canBeReset,
         resetQuery,
@@ -157,6 +156,5 @@ export function useFilter(
         resetOrderBy,
         onTrashedChange,
         openModal,
-        closeModal,
     };
 }

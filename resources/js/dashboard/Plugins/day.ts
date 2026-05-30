@@ -2,6 +2,7 @@ import dayjs from 'dayjs';
 import 'dayjs/locale/ar';
 import 'dayjs/locale/en';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
+import duration from 'dayjs/plugin/duration';
 import localizedFormat from 'dayjs/plugin/localizedFormat';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import timezone from 'dayjs/plugin/timezone';
@@ -15,6 +16,7 @@ export const day: Plugin = {
         dayjs.extend(relativeTime);
         dayjs.extend(customParseFormat);
         dayjs.extend(localizedFormat);
+        dayjs.extend(duration);
 
         app.config.globalProperties.$day = dayjs;
     },

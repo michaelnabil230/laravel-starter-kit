@@ -1,0 +1,161 @@
+<script setup lang="ts">
+import { sameUrlPath } from '@/dashboard/composables/modal/helpers';
+import { useModalStack } from '@/dashboard/composables/modal/modalStack';
+import type { Modal as ModalData } from '@/dashboard/types/global';
+import { http, router, usePage } from '@inertiajs/vue3';
+import { onUnmounted, watch } from 'vue';
+import ModalRenderer from './ModalRenderer.vue';
+
+const modalStack = useModalStack();
+const $page = usePage();
+
+let isNavigating = false;
+const pendingModalKeys = new Set<string>();
+
+// Generate a unique key for deduplication (handles case when modal has no id)
+const getModalKey = (modalData: ModalData) => modalData.id || `${modalData.component}:${modalData.url}`;
+
+onUnmounted(router.on('start', () => (isNavigating = true)));
+onUnmounted(router.on('finish', () => (isNavigating = false)));
+onUnmounted(
+    router.on('navigate', ($event) => {
+        const modalOnBase = $event.detail.page.props.modal;
+        const pageUrl = $event.detail.page.url;
+
+        // If we're closing to this specific URL, don't re-open the modal
+        // This handles the race condition where router.push in afterLeave
+        // fires a navigate event before the props callback clears modal
+        // Only suppresses when navigating to our closing target URL (not browser back to modal)
+        if (modalStack.isClosingToBaseUrl(pageUrl)) {
+            modalStack.clearClosingToBaseUrl();
+            modalStack.closeAll(true);
+            modalStack.setBaseUrl(null);
+
+            return;
+        }
+
+        if (!modalOnBase) {
+            // No modal data - close any open modals (force close without transition)
+            modalStack.closeAll(true);
+            modalStack.setBaseUrl(null);
+
+            return;
+        }
+
+        // If the page URL doesn't match the modal URL, close all modals
+        // (handles browser back to non-modal URL when history state still has modal data)
+        if (!sameUrlPath(pageUrl, modalOnBase.url ?? '')) {
+            modalStack.closeAll(true);
+            modalStack.setBaseUrl(null);
+
+            return;
+        }
+
+        // Skip if this modal is already being pushed (handles duplicate navigate events)
+        const modalKey = getModalKey(modalOnBase);
+        if (pendingModalKeys.has(modalKey)) {
+            return;
+        }
+
+        // Also skip if a modal with this id is already in the stack
+        if (modalOnBase.id && modalStack.stack.value.some((m) => m.id === modalOnBase.id)) {
+            return;
+        }
+
+        // Skip if a modal with the same component and URL is already open
+        // (handles "Edit again!" case where same modal is revisited with new props)
+        if (
+            modalStack.stack.value.some(
+                (m) => m.response?.component === modalOnBase.component && sameUrlPath(m.response?.url, modalOnBase.url),
+            )
+        ) {
+            return;
+        }
+
+        // Only set baseUrl when we're actually opening a new modal
+        // (after deduplication checks pass)
+        modalStack.setBaseUrl(modalOnBase.baseUrl ?? null);
+        pendingModalKeys.add(modalKey);
+
+        modalStack
+            .pushFromResponseData(modalOnBase, {}, () => {
+                if (!modalOnBase.baseUrl) {
+                    console.error('No base url in modal response data so cannot navigate back');
+                    return;
+                }
+
+                // Clear baseUrl before navigating so the interceptor doesn't add
+                // the modal header to the base page request (deferred props should
+                // load without the modal context after closing)
+                modalStack.setBaseUrl(null);
+
+                if (!isNavigating && typeof window !== 'undefined' && window.location.href !== modalOnBase.baseUrl) {
+                    router.visit(modalOnBase.baseUrl, {
+                        preserveScroll: true,
+                        preserveState: true,
+                    });
+                }
+            })
+            .finally(() => {
+                pendingModalKeys.delete(modalKey);
+            });
+    }),
+);
+
+// Register interceptor during setup (not onMounted) so it's available before
+// Inertia 3's deferred props loading, which fires during the page.set() promise
+// chain before onMounted hooks execute.
+const removeInterceptor = http.onRequest((config) => {
+    // A Modal is opened on top of a base route, so we need to pass this base route
+    // so it can redirect back with the back() helper method...
+    // Only send the header when we have an actual base URL value.
+    // Check modalStack first (set by navigate handler), then fall back to page props
+    // (available reactively before the navigate handler fires, needed for deferred props
+    // which Inertia 3 loads before the navigate event).
+    const baseUrlValue = modalStack.getBaseUrl() ?? $page.props?.modal?.baseUrl ?? null;
+    if (baseUrlValue) {
+        config.headers = config.headers ?? {};
+        config.headers['X-Inertia-Modal-Base-Url'] = baseUrlValue;
+    }
+
+    return config;
+});
+
+onUnmounted(() => removeInterceptor());
+
+watch(
+    () => $page.props?.modal,
+    (newModal, previousModal) => {
+        if (!newModal) {
+            return;
+        }
+
+        // If there's a previous modal with same component/URL, update its props
+        if (
+            previousModal &&
+            newModal.component === previousModal.component &&
+            sameUrlPath(newModal.url, previousModal.url)
+        ) {
+            modalStack.stack.value[0]?.updateProps(newModal.props ?? {});
+            return;
+        }
+
+        // If there's no previous modal but we have modals in the stack (opened via XHR),
+        // check if the new modal matches any open modal and update its props
+        if (!previousModal && modalStack.stack.value.length > 0) {
+            const existingModal = modalStack.stack.value.find(
+                (m) => m.response?.component === newModal.component && sameUrlPath(m.response?.url, newModal.url),
+            );
+            if (existingModal) {
+                existingModal.updateProps(newModal.props ?? {});
+            }
+        }
+    },
+);
+</script>
+
+<template>
+    <slot />
+
+    <ModalRenderer v-if="modalStack.stack.value.length" :index="0" />
+</template>

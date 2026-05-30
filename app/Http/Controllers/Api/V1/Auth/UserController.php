@@ -14,8 +14,6 @@ final class UserController
         /** @var \App\Models\User $user */
         $user = auth('api')->user();
 
-        return response()->json([
-            'user' => UserResource::make($user),
-        ]);
+        return response()->json(UserResource::make($user));
     }
 }

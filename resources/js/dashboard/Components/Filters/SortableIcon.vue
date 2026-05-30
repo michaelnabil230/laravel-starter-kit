@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import SvgIcon from '@/dashboard/Components/SvgIcon.vue';
 import { Filter } from '@/dashboard/composables/useFilter';
 import { computed } from 'vue';
 
@@ -31,28 +32,18 @@ const handleClick = () => {
     <button type="button" @click.prevent="handleClick" class="inline-flex cursor-pointer items-center">
         <slot />
 
-        <svg
-            class="group ms-1 size-3.5 text-gray-400 dark:text-neutral-500"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-        >
-            <path
-                :class="{
-                    'text-blue-600 dark:text-blue-500': isSorted && isDescDirection,
-                }"
-                d="m7 15 5 5 5-5"
-            />
-            <path
-                :class="{
-                    'text-blue-600 dark:text-blue-500': isSorted && !isDescDirection,
-                }"
-                d="m7 9 5-5 5 5"
-            />
-        </svg>
+        <SvgIcon
+            v-if="isSorted && isDescDirection"
+            name="icons/arrow-down"
+            class="group ms-1 size-3.5"
+            :class="'text-blue-600 dark:text-blue-500'"
+        />
+        <SvgIcon
+            v-else-if="isSorted && !isDescDirection"
+            name="icons/arrow-up"
+            class="group ms-1 size-3.5"
+            :class="'text-blue-600 dark:text-blue-500'"
+        />
+        <SvgIcon v-else name="icons/arrow-down" class="group ms-1 size-3.5 text-gray-400 dark:text-neutral-500" />
     </button>
 </template>

@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Database\Factories;
 
+use App\Enums\DeviceType;
 use App\Enums\Gender;
+use App\Models\User;
 use Database\Factories\Concerns\RefreshOnCreate;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
@@ -28,24 +30,24 @@ final class UserFactory extends Factory
 
         return [
             'name' => fake()->name($gender->name),
-            'email' => fake()->unique()->safeEmail(),
-            'phone' => fake()->unique()->e164PhoneNumber(),
-            'phone_country' => 'US',
-            'email_verified_at' => now(),
-            'password' => 'password',
+            'phone' => fake()->unique()->numerify('9665########'),
+            'email' => fake()->boolean()
+                ? fake()->unique()->safeEmail()
+                : null,
             'remember_token' => Str::random(10),
             'gender' => $gender,
             'birth_date' => fake()->date(max: now()->subYears(25)->format('Y-m-d')),
+            'device_type' => fake()->randomElement(DeviceType::cases()),
         ];
     }
 
     /**
-     * Indicate that the model's email address should be unverified.
+     * Configure the factory.
      */
-    public function unverified(): static
+    public function configure(): self
     {
-        return $this->state(fn (array $attributes): array => [
-            'email_verified_at' => null,
-        ]);
+        return $this->afterCreating(function (User $user): void {
+            $user->generateOtp();
+        });
     }
 }

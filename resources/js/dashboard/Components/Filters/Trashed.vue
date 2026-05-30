@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import InputLabel from '@/dashboard/Components/Inputs/InputLabel.vue';
-import Select from '@/dashboard/Components/Inputs/Select/Select.vue';
+import Select from '@/dashboard/Components/Inputs/Select.vue';
 import { Filter } from '@/dashboard/composables/useFilter';
 import useLocalization from '@/dashboard/composables/useLocalization';
 import { computed } from 'vue';
@@ -27,7 +27,11 @@ const trashed = computed({
         <InputLabel :value="__('filters.trashed.name')" for="trashed" />
         <Select
             id="trashed"
-            :attribute="__('filters.trashed.name')"
+            :placeholder="
+                __('global.choose', {
+                    attribute: __('filters.trashed.name'),
+                })
+            "
             :allowEmpty="true"
             v-model="trashed"
             :options="options"

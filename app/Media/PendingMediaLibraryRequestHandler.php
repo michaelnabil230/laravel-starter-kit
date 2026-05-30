@@ -29,8 +29,11 @@ final class PendingMediaLibraryRequestHandler
         protected Model $model,
         protected bool $preserveExisting,
     ) {
-        $this->mediaLibraryRequestItems = collect($mediaLibraryRequestItems)
-            ->map(MediaLibraryRequestItem::fromArray(...));
+        $this->mediaLibraryRequestItems = collect(
+            array_is_list($mediaLibraryRequestItems)
+                ? $mediaLibraryRequestItems
+                : [$mediaLibraryRequestItems]
+        )->map(MediaLibraryRequestItem::fromArray(...));
     }
 
     public function usingName(string|callable $mediaName): self
@@ -128,7 +131,7 @@ final class PendingMediaLibraryRequestHandler
     public function createForPendingMedia(Model $model, PendingMediaItem $pendingMediaItem): FileAdder
     {
         /** @var FileAdder $fileAdder */
-        $fileAdder = app(FileAdder::class);
+        $fileAdder = resolve(FileAdder::class);
 
         return $fileAdder
             ->setSubject($model)

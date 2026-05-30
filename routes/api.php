@@ -14,4 +14,5 @@ Route::name('api.')->middleware('localize')->group(function (): void {
     Route::post('/file-upload', FileUploadController::class)->name('file-upload');
 
     require __DIR__.'/apis/v1.php';
+    require __DIR__.'/api-dashboard.php';
 });

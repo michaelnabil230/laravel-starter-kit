@@ -27,14 +27,6 @@ final class HealthServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
-    }
-
-    /**
-     * Bootstrap any application services.
-     */
-    public function boot(): void
-    {
         Health::checks([
             EnvironmentCheck::new(),
             CacheCheck::new(),

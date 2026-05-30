@@ -17,12 +17,10 @@ final class NotificationController
 
         $notifications = $user->notifications()->paginate();
 
-        if ($request->get('page', '1') === '1') {
+        if ($request->input('page', '1') === '1') {
             $user->unreadNotifications()->update(['read_at' => now()]);
         }
 
-        return response()->json([
-            'notifications' => NotificationCollection::make($notifications),
-        ]);
+        return response()->json(NotificationCollection::make($notifications));
     }
 }

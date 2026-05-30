@@ -1,22 +1,22 @@
 <script setup lang="ts">
 import ButtonLink from '@/dashboard/Components/Button/ButtonLink.vue';
-import { Head } from '@inertiajs/vue3';
+import initialSharedData from '@/dashboard/mixins/initialSharedData';
 import App from './App.vue';
 
 defineProps<{
     title?: string;
 }>();
+
+const appName = initialSharedData('appName');
 </script>
 
 <template>
-    <App>
-        <Head :title="title" />
-
-        <div class="mx-auto flex size-full h-screen max-w-[50rem] flex-col">
+    <App :title="title">
+        <div class="mx-auto flex size-full h-screen max-w-200 flex-col">
             <header class="z-50 mb-auto flex w-full justify-center py-4">
                 <nav class="px-4 sm:px-6 lg:px-8" aria-label="Global">
                     <a class="flex-none text-xl font-semibold sm:text-3xl dark:text-white" href="#">
-                        {{ initialSharedData('appName') }}
+                        {{ appName }}
                     </a>
                 </nav>
             </header>
@@ -45,7 +45,7 @@ defineProps<{
             </main>
 
             <footer class="mt-auto py-5 text-center">
-                <div class="mx-auto max-w-[85rem] px-4 sm:px-6 lg:px-8">
+                <div class="mx-auto max-w-340 px-4 sm:px-6 lg:px-8">
                     <p class="text-sm text-gray-500 dark:text-neutral-500">
                         {{ initialSharedData('appName') }} © {{ __('all_rights_reserved') }}.
                         {{ new Date().getFullYear() }}.

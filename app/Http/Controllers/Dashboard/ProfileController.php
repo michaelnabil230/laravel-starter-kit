@@ -8,7 +8,6 @@ use App\Http\Requests\Dashboard\Profile\DeleteProfileRequest;
 use App\Http\Requests\Dashboard\Profile\ProfileUpdateRequest;
 use App\Models\Admin;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\UploadedFile;
 use Inertia\Inertia;
 use Inertia\Response;
 use Symfony\Component\HttpFoundation\Response as HttpFoundationResponse;
@@ -30,20 +29,12 @@ final class ProfileController
     {
         $admin = type(auth()->user())->as(Admin::class);
 
-        $validated = $request->safe()->except('photo');
-
-        if ($request->hasFile('photo')) {
-            $photo = type($request->file('photo'))->as(UploadedFile::class);
-            $validated += $admin->updateProfilePhoto($photo);
-        }
-
-        $admin->fill($validated);
-
+        $validatedData = $request->validated();
         if ($admin->isDirty('email')) {
-            $admin->email_verified_at = null;
+            $validatedData['email_verified_at'] = null;
         }
 
-        $admin->save();
+        $admin->update($validatedData);
 
         return to_route('dashboard.profile.edit');
     }
@@ -63,17 +54,5 @@ final class ProfileController
         $request->session()->regenerateToken();
 
         return Inertia::location(route('welcome'));
-    }
-
-    /**
-     * Delete the current admin's profile photo.
-     */
-    public function destroyProfilePhoto(): RedirectResponse
-    {
-        $admin = type(auth()->user())->as(Admin::class);
-
-        $admin->deleteProfilePhoto();
-
-        return back(303);
     }
 }

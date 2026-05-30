@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Dashboard;
 
-use App\Http\Requests\Dashboard\Admin\StoreRequest;
-use App\Http\Requests\Dashboard\Admin\UpdateRequest;
+use App\Http\Requests\Dashboard\Admin\StoreAdminRequest;
+use App\Http\Requests\Dashboard\Admin\UpdateAdminRequest;
 use App\Http\Resources\Dashboard\AdminResource;
 use App\Models\Admin;
 use App\Traits\SendToasts;
@@ -57,7 +57,7 @@ final class AdminController
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreRequest $request): RedirectResponse
+    public function store(StoreAdminRequest $request): RedirectResponse
     {
         Admin::query()->create($request->validated());
 
@@ -69,13 +69,15 @@ final class AdminController
      */
     public function edit(Admin $admin): Response
     {
+        $admin->load('branches');
+
         return inertia('Admins/Edit', ['admin' => AdminResource::make($admin)]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateRequest $request, Admin $admin): RedirectResponse
+    public function update(UpdateAdminRequest $request, Admin $admin): RedirectResponse
     {
         $admin->update($request->validated());
 

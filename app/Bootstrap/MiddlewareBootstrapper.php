@@ -13,7 +13,6 @@ final class MiddlewareBootstrapper
         $middleware
             ->encryptCookies(['appearance'])
             ->web(append: [
-                \App\Http\Middleware\HandleAppearance::class,
                 \Illuminate\Http\Middleware\AddLinkHeadersForPreloadedAssets::class,
             ])
             ->alias([

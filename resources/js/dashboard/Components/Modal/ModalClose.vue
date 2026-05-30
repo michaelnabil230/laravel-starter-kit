@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import SvgIcon from '@/dashboard/Components/SvgIcon.vue';
 import { cn } from '@/dashboard/lib/utils';
 import { DialogClose } from 'reka-ui';
 import { type HTMLAttributes } from 'vue';
@@ -18,18 +19,6 @@ const props = defineProps<{
         "
     >
         <span class="sr-only">{{ __('global.closure.close') }}</span>
-        <svg
-            class="size-4 shrink-0"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-        >
-            <path d="M18 6 6 18" />
-            <path d="m6 6 12 12" />
-        </svg>
+        <SvgIcon name="icons/close" class="size-4 shrink-0" />
     </DialogClose>
 </template>

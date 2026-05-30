@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import SvgIcon from '@/dashboard/Components/SvgIcon.vue';
 import { App } from '@/dashboard/types/app';
 
 const props = defineProps<{
@@ -95,43 +96,14 @@ const download = () => {
                 @click="removeFile(media.id)"
                 class="cursor-pointer text-gray-500 hover:text-gray-800 focus:text-gray-800 focus:outline-hidden dark:text-neutral-500 dark:hover:text-neutral-200 dark:focus:text-neutral-200"
             >
-                <svg
-                    class="size-4 shrink-0"
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                >
-                    <path d="M3 6h18"></path>
-                    <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path>
-                    <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path>
-                    <line x1="10" x2="10" y1="11" y2="17"></line>
-                    <line x1="14" x2="14" y1="11" y2="17"></line>
-                </svg>
+                <SvgIcon name="icons/trash" class="size-4 shrink-0" />
             </button>
             <button
                 type="button"
                 @click="download"
                 class="cursor-pointer text-gray-500 hover:text-gray-800 focus:text-gray-800 focus:outline-hidden dark:text-neutral-500 dark:hover:text-neutral-200 dark:focus:text-neutral-200"
             >
-                <svg
-                    class="size-4 shrink-0"
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                >
-                    <path
-                        d="M12 14.5L12 4.5M12 14.5C11.2998 14.5 9.99153 12.5057 9.5 12M12 14.5C12.7002 14.5 14.0085 12.5057 14.5 12"
-                    ></path>
-                    <path d="M20 16.5C20 18.982 19.482 19.5 17 19.5H7C4.518 19.5 4 18.982 4 16.5"></path>
-                </svg>
+                <SvgIcon name="icons/download" class="size-4 shrink-0" />
             </button>
         </div>
     </div>

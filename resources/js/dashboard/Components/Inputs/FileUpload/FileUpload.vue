@@ -1,7 +1,8 @@
 <script setup lang="ts">
+import SvgIcon from '@/dashboard/Components/SvgIcon.vue';
 import useLocalization from '@/dashboard/composables/useLocalization';
 import { App } from '@/dashboard/types/app';
-import axios from 'axios';
+import { useHttp } from '@inertiajs/vue3';
 import { computed, onBeforeUnmount, onMounted, ref } from 'vue';
 import InputError from './../InputError.vue';
 import Media from './Media.vue';
@@ -14,15 +15,6 @@ interface UploadResult {
         media: App.Models.Media;
     };
     error?: unknown;
-}
-
-interface AxiosError {
-    response?: {
-        data?: {
-            message?: string;
-        };
-    };
-    message?: string;
 }
 
 const dropZone = ref<HTMLElement | null>(null);
@@ -106,28 +98,37 @@ const handleFileSelect = (event: Event) => {
     }
 };
 
-const uploadFile = async (file: File) => {
+const uploadFile = (file: File) => {
     uploadInfo.value[file.name] = 0;
 
-    const formData = new FormData();
-    formData.append('file', file);
-
-    const response = await axios.post(route('api.file-upload'), formData, {
-        headers: {
-            'Content-Type': 'multipart/form-data',
-        },
-        onUploadProgress: (progressEvent) => {
-            if (progressEvent.total) {
-                const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total);
-                uploadInfo.value[file.name] = progress;
-            }
-        },
+    const uploadHttp = useHttp<{ file: File | null }, { media: App.Models.Media }>({
+        file: file,
     });
 
-    // Remove upload info after completion
-    delete uploadInfo.value[file.name];
-
-    return response.data;
+    return uploadHttp
+        .post(route('api.file-upload'), {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            },
+            onProgress: (progressEvent) => {
+                if (progressEvent.percentage != null) {
+                    const progress = Math.round(progressEvent.percentage);
+                    uploadInfo.value[file.name] = progress;
+                }
+            },
+            onSuccess: (response) => {
+                return response;
+            },
+            onError: () => {
+                error.value = __('global.file_upload.upload_failed');
+            },
+            onCancel: () => {
+                error.value = __('global.file_upload.upload_failed');
+            },
+        })
+        .finally(() => {
+            delete uploadInfo.value[file.name];
+        });
 };
 
 const uploadFiles = async (files: File[]) => {
@@ -143,13 +144,8 @@ const uploadFiles = async (files: File[]) => {
                 const response = await uploadFile(file);
                 return { response } as UploadResult;
             } catch (err) {
-                const axiosFileUploadError = err as AxiosError;
                 const errorObject = err as Error;
-
-                error.value =
-                    axiosFileUploadError.response?.data?.message ??
-                    errorObject.message ??
-                    __('global.file_upload.upload_failed');
+                error.value = errorObject.message ?? __('global.file_upload.upload_failed');
 
                 return { error: err } as UploadResult;
             }
@@ -272,20 +268,7 @@ const totalUploadProgress = computed(() => {
                     <span
                         class="inline-flex size-16 items-center justify-center rounded-full bg-gray-100 text-gray-800 dark:bg-neutral-700 dark:text-neutral-200"
                     >
-                        <svg
-                            class="size-6 shrink-0"
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                        >
-                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                            <polyline points="17 8 12 3 7 8"></polyline>
-                            <line x1="12" x2="12" y1="3" y2="15"></line>
-                        </svg>
+                        <SvgIcon name="icons/upload" class="size-6 shrink-0" />
                     </span>
 
                     <div class="mt-4 flex flex-wrap justify-center text-sm/6 text-gray-600">

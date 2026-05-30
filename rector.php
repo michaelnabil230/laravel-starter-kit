@@ -44,6 +44,8 @@ return RectorConfig::configure()
     ->withSkip([
         __DIR__.'/app/Providers/TelescopeServiceProvider.php',
         Rector\Php83\Rector\ClassMethod\AddOverrideAttributeToOverriddenMethodsRector::class,
+        RectorLaravel\Rector\Class_\FillablePropertyToFillableAttributeRector::class,
+        RectorLaravel\Rector\Class_\HiddenPropertyToHiddenAttributeRector::class,
     ])
     ->withPreparedSets(
         deadCode: true,
@@ -51,8 +53,9 @@ return RectorConfig::configure()
         typeDeclarations: true,
         earlyReturn: true,
     )
-    ->withPhpSets()
+    ->withPhpSets(php84: true)
     ->withRules([
+        Rector\CodingStyle\Rector\FuncCall\CountArrayToEmptyArrayComparisonRector::class,
         RectorLaravel\Rector\StaticCall\AssertWithClassStringToTypeHintedClosureRector::class,
         RectorLaravel\Rector\StaticCall\CarbonSetTestNowToTravelToRector::class,
         RectorLaravel\Rector\MethodCall\EloquentOrderByToLatestOrOldestRector::class,

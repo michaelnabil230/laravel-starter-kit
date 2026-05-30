@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import Button from '@/dashboard/Components/Button/Button.vue';
 import ButtonLink from '@/dashboard/Components/Button/ButtonLink.vue';
+import InputDescription from '@/dashboard/Components/Inputs/InputDescription.vue';
 import InputError from '@/dashboard/Components/Inputs/InputError.vue';
 import InputLabel from '@/dashboard/Components/Inputs/InputLabel.vue';
 import PasswordInput from '@/dashboard/Components/Inputs/PasswordInput.vue';
-import PhoneInput from '@/dashboard/Components/Inputs/PhoneInput.vue';
-import Select from '@/dashboard/Components/Inputs/Select/Select.vue';
+import Select from '@/dashboard/Components/Inputs/Select.vue';
 import TextInput from '@/dashboard/Components/Inputs/TextInput.vue';
 import { Option } from '@/dashboard/Components/Inputs/types';
 import useLocalization from '@/dashboard/composables/useLocalization';
@@ -25,13 +25,12 @@ const breadcrumbs: Breadcrumbs = [
 ];
 
 const form = useForm({
-    name: '',
-    email: '',
-    phone: '',
-    phone_country: '',
-    password: '',
-    password_confirmation: '',
-    role: '',
+    name: null,
+    email: null,
+    password: null,
+    password_confirmation: null,
+    role: null,
+    branch_ids: [] as string[],
 });
 
 const submit = () => {
@@ -65,12 +64,10 @@ const roles = computed(() => {
         "
         :breadcrumbs="breadcrumbs"
     >
-        <!-- Card -->
         <form
             @submit.prevent="submit()"
             class="flex flex-col rounded-xl border border-stone-200 bg-white shadow-2xs dark:border-neutral-700 dark:bg-neutral-800"
         >
-            <!-- Header -->
             <div
                 class="flex items-center justify-between gap-x-5 border-b border-stone-200 px-5 py-3 dark:border-neutral-700"
             >
@@ -82,9 +79,7 @@ const roles = computed(() => {
                     }}
                 </h2>
             </div>
-            <!-- End Header -->
 
-            <!-- Body -->
             <div class="space-y-4 p-5">
                 <div class="grid gap-y-1.5 sm:grid-cols-12 sm:gap-x-5 sm:gap-y-0">
                     <div class="col-span-6">
@@ -122,24 +117,6 @@ const roles = computed(() => {
 
                         <InputError :message="form.errors.email" />
                     </div>
-                </div>
-
-                <div>
-                    <InputLabel :value="__('global.attributes.phone')" for="phone" />
-
-                    <PhoneInput
-                        id="phone"
-                        v-model:phone="form.phone"
-                        v-model:phone_country="form.phone_country"
-                        :placeholder="
-                            __('global.placeholder', {
-                                attribute: __('global.attributes.phone'),
-                            })
-                        "
-                        :hasError="form.errors.hasOwnProperty('phone')"
-                    />
-
-                    <InputError :message="form.errors.phone" />
                 </div>
 
                 <div class="grid gap-y-1.5 sm:grid-cols-12 sm:gap-x-5 sm:gap-y-0">
@@ -181,23 +158,46 @@ const roles = computed(() => {
                     </div>
                 </div>
 
-                <div>
-                    <InputLabel :value="__('resources.admin.attributes.role')" for="role" />
+                <div class="grid gap-y-1.5 sm:grid-cols-12 sm:gap-x-5 sm:gap-y-0">
+                    <div class="col-span-6">
+                        <InputLabel :value="__('resources.admin.attributes.role')" for="role" />
+                        <Select
+                            :placeholder="
+                                __('global.choose', {
+                                    attribute: __('resources.admin.attributes.role'),
+                                })
+                            "
+                            v-model="form.role"
+                            :options="roles"
+                            :hasError="form.errors.hasOwnProperty('role')"
+                            id="role"
+                        />
 
-                    <Select
-                        :attribute="__('resources.admin.attributes.role')"
-                        v-model="form.role"
-                        :options="roles"
-                        :hasError="form.errors.hasOwnProperty('role')"
-                        id="role"
-                    />
+                        <InputError :message="form.errors.role" />
+                    </div>
 
-                    <InputError :message="form.errors.role" />
+                    <div class="col-span-6">
+                        <InputLabel for="branches" :value="__('resources.branch.plural')" />
+                        <Select
+                            :placeholder="
+                                __('global.choose', {
+                                    attribute: __('resources.branch.plural'),
+                                })
+                            "
+                            v-model="form.branch_ids"
+                            :endPoint="route('api.dashboard.branches')"
+                            :multiple="true"
+                            :hasError="form.errors.hasOwnProperty('branch_ids')"
+                            id="branches"
+                        />
+
+                        <InputDescription :value="__('resources.promotion.descriptions.branches')" />
+
+                        <InputError :message="form.errors.branch_ids" />
+                    </div>
                 </div>
             </div>
-            <!-- End Body -->
 
-            <!-- Footer -->
             <div
                 class="flex items-center justify-end gap-x-2.5 border-t border-stone-200 px-5 py-3 dark:border-neutral-700"
             >
@@ -210,8 +210,6 @@ const roles = computed(() => {
 
                 <Button type="submit" :value="__('global.crud.create')" :disabled="form.processing" />
             </div>
-            <!-- End Footer -->
         </form>
-        <!-- End Card -->
     </AppLayout>
 </template>

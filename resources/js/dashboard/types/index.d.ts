@@ -10,5 +10,5 @@ export type AppPageProps<T extends Record<string, unknown> = Record<string, unkn
         };
     };
     toast: Toast;
-    modal: Modal;
+    modal?: Modal;
 };

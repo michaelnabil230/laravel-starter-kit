@@ -14,12 +14,8 @@ const breadcrumbs: Breadcrumbs = [
 
 <template>
     <AppLayout :title="__('profile.name')" :breadcrumbs="breadcrumbs">
-        <!-- Personal Info -->
         <UpdateProfileInformationForm />
-        <!-- End Personal Info -->
 
-        <!-- Password -->
         <UpdatePasswordForm />
-        <!-- End Password -->
     </AppLayout>
 </template>

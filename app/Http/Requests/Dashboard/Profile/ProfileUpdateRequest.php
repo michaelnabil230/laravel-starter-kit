@@ -17,14 +17,9 @@ final class ProfileUpdateRequest extends FormRequest
      */
     public function rules(): array
     {
-        $adminId = auth()->id();
-
         return [
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'max:255', Rule::email()->default(), Rule::unique(Admin::class)->ignore($adminId)],
-            'phone' => ['required', 'phone', Rule::unique(Admin::class)->ignore($adminId)],
-            'phone_country' => Rule::isPhoneCountry(),
-            'photo' => ['nullable', 'image'],
+            'email' => ['required', 'string', 'max:255', Rule::email()->default(), Rule::unique(Admin::class)->ignore(auth()->id())],
         ];
     }
 }

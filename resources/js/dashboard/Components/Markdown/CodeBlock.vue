@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import SvgIcon from '@/dashboard/Components/SvgIcon.vue';
 import useLocalization from '@/dashboard/composables/useLocalization';
 import hljs from 'highlight.js';
 import 'highlight.js/styles/github-dark-dimmed.css';
@@ -41,41 +42,15 @@ const copyCode = () => {
             {{ language }}
         </div>
         <div class="sticky top-24">
-            <div class="absolute end-2 bottom-0 flex h-9 items-center pe-2">
+            <div class="absolute inset-e-2 bottom-0 flex h-9 items-center pe-2">
                 <div class="font-sans text-xs text-white">
                     <button
                         type="button"
                         @click="copyCode"
                         class="flex cursor-pointer items-center gap-1 py-1 select-none"
                     >
-                        <svg
-                            v-if="!isCopied"
-                            class="size-4"
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                        >
-                            <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
-                            <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
-                        </svg>
-
-                        <svg
-                            v-else
-                            class="size-4"
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                        >
-                            <polyline points="20 6 9 17 4 12" />
-                        </svg>
+                        <SvgIcon v-if="!isCopied" name="icons/copy" class="size-4" />
+                        <SvgIcon v-else name="icons/check" class="size-4" />
 
                         {{ isCopied ? __('global.copied') : __('global.copy_to_clipboard') }}
                     </button>

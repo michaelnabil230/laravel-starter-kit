@@ -140,10 +140,10 @@ final class TemporaryUpload extends Model implements HasMedia
             return;
         }
 
-        $this // @phpstan-ignore-line
+        $this
             ->addMediaConversion('preview')
             ->fit(Fit::Crop, 300, 300)
-            ->nonQueued();
+            ->nonQueued();  // @phpstan-ignore method.notFound
     }
 
     /**

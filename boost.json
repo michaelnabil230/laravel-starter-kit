@@ -1,11 +1,24 @@
 {
     "agents": [
+        "codex",
         "copilot",
-        "cursor"
+        "opencode"
     ],
-    "editors": [
-        "cursor",
-        "vscode"
+    "cloud": false,
+    "guidelines": true,
+    "mcp": true,
+    "nightwatch": false,
+    "packages": [
+        "spatie/laravel-backup"
     ],
-    "guidelines": []
+    "sail": false,
+    "skills": [
+        "laravel-best-practices",
+        "configuring-horizon",
+        "pulse-development",
+        "pest-testing",
+        "inertia-vue-development",
+        "tailwindcss-development",
+        "laravel-backup"
+    ]
 }

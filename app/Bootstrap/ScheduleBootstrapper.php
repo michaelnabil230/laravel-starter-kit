@@ -32,7 +32,7 @@ final class ScheduleBootstrapper
         $schedule->command('backup:clean')->weeklyOn(1, '6:30');
         $schedule->command('backup:run')->weeklyOn(1, '7:00');
 
-        $schedule->command('auth:clear-code-resets --isolated')->monthly();
+        $schedule->command('activitylog:clean --force')->monthly();
 
         $schedule->command('check:birthdays --isolated')->daily();
 

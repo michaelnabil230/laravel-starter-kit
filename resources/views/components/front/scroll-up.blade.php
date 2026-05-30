@@ -2,7 +2,7 @@
     id="scroll-up"
     x-data="{ show: false, offset: 1000 }"
     x-on:scroll.window="show = window.pageYOffset >= offset"
-    class="fixed start-8 bottom-8 z-50 sm:start-14 lg:start-32 xl:start-40 2xl:start-48"
+    class="fixed inset-s-8 bottom-8 z-50 sm:inset-s-14 lg:inset-s-32 xl:inset-s-40 2xl:inset-s-48"
 >
     <button
         x-show="show"

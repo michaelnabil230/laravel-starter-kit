@@ -8,11 +8,12 @@ import PasswordInput from '@/dashboard/Components/Inputs/PasswordInput.vue';
 import TextInput from '@/dashboard/Components/Inputs/TextInput.vue';
 import AuthLayout from '@/dashboard/Layouts/AuthLayout.vue';
 import { cn } from '@/dashboard/lib/utils';
+import initialSharedData from '@/dashboard/mixins/initialSharedData';
 import { useForm } from '@inertiajs/vue3';
 
 const form = useForm({
-    email: '',
-    password: '',
+    email: null,
+    password: null,
     remember: false,
 });
 
@@ -23,20 +24,18 @@ const submit = () => {
         },
     });
 };
+
+const appName = initialSharedData('appName');
 </script>
 
 <template>
     <AuthLayout :title="__('authentication.login.name')">
         <template #title>
-            {{ __('authentication.login.title', { appName: initialSharedData('appName') }) }}
+            {{ __('authentication.login.title', { appName: appName }) }}
         </template>
 
         <template #description>
-            {{
-                __('authentication.login.description', {
-                    appName: initialSharedData('appName'),
-                })
-            }}
+            {{ __('authentication.login.description', { appName: appName }) }}
         </template>
 
         <form @submit.prevent="submit">
@@ -59,7 +58,7 @@ const submit = () => {
 
                 <div>
                     <div class="mb-2 flex items-center justify-between">
-                        <InputLabel for="password" :value="__('global.attributes.password')" class="!mb-0" />
+                        <InputLabel for="password" :value="__('global.attributes.password')" class="mb-0!" />
 
                         <a
                             href="#"

@@ -5,17 +5,23 @@ on: push
 jobs:
     tests:
         runs-on: ubuntu-latest
+        timeout-minutes: 10
         steps:
             - name: Checkout
-              uses: actions/checkout@v5
+              uses: actions/checkout@v6
 
             - name: Setup PHP
               uses: shivammathur/setup-php@v2
               with:
-                  php-version: "8.3"
-                  extensions: json, dom, curl, libxml, mbstring, zip
-                  tools: composer:v2
+                  php-version: "8.4"
+                  extensions: json, dom, curl, libxml, mbstring, zip, pdo
                   coverage: xdebug
+
+            - name: Create database
+              run: |
+                  mysql --version
+                  sudo systemctl start mysql
+                  mysql -u root -proot -e 'CREATE DATABASE IF NOT EXISTS whatsapp_tests;'
 
             - name: Setup Node
               uses: actions/setup-node@v6
@@ -29,7 +35,7 @@ jobs:
                   npm install --force
 
             - name: Copy Environment File
-              run: cp .env.example .env
+              run: cp .env.ci .env
 
             - name: Generate Application Key
               run: php artisan key:generate
@@ -38,7 +44,7 @@ jobs:
               run: npm run build
 
             - name: Rector Cache
-              uses: actions/cache@v4
+              uses: actions/cache@v5
               with:
                   path: /tmp/rector
                   key: ${{ runner.os }}-rector-${{ hashFiles('composer.lock') }}
@@ -46,7 +52,7 @@ jobs:
             - run: mkdir -p /tmp/rector
 
             - name: PHPStan Cache
-              uses: actions/cache@v4
+              uses: actions/cache@v5
               with:
                   path: /tmp/phpstan
                   key: ${{ runner.os }}-phpstan-${{ hashFiles('composer.lock') }}

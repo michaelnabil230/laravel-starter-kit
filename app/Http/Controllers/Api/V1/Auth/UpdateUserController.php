@@ -15,18 +15,10 @@ final class UpdateUserController
         /** @var \App\Models\User $user */
         $user = auth('api')->user();
 
-        $validated = $request->safe()->except('photo');
-
-        if ($request->photo) {
-            $validated = array_merge($validated, $user->updateProfilePhoto($request->photo));
-        }
-
-        $user->update($validated);
+        $user->update(array_filter($request->validated()));
 
         $user = $user->refresh();
 
-        return response()->json([
-            'user' => UserResource::make($user),
-        ]);
+        return response()->json(UserResource::make($user));
     }
 }

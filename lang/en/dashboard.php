@@ -70,7 +70,7 @@ return [
             ],
             'enums' => [
                 'role' => [
-                    'admin' => 'ADMIN',
+                    'admin' => 'Admin',
                     'super_admin' => 'Super Admin',
                 ],
             ],
@@ -82,6 +82,9 @@ return [
                 'name' => 'Name',
                 'phone' => 'Phone',
                 'birth_date' => 'Birth Date',
+            ],
+            'table' => [
+                'last_login_at' => 'Last Login At',
             ],
         ],
     ],
@@ -103,17 +106,19 @@ return [
             'password_confirmation' => 'Confirm Password',
             'new_password' => 'New Password',
             'new_password_confirmation' => 'Confirm New Password',
-            'payment_type' => 'Payment type',
-            'payment_method' => 'Payment method',
-            'employment_type' => 'Employment type',
             'media' => 'Media',
         ],
         'placeholder' => 'Enter the :attribute',
         'example' => 'Example: :example',
         'loading' => 'Loading',
+        'select' => 'Select',
         'select_all' => 'Select All',
         'choose' => 'Choose :attribute',
+        'minimum' => 'Minimum',
+        'maximum' => 'Maximum',
+        'copy_to_clipboard' => 'Copy to Clipboard',
         'download' => 'Download',
+        'reset' => 'Reset',
         'search' => [
             'name' => 'Search',
             'resource' => 'Search :resource',
@@ -158,6 +163,7 @@ return [
             'updated' => 'The :resource was updated!',
             'deleted' => 'The :resource was deleted!',
             'restored' => 'The :resource was restored!',
+            'sending' => 'Sending',
         ],
         'options' => [
             'delete' => [
@@ -209,6 +215,15 @@ return [
             'allowed_types' => 'Allowed types: :types',
             'upload_failed' => 'Failed to upload file',
         ],
+        'time' => [
+            'hour' => 'Hour',
+            'minute' => 'Minute',
+            'second' => 'Second',
+            'hours' => 'Hours',
+            'minutes' => 'Minutes',
+            'seconds' => 'Seconds',
+        ],
+        'and' => 'and',
     ],
     'import_and_export' => 'Import / Export',
     'export' => [
@@ -266,8 +281,8 @@ return [
         'go_to_link' => 'Go to link',
     ],
     'photo' => 'Photo',
-    'upload_photo' => 'Upload Photo',
     'upload' => 'Upload',
+    'print' => 'Print',
     'browse' => 'Browse',
     'errors' => [
         'error' => 'Error',
@@ -277,4 +292,5 @@ return [
     'faq' => 'FAQ',
     'license' => 'License',
     'back_to_home' => 'Back to Home',
+    'create_new_record' => 'Do you want to create a new record?',
 ];

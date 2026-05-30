@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useAppearance } from '@/dashboard/composables/useAppearance';
-import { Head } from '@inertiajs/vue3';
+import initialSharedData from '@/dashboard/mixins/initialSharedData';
 import App from './App.vue';
 
 defineProps<{
@@ -11,10 +11,8 @@ const { appearance, updateAppearance } = useAppearance();
 </script>
 
 <template>
-    <App>
-        <Head :title="title" />
-
-        <main class="mx-auto flex h-full min-h-screen flex-col justify-center space-y-5 px-5 sm:w-[448px]">
+    <App :title="title">
+        <main class="mx-auto flex h-full min-h-screen flex-col justify-center space-y-5 px-5 sm:w-md">
             <div>
                 <h1 class="text-xl font-semibold text-gray-800 sm:text-2xl dark:text-neutral-200">
                     <slot name="title" />
@@ -42,7 +40,7 @@ const { appearance, updateAppearance } = useAppearance();
                         @click="updateAppearance('system')"
                         type="button"
                         class="flex cursor-pointer items-center gap-x-1.5 text-sm text-gray-500 hover:text-gray-800 focus:text-gray-800 focus:outline-hidden dark:text-neutral-500 dark:hover:text-neutral-200 dark:focus:text-neutral-200"
-                        :class="{ '!text-gray-800 dark:!text-white': appearance === 'system' }"
+                        :class="{ 'text-gray-800! dark:text-white!': appearance === 'system' }"
                     >
                         <svg
                             class="size-4 shrink-0"
@@ -65,7 +63,7 @@ const { appearance, updateAppearance } = useAppearance();
                         @click="updateAppearance('dark')"
                         type="button"
                         class="flex cursor-pointer items-center gap-x-1.5 text-sm text-gray-500 hover:text-gray-800 focus:text-gray-800 focus:outline-hidden dark:text-neutral-500 dark:hover:text-neutral-200 dark:focus:text-neutral-200"
-                        :class="{ '!text-gray-800 dark:!text-white': appearance === 'dark' }"
+                        :class="{ 'text-gray-800! dark:text-white!': appearance === 'dark' }"
                     >
                         <svg
                             class="size-4 shrink-0"
@@ -85,7 +83,7 @@ const { appearance, updateAppearance } = useAppearance();
                         @click="updateAppearance('light')"
                         type="button"
                         class="flex cursor-pointer items-center gap-x-1.5 text-sm text-gray-500 hover:text-gray-800 focus:text-gray-800 focus:outline-hidden dark:text-neutral-500 dark:hover:text-neutral-200 dark:focus:text-neutral-200"
-                        :class="{ '!text-gray-800 dark:!text-white': appearance === 'light' }"
+                        :class="{ 'text-gray-800! dark:text-white!': appearance === 'light' }"
                     >
                         <svg
                             class="size-4 shrink-0"

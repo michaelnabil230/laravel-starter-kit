@@ -1,5 +1,6 @@
+import { visitModal } from '@/dashboard/composables/modal/modalStack';
 import { router } from '@inertiajs/vue3';
-import { ref, Ref } from 'vue';
+import { Ref } from 'vue';
 import { RouteName } from 'ziggy-js';
 import { Filters } from './useFilter';
 import useLocalization from './useLocalization';
@@ -11,15 +12,19 @@ interface Options {
     onFinish?: VoidFunction;
 }
 
-export default function useExport(routeName: RouteName, filters: Ref<Partial<Filters>>, options?: Options) {
-    const openExport = ref(false);
-
+export function useExport({
+    resource,
+    routeName,
+    filters,
+    options,
+}: {
+    resource: string;
+    routeName: RouteName;
+    filters: Ref<Partial<Filters>>;
+    options?: Options;
+}) {
     const openExportModal = () => {
-        openExport.value = true;
-    };
-
-    const closeExportModal = () => {
-        openExport.value = false;
+        visitModal(`#export-${resource}`);
     };
 
     const confirmExport = (type: string) => {
@@ -42,16 +47,13 @@ export default function useExport(routeName: RouteName, filters: Ref<Partial<Fil
                 },
                 onFinish: () => {
                     options?.onFinish?.();
-                    closeExportModal();
                 },
             },
         );
     };
 
     return {
-        openExport,
         openExportModal,
-        closeExportModal,
         confirmExport,
     };
 }

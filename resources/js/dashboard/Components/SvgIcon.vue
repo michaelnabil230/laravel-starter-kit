@@ -1,31 +1,17 @@
 <script setup lang="ts">
-import { defineAsyncComponent, onMounted, shallowRef } from 'vue';
+import { computed, type Component } from 'vue';
 
 const props = defineProps<{
     name: string;
 }>();
 
-const icon = shallowRef(null);
+const icons = import.meta.glob<Component>('../../../svg/**/*.svg', { eager: true });
 
-const fallbackIconImport = async () => {
-    return await import('./../../../svg/icons/image.svg');
-};
-
-const evaluateIcon = () => {
-    return defineAsyncComponent(async () => {
-        try {
-            return await import(/* @vite-ignore */ `./../../../svg/${props.name}.svg`);
-        } catch {
-            return await fallbackIconImport();
-        }
-    });
-};
-
-onMounted(() => {
-    icon.value = evaluateIcon();
+const icon = computed<Component>(() => {
+    return icons[`../../../svg/${props.name}.svg`] ?? icons['../../../svg/icons/image.svg'];
 });
 </script>
 
 <template>
-    <component v-if="icon" :is="icon" />
+    <component :is="icon" />
 </template>

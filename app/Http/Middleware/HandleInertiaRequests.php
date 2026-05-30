@@ -8,8 +8,10 @@ use App\Http\Resources\Dashboard\AuthResource;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Http\Request as HttpRequest;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Uri;
 use Inertia\Middleware;
+use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 final class HandleInertiaRequests extends Middleware
 {
@@ -23,9 +25,31 @@ final class HandleInertiaRequests extends Middleware
     protected $rootView = 'layouts.dashboard.app';
 
     /**
-     * Define the props that are shared by default.
+     * Define the props that are shared once and remembered across navigations.
      *
-     * @see https://inertiajs.com/shared-data
+     * @return array<string, callable|OnceProp>
+     */
+    public function shareOnce(Request $request): array
+    {
+        return [
+            ...parent::shareOnce($request),
+            'appName' => fn (): string => config('app.name', 'Laravel'),
+            'timezone' => fn (): string => config('app.timezone', 'UTC'),
+            'supportedLocales' => fn (): array => Arr::map(
+                LaravelLocalization::getSupportedLocales(),
+                fn (array $properties, string $locale): array => [
+                    ...$properties,
+                    'url' => LaravelLocalization::getLocalizedURL($locale, route('dashboard.welcome')),
+                ],
+            ),
+            'locale' => fn (): string => LaravelLocalization::getCurrentLocale(),
+            'translations' => fn (): array => __('dashboard', []),
+            'environment' => fn (): string => app()->environment(),
+        ];
+    }
+
+    /**
+     * Define the props that are shared by default.
      *
      * @return array<string, mixed>
      */

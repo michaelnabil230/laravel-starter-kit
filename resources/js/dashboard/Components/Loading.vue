@@ -19,7 +19,7 @@ const props = withDefaults(
 
 const sizeClass = computed(() => {
     return {
-        sm: 'size-3 border-1',
+        sm: 'size-3 border',
         md: 'size-4 border-2',
         lg: 'size-6 border-4',
     }[props.size];
@@ -45,11 +45,11 @@ const loadingText = computed(() => {
                 cn(
                     'inline-block animate-spin rounded-full border-current border-t-transparent text-blue-700 dark:text-blue-500',
                     sizeClass,
-                    props.loadingClass,
+                    loadingClass,
                 )
             "
         />
-        <span :class="cn('text-gray-800 dark:text-neutral-200', textSizeClass, props.textClass)">
+        <span :class="cn('text-gray-800 dark:text-neutral-200', textSizeClass, textClass)">
             {{ loadingText }}
         </span>
     </div>

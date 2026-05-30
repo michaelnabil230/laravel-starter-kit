@@ -6,7 +6,6 @@ namespace App\Rules;
 
 use Illuminate\Validation\Rule as BaseRule;
 use Illuminate\Validation\Rules\Date;
-use libphonenumber\PhoneNumberUtil;
 
 final class Rule extends BaseRule
 {
@@ -15,22 +14,14 @@ final class Rule extends BaseRule
      */
     public static function birthDate(): Date
     {
-        return self::date()
-            ->format('Y-m-d')
-            ->beforeOrEqual(now()->subYears(18)->format('Y-m-d'));
+        return self::date()->format('Y-m-d');
     }
 
     /**
-     * Validate if the phone country is supported.
-     *
-     * @return array<array-key, \Illuminate\Validation\Rules\In|string>
+     * Get validation rules for phone.
      */
-    public static function isPhoneCountry(): array
+    public static function phone(): SaudiPhone
     {
-        return [
-            'required',
-            'string',
-            self::in(PhoneNumberUtil::getInstance()->getSupportedRegions()),
-        ];
+        return new SaudiPhone;
     }
 }

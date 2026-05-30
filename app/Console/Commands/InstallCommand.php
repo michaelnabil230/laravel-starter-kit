@@ -64,7 +64,7 @@ final class InstallCommand extends Command implements Isolatable
         }
 
         info('App installation completed successfully!');
-        info('👉 Run `php artisan solo` or `composer run dev` to start the local server.');
+        info('👉 Run `composer run dev` to start the local server.');
         info('Keep creating. 🫡');
 
         return self::SUCCESS;

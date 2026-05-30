@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import SvgIcon from '@/dashboard/Components/SvgIcon.vue';
 import { CollapsibleContent, CollapsibleRoot, CollapsibleTrigger } from 'reka-ui';
 
 defineProps<{
@@ -16,20 +17,10 @@ defineProps<{
 
             {{ label }}
 
-            <svg
+            <SvgIcon
+                name="icons/chevron-down"
                 class="ms-auto mt-1 size-3.5 shrink-0 transition group-data-[state=open]:rotate-180"
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-            >
-                <path d="m6 9 6 6 6-6" />
-            </svg>
+            />
         </CollapsibleTrigger>
 
         <CollapsibleContent

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import SvgIcon from '@/dashboard/Components/SvgIcon.vue';
 import { cn } from '@/dashboard/lib/utils';
 import { useForwardProps } from 'reka-ui';
 import { onMounted, ref, watchEffect } from 'vue';
@@ -20,6 +21,8 @@ if (model.value === undefined) {
 }
 
 const textarea = ref<HTMLTextAreaElement>();
+
+defineExpose({ textarea });
 
 const useAutoSizeTextarea = (element: HTMLTextAreaElement | null) => {
     const resizeTextarea = () => {
@@ -62,24 +65,9 @@ onMounted(() => {
             "
         ></textarea>
 
-        <div class="absolute end-3 top-2 z-20 flex cursor-pointer items-center gap-2">
+        <div class="absolute inset-e-3 top-2 z-20 flex cursor-pointer items-center gap-2">
             <slot name="icon" />
-
-            <svg
-                v-if="hasError"
-                class="size-4 shrink-0 text-red-500"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-            >
-                <circle cx="12" cy="12" r="10" />
-                <line x1="12" x2="12" y1="8" y2="12" />
-                <line x1="12" x2="12.01" y1="16" y2="16" />
-            </svg>
+            <SvgIcon v-if="hasError" name="icons/warning" class="size-4 shrink-0 text-red-500" />
         </div>
     </div>
 </template>

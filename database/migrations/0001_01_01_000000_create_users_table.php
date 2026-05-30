@@ -15,19 +15,21 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('users', function (Blueprint $table): void {
-            $table->uuid('id')->primary();
+            $table->id();
             $table->string('name');
-            $table->string('email')->unique();
+            $table->string('email')->unique()->nullable();
             $table->string('phone')->unique();
-            $table->string('phone_country');
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
+            $table->string('otp_code')->nullable();
+            $table->string('photo')->nullable();
+            $table->timestamp('otp_expires_at')->nullable();
+            $table->timestamp('otp_last_sent_at')->nullable();
+            $table->timestamp('phone_verified_at')->nullable();
             $table->longText('fcm_token')->nullable();
             $table->longText('api_token')->nullable();
             $table->enum('gender', Gender::values());
-            $table->string('photo')->nullable();
             $table->timestamp('last_login_at')->nullable();
-            $table->date('birth_date');
+            $table->date('birth_date')->nullable();
+            $table->string('device_type')->nullable();
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();

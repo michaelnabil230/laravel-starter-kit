@@ -83,6 +83,9 @@ return [
                 'phone' => 'الهاتف',
                 'birth_date' => 'تاريخ الميلاد',
             ],
+            'table' => [
+                'last_login_at' => 'آخر تسجيل دخول',
+            ],
         ],
     ],
     'global' => [
@@ -103,17 +106,19 @@ return [
             'password_confirmation' => 'تأكيد كلمة المرور',
             'new_password' => 'كلمة المرور الجديدة',
             'new_password_confirmation' => 'تأكيد كلمة المرور الجديدة',
-            'payment_type' => 'نوع الدفع',
-            'payment_method' => 'طريقة الدفع',
-            'employment_type' => 'نوع العمل',
             'media' => 'الوسائط',
         ],
         'placeholder' => 'أدخل :attribute',
         'example' => 'مثال: :example',
         'loading' => 'جار التحميل',
+        'select' => 'اختر',
         'select_all' => 'اختر الكل',
         'choose' => 'إختر :attribute',
+        'minimum' => 'الحد الأدنى',
+        'maximum' => 'الحد الأقصى',
+        'copy_to_clipboard' => 'نسخ للحافظة',
         'download' => 'تحميل',
+        'reset' => 'إعادة ضبط',
         'search' => [
             'name' => 'بحث',
             'resource' => 'بحث عن :resource',
@@ -158,6 +163,7 @@ return [
             'updated' => 'تم تحديث :resource!',
             'deleted' => 'تم حذف :resource!',
             'restored' => 'تم استعادة :resource!',
+            'sending' => 'جاري الإرسال',
         ],
         'options' => [
             'delete' => [
@@ -209,6 +215,15 @@ return [
             'allowed_types' => 'الأنواع المسموح بها: :types',
             'upload_failed' => 'فشل تحميل الملف',
         ],
+        'time' => [
+            'hour' => 'ساعة',
+            'minute' => 'دقيقة',
+            'second' => 'ثانية',
+            'hours' => 'ساعات',
+            'minutes' => 'دقايق',
+            'seconds' => 'ثواني',
+        ],
+        'and' => 'و',
     ],
     'import_and_export' => 'استيراد / تصدير',
     'export' => [
@@ -266,8 +281,8 @@ return [
         'go_to_link' => 'الذهاب للرابط',
     ],
     'photo' => 'صورة',
-    'upload_photo' => 'تحميل صورة',
     'upload' => 'تحميل',
+    'print' => 'طباعة',
     'browse' => 'تصفح',
     'errors' => [
         'error' => 'خطأ',
@@ -277,4 +292,5 @@ return [
     'faq' => 'الأسئلة الشائعة',
     'license' => 'الترخيص',
     'back_to_home' => 'العودة للرئيسية',
+    'create_new_record' => 'هل تريد إنشاء سجل جديد؟',
 ];

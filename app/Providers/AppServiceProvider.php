@@ -5,21 +5,24 @@ declare(strict_types=1);
 namespace App\Providers;
 
 use App\Models\Admin;
+use App\Models\User;
 use App\Rules\Rule;
-use App\Support\Modal\Modal;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Vite;
 use Illuminate\Support\Number;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Validation\Rules\Email;
 use Illuminate\Validation\Rules\Password;
-use Inertia\ResponseFactory;
+use Inertia\ExceptionResponse;
+use Inertia\Inertia;
 use Mcamara\LaravelLocalization\Traits\LoadsTranslatedCachedRoutes;
 
 final class AppServiceProvider extends ServiceProvider
@@ -31,7 +34,10 @@ final class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        if ($this->app->environment('local') && class_exists(\Laravel\Telescope\TelescopeServiceProvider::class)) {
+            $this->app->register(\Laravel\Telescope\TelescopeServiceProvider::class);
+            $this->app->register(TelescopeServiceProvider::class);
+        }
     }
 
     /**
@@ -41,12 +47,21 @@ final class AppServiceProvider extends ServiceProvider
     {
         $this->defineGates();
         $this->configureEnvironment();
-        $this->configureMacros();
         $this->configureValidationRules();
 
         JsonResource::withoutWrapping();
 
         URL::forceHttps();
+
+        View::share('appearance', request()->cookie('appearance', 'system'));
+
+        Inertia::handleExceptionsUsing(function (ExceptionResponse $response) {
+            if (! app()->environment(['local', 'testing']) && request()->routeIs('dashboard.*') && in_array($response->statusCode(), [403, 404, 500, 503])) {
+                return $response->render('Error', [
+                    'status' => $response->statusCode(),
+                ])->withSharedData();
+            }
+        });
 
         $this->app->booted(fn () => Number::useLocale(app()->getLocale()));
     }
@@ -77,7 +92,7 @@ final class AppServiceProvider extends ServiceProvider
     {
         Gate::define(
             'viewPulse',
-            fn (Admin $admin): bool => $admin->email === 'super-admin@app.com',
+            fn (Admin $admin): bool => $admin->email === 'super-admin@whatsapp.com',
         );
     }
 
@@ -85,21 +100,12 @@ final class AppServiceProvider extends ServiceProvider
     {
         Model::shouldBeStrict(App::isLocal());
         Model::automaticallyEagerLoadRelationships(App::isLocal());
+        Relation::enforceMorphMap([
+            'admin' => Admin::class,
+            'user' => User::class,
+        ]);
         DB::prohibitDestructiveCommands(App::isProduction());
         RouteServiceProvider::loadCachedRoutesUsing($this->loadCachedRoutes(...));
         Vite::prefetch(concurrency: 3);
-    }
-
-    protected function configureMacros(): void
-    {
-        $this->configureInertiaMacros();
-    }
-
-    protected function configureInertiaMacros(): void
-    {
-        ResponseFactory::macro(
-            'modal',
-            fn (string $component, array $props = []): Modal => new Modal($component, $props),
-        );
     }
 }

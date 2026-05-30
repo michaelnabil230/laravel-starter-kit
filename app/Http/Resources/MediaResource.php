@@ -29,7 +29,7 @@ final class MediaResource extends JsonResource
             'type' => $this->getType(),
             'mime_type' => $this->mime_type,
             'size' => $this->size,
-            'human_readable_size' => $this->human_readable_size, // @phpstan-ignore-line
+            'human_readable_size' => $this->human_readable_size,
             'details' => $this->mediaDetails(),
             'conversions' => $this->when(
                 ($this->isImage() || $this->isVideo()) && $this->getConversions() !== [],

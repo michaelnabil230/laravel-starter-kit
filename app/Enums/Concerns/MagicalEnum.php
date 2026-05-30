@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace App\Enums\Concerns;
 
-use ReflectionEnum;
+use BackedEnum;
 
 trait MagicalEnum
 {
     /**
-     * Retrieves an array of names representing the cases of the enumeration.
+     * Get all enum case names.
      *
-     * @return array<string|int, string|int>
+     * @return list<string>
      */
     public static function names(): array
     {
@@ -19,9 +19,9 @@ trait MagicalEnum
     }
 
     /**
-     * Retrieves an array of values representing the cases of the enumeration.
+     * Get all enum case values.
      *
-     * @return array<string|int, string|int>
+     * @return list<int>|list<string>
      */
     public static function values(): array
     {
@@ -31,38 +31,35 @@ trait MagicalEnum
     }
 
     /**
-     * Checks if the enumeration type is backed by a specific backing type.
+     * Determine whether the enum is a backed enum.
      */
     public static function isBackedEnum(): bool
     {
-        return (new ReflectionEnum(self::class))->isBacked();
+        return collect(class_implements(self::class))
+            ->contains(BackedEnum::class);
     }
 
     /**
-     * Converts the enumeration type to an associative array.
+     * Convert enum cases to an array.
      *
-     * @return array<string|int, string|int>
+     * @return list<string>|array<string, int|string>
      */
     public static function toArray(): array
     {
-        if (self::isBackedEnum() === false) {
-            return self::names();
-        }
-
-        return array_column(self::cases(), 'value', 'name');
+        return self::isBackedEnum()
+            ? array_column(self::cases(), 'value', 'name')
+            : self::names();
     }
 
     /**
-     * Generates an associative array mapping case values to their corresponding names in the enumeration type.
+     * Convert enum cases to a reverse array.
      *
-     * @return array<string|int, string|int>
+     * @return list<string>|array<int|string, string>
      */
     public static function toReverseArray(): array
     {
-        if (self::isBackedEnum() === false) {
-            return self::names();
-        }
-
-        return array_column(self::cases(), 'name', 'value');
+        return self::isBackedEnum()
+            ? array_column(self::cases(), 'name', 'value')
+            : self::names();
     }
 }

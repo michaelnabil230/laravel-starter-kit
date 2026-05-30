@@ -1,19 +1,12 @@
 import { AppPageProps } from '@/dashboard/types/index';
 import { PageProps as InertiaPageProps } from '@inertiajs/core';
-import { AxiosInstance } from 'axios';
 import dayjs from 'dayjs';
 import { route as ziggyRoute } from 'ziggy-js';
+import { ContentVariants } from '../Components/Modal/Index';
 import mixin from '../mixins/index';
-import { Loading } from '../Plugins/loading';
 import { SharedData } from './shared-data';
 
 declare global {
-    interface Window {
-        axios: AxiosInstance;
-        initialSharedData: SharedData;
-    }
-
-    const axios: AxiosInstance;
     const route: typeof ziggyRoute;
 }
 
@@ -22,22 +15,30 @@ declare module 'vue' {
         route: typeof ziggyRoute;
         __: typeof mixin.methods.__;
         date: typeof mixin.methods.date;
-        initialSharedData: typeof mixin.methods.initialSharedData;
         truncate: typeof mixin.methods.truncate;
-        $loading: Loading;
         $day: typeof dayjs;
     }
 }
 
 declare module '@inertiajs/core' {
-    interface PageProps extends InertiaPageProps, AppPageProps {}
+    interface PageProps extends InertiaPageProps, AppPageProps, SharedData {}
 }
 
-interface Modal {
+export interface Modal {
+    id?: string;
     component: string;
-    baseURL: string;
-    redirectURL: string | null;
-    props: Record<string, any>;
-    key: string;
-    nonce: string;
+    props: Record<string, unknown>;
+    url: string;
+    version: string;
+    meta: {
+        deferredProps?: Record<string, string[]>;
+    };
+    baseUrl: string;
+    config: ModalConfig;
+}
+
+export interface ModalConfig {
+    type?: 'modal' | 'slideover';
+    size?: ContentVariants['size'];
+    position?: ContentVariants['position'];
 }

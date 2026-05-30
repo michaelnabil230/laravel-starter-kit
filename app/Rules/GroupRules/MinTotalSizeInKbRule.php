@@ -9,7 +9,7 @@ use Closure;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Spatie\MediaLibrary\Support\File;
 
-final readonly class MinTotalSizeInKbRule implements ValidationRule
+final class MinTotalSizeInKbRule implements ValidationRule
 {
     public function __construct(public int $minTotalSizeInKb) {}
 

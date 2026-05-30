@@ -13,6 +13,7 @@ final class LogoutController
         /** @var \App\Models\User $user */
         $user = auth('api')->user();
         $user->update([
+            'otp_code' => null,
             'fcm_token' => null,
             'api_token' => null,
         ]);

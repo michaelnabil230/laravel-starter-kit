@@ -41,7 +41,6 @@ final class TelescopeServiceProvider extends TelescopeApplicationServiceProvider
         Telescope::hideRequestParameters(['_token']);
 
         Telescope::hideRequestHeaders([
-            'key',
             'cookie',
             'x-csrf-token',
             'x-xsrf-token',
@@ -57,7 +56,7 @@ final class TelescopeServiceProvider extends TelescopeApplicationServiceProvider
     {
         Gate::define(
             'viewTelescope',
-            fn (Admin $admin): bool => $admin->email === 'super-admin@app.com',
+            fn (Admin $admin): bool => $admin->email === 'super-admin@whatsapp.com',
         );
     }
 }

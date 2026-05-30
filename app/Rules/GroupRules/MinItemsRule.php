@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Rules\GroupRules;
 
 use Closure;
-use Illuminate\Contracts\Validation\Rule;
 use Illuminate\Contracts\Validation\ValidationRule;
 
 final readonly class MinItemsRule implements ValidationRule

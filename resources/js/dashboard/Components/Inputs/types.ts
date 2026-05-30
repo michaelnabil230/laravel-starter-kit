@@ -1,5 +1,4 @@
 import { App } from '@/dashboard/types/app';
-import { CountryCode } from 'libphonenumber-js';
 import { type HTMLAttributes } from 'vue';
 
 export interface BaseInputProps {
@@ -26,34 +25,38 @@ export interface FileUploadProps extends BaseInputProps {
     acceptedFileTypes?: string[];
 }
 
-export interface SelectProps extends BaseInputProps {
-    attribute: string;
-    endPoint?: string;
+export interface SelectProps {
+    id: string;
+    modelValue?: string | number | (string | number)[] | null;
     options?: Option[];
-    selected?: Option | Option[] | null;
-    classViewPort?: HTMLAttributes['class'];
-    hasSearch?: boolean;
-    allowEmpty?: boolean;
+    endPoint?: string | null;
+    placeholder: string;
+    initialValue?: Option | null;
+    debounceMs?: number;
+    disabled?: boolean;
+    hasError?: boolean;
+    multiple?: boolean;
+    searchable?: boolean;
+    clearable?: boolean;
+    ignoreFilter?: boolean;
+    creatable?: boolean;
+    modalName?: string;
 }
 
 export interface Option {
-    value: string | null;
+    value: string | number;
     label: string;
-    [name: string]: any;
-}
-
-export interface PhoneInputProps extends BaseInputProps {
-    defaultPhoneValue?: string;
-    defaultPhoneCountryValue?: string;
-    countryCode?: CountryCode;
+    disabled?: boolean;
 }
 
 export interface TextareaProps extends InputWithDefaultValueProps {
     autoSize?: boolean;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-empty-object-type
-export interface TextareaEditorProps extends TextareaProps {}
+export interface TextareaEditorProps extends TextareaProps {
+    mentionOptions?: Option[];
+    mentionEndpoint?: string;
+}
 
 export interface SwitchProps extends BaseInputProps {
     defaultValue?: boolean;

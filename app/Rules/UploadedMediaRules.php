@@ -22,10 +22,10 @@ use Illuminate\Support\Arr;
 
 final class UploadedMediaRules implements ValidationRule
 {
-    /** @var array<array-key, ValidationRule> */
+    /** @var array<ValidationRule|string> */
     public array $groupRules = [];
 
-    /** @var array<array-key, ValidationRule> */
+    /** @var array<ValidationRule|string> */
     public array $itemRules = [];
 
     public function minItems(int $numberOfItems): self

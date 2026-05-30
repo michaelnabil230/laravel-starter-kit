@@ -11,9 +11,9 @@ const { __ } = useLocalization();
 const toasts = useToasts();
 
 const form = useForm({
-    current_password: '',
-    password: '',
-    password_confirmation: '',
+    current_password: null,
+    password: null,
+    password_confirmation: null,
 });
 
 const submit = () => {
@@ -39,30 +39,23 @@ const submit = () => {
 </script>
 
 <template>
-    <!-- Card -->
     <form
         @submit.prevent="submit()"
         class="flex flex-col rounded-xl border border-stone-200 bg-white shadow-2xs dark:border-neutral-700 dark:bg-neutral-800"
     >
-        <!-- Header -->
         <div class="border-b border-stone-200 px-5 py-3 dark:border-neutral-700">
             <h2 class="inline-block font-semibold text-stone-800 dark:text-neutral-200">
                 {{ __('profile.password.title') }}
             </h2>
         </div>
-        <!-- End Header -->
 
-        <!-- Body -->
         <div class="space-y-4 p-5">
-            <!-- Grid -->
             <div class="grid gap-y-1.5 sm:grid-cols-12 sm:gap-x-5 sm:gap-y-0">
                 <div class="sm:col-span-4 xl:col-span-3 2xl:col-span-2">
                     <InputLabel for="current-password" :value="__('global.attributes.current_password')" />
                 </div>
-                <!-- End Col -->
 
                 <div class="sm:col-span-8 xl:col-span-4">
-                    <!-- Input -->
                     <PasswordInput
                         v-model="form.current_password"
                         :hasError="form.errors.hasOwnProperty('current_password')"
@@ -72,13 +65,9 @@ const submit = () => {
                         :placeholder="__('profile.password.placeholder.current_password')"
                     />
                     <InputError :message="form.errors.current_password" />
-                    <!-- End Input -->
                 </div>
-                <!-- End Col -->
             </div>
-            <!-- End Grid -->
 
-            <!-- Grid -->
             <div class="grid gap-y-1.5 sm:grid-cols-12 sm:gap-x-5 sm:gap-y-0">
                 <div class="sm:col-span-4 xl:col-span-3 2xl:col-span-2">
                     <InputLabel for="password" :value="__('global.attributes.new_password')" />
@@ -89,11 +78,9 @@ const submit = () => {
                         class="sr-only"
                     />
                 </div>
-                <!-- End Col -->
 
                 <div class="sm:col-span-8 xl:col-span-4">
                     <div class="space-y-2">
-                        <!-- Input -->
                         <div>
                             <PasswordInput
                                 v-model="form.password"
@@ -105,9 +92,7 @@ const submit = () => {
                             />
                             <InputError :message="form.errors.password" />
                         </div>
-                        <!-- End Input -->
 
-                        <!-- Input -->
                         <div>
                             <PasswordInput
                                 v-model="form.password_confirmation"
@@ -119,15 +104,11 @@ const submit = () => {
                             />
                             <InputError :message="form.errors.password_confirmation" />
                         </div>
-                        <!-- End Input -->
                     </div>
                 </div>
-                <!-- End Col -->
             </div>
         </div>
-        <!-- End Body -->
 
-        <!-- Footer -->
         <div
             class="flex items-center justify-end gap-x-2.5 border-t border-stone-200 px-5 py-3 dark:border-neutral-700"
         >
@@ -140,7 +121,5 @@ const submit = () => {
 
             <Button type="submit" :value="__('profile.password.button')" :disabled="form.processing" />
         </div>
-        <!-- End Footer -->
     </form>
-    <!-- End Card -->
 </template>

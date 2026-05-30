@@ -35,6 +35,7 @@ final class AppPostDeployCommand extends Command
         $this->callSilent('optimize:clear');
         $this->call('migrate');
         $this->call('schedule:clear-cache');
+        $this->call('reload');
         $this->performPostDeployment();
     }
 

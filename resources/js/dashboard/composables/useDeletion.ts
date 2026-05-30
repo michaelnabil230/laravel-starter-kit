@@ -1,6 +1,7 @@
 import { router } from '@inertiajs/vue3';
 import { ref } from 'vue';
 import { RouteName } from 'ziggy-js';
+import { visitModal } from './modal/modalStack';
 
 interface Options {
     onSuccess?: VoidFunction;
@@ -8,55 +9,42 @@ interface Options {
     onFinish?: VoidFunction;
 }
 
-export default function useDeletion<T>({
+type RouteDelete = (id?: string | number) => RouteName;
+
+type RouteDeleteAll = () => RouteName;
+
+export function useDeletion<T>({
+    resource,
     routeName,
     routeDeleteAll,
     options,
 }: {
-    routeName: RouteName;
-    routeDeleteAll?: RouteName;
+    resource: string;
+    routeName: RouteDelete;
+    routeDeleteAll?: RouteDeleteAll | null;
     options?: Options;
 }) {
     const itemToDelete = ref<T | null>(null);
 
-    const openDelete = ref(false);
-
-    const openDeleteItems = ref(false);
-
     const openDeleteModal = (item: T) => {
-        openDelete.value = true;
         itemToDelete.value = item;
-    };
-
-    const closeDeleteModal = () => {
-        openDelete.value = false;
-        itemToDelete.value = null;
+        visitModal('#delete-' + resource);
     };
 
     const openDeleteItemsModal = () => {
-        openDeleteItems.value = true;
-    };
-
-    const closeDeleteItemsModal = () => {
-        openDeleteItems.value = false;
-    };
-
-    const closeDeleteModals = () => {
-        closeDeleteModal();
-        closeDeleteItemsModal();
+        visitModal('#delete-all-' + resource);
     };
 
     const confirmDelete = () => {
         if (!itemToDelete.value) return;
 
-        router.delete(route(routeName, itemToDelete.value.id), {
+        router.delete(routeName(itemToDelete.value.id), {
             preserveScroll: true,
             preserveState: false,
             onSuccess: () => options?.onSuccess?.(),
             onError: () => options?.onError?.(),
             onFinish: () => {
                 options?.onFinish?.();
-                closeDeleteModals();
             },
         });
     };
@@ -65,7 +53,7 @@ export default function useDeletion<T>({
         if (routeDeleteAll === null) return;
         if (ids.length === 0) return;
 
-        router.delete(route(routeDeleteAll!), {
+        router.delete(routeDeleteAll!(), {
             preserveScroll: true,
             preserveState: false,
             data: { ids: ids },
@@ -73,21 +61,15 @@ export default function useDeletion<T>({
             onError: () => options?.onError?.(),
             onFinish: () => {
                 options?.onFinish?.();
-                closeDeleteModals();
             },
         });
     };
 
     return {
         itemToDelete,
-        openDelete,
-        openDeleteItems,
         confirmDelete,
         confirmDeleteAll,
         openDeleteModal,
-        closeDeleteModal,
         openDeleteItemsModal,
-        closeDeleteItemsModal,
-        closeDeleteModals,
     };
 }

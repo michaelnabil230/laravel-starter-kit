@@ -1,9 +1,14 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import SvgIcon from '@/dashboard/Components/SvgIcon.vue';
+import useLocalization from '@/dashboard/composables/useLocalization';
+import { computed, ref } from 'vue';
+
+const { __ } = useLocalization();
 
 const props = withDefaults(
     defineProps<{
         text: string;
+        placeHolder?: string;
         showText?: boolean;
         as?: string;
         selectAll?: boolean;
@@ -42,47 +47,19 @@ const copy = () => {
             setTimeout(() => (error.value = false), 3000);
         });
 };
+
+const displayText = computed<string>(() =>
+    props.showText ? props.text : (props.placeHolder ?? __('global.copy_to_clipboard')),
+);
 </script>
 
 <template>
     <component :is="as" class="inline-flex items-center justify-center gap-2" :class="{ 'select-all': selectAll }">
-        <template v-if="showText">
-            {{ text }}
-        </template>
-        <template v-else>
-            {{ __('global.copy_to_clipboard') }}
-        </template>
+        {{ displayText }}
 
         <slot :error="error" :success="success" />
 
-        <svg
-            @click="copy"
-            v-if="!success"
-            class="size-4 cursor-pointer"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-        >
-            <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
-            <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
-        </svg>
-
-        <svg
-            v-else
-            class="size-4 text-blue-600"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-        >
-            <polyline points="20 6 9 17 4 12" />
-        </svg>
+        <SvgIcon @click="copy" v-if="!success" name="icons/copy" class="size-4 cursor-pointer" />
+        <SvgIcon v-else name="icons/check" class="size-4 text-blue-600" />
     </component>
 </template>

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import SvgIcon from '@/dashboard/Components/SvgIcon.vue';
 import { cn } from '@/dashboard/lib/utils';
 import { useForwardProps } from 'reka-ui';
 import { computed, useAttrs } from 'vue';
@@ -40,6 +41,7 @@ if (model.value === undefined) {
         <input
             v-model="model"
             v-bind="forwardedProps"
+            autocomplete="off"
             :class="
                 cn(
                     'block w-full rounded-lg border-gray-200 px-3 py-2 text-sm placeholder:text-gray-400 focus:border-blue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:bg-transparent dark:text-neutral-300 dark:placeholder:text-white/60 dark:focus:ring-neutral-600',
@@ -52,24 +54,10 @@ if (model.value === undefined) {
             "
         />
 
-        <div class="absolute inset-y-0 end-0 z-20 flex cursor-pointer items-center gap-2 pe-4">
+        <div class="absolute inset-y-0 inset-e-0 z-20 flex cursor-pointer items-center gap-2 pe-4">
             <slot name="icon" />
 
-            <svg
-                v-if="hasError"
-                class="size-4 shrink-0 text-red-500"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-            >
-                <circle cx="12" cy="12" r="10" />
-                <line x1="12" x2="12" y1="8" y2="12" />
-                <line x1="12" x2="12.01" y1="16" y2="16" />
-            </svg>
+            <SvgIcon v-if="hasError" name="icons/warning" class="size-4 shrink-0 text-red-500" />
         </div>
     </div>
 </template>

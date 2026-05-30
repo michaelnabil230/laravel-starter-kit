@@ -13,7 +13,6 @@ use App\Http\Controllers\Dashboard\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Dashboard\Auth\VerifyEmailController;
 use App\Http\Controllers\Dashboard\ImportExport\UserImportExportController;
 use App\Http\Controllers\Dashboard\ProfileController;
-use App\Http\Controllers\Dashboard\SearchController;
 use App\Http\Controllers\Dashboard\UserController;
 use App\Http\Controllers\Dashboard\WelcomeController;
 use Illuminate\Support\Facades\Route;
@@ -62,12 +61,7 @@ Route::middleware(App\Http\Middleware\HandleInertiaRequests::class)
                     Route::get('/', 'edit')->name('edit');
                     Route::put('/', 'update')->name('update');
                     Route::delete('/', 'destroy')->name('destroy');
-                    Route::delete('/photo', 'destroyProfilePhoto')->name('photo.destroy');
                 });
-
-            Route::get('/', WelcomeController::class)->name('welcome');
-
-            Route::get('/search', SearchController::class)->name('search');
 
             // Home
             Route::get('/', WelcomeController::class)->name('welcome');

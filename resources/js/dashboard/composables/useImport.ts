@@ -11,7 +11,7 @@ interface Options {
     onFinish?: VoidFunction;
 }
 
-export default function useImport(routeName: RouteName, options?: Options) {
+export function useImport({ routeName, options }: { routeName: RouteName; options?: Options }) {
     const openImport = ref(false);
 
     const openImportModal = () => {

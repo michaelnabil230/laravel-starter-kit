@@ -20,13 +20,13 @@ final class UserResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'email' => $this->email,
-            'phone' => $this->phone->formatE164(),
-            'phone_country' => $this->phone_country,
-            'photo' => $this->photo,
-            'profile_photo_url' => $this->profile_photo_url,
+            'phone' => $this->phone,
             'birth_date' => $this->birth_date,
+            'age' => $this->age,
             'gender' => $this->gender->value,
+            'last_login_at' => $this->last_login_at?->format('Y-m-d h:i:s A'),
+            'device_type' => $this->device_type?->value,
+            'is_phone_verified' => $this->is_phone_verified,
             'created_at' => $this->created_at->format('Y-m-d h:i:s A'),
             'updated_at' => $this->updated_at->format('Y-m-d h:i:s A'),
         ];

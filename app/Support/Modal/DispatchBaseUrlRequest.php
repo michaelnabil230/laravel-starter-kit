@@ -5,12 +5,11 @@ declare(strict_types=1);
 namespace App\Support\Modal;
 
 use Illuminate\Contracts\Support\Responsable;
-use Illuminate\Cookie\Middleware\EncryptCookies;
-use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Pipeline;
 use Illuminate\Routing\Route;
 use Illuminate\Routing\Router;
-use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Facade;
 use Symfony\Component\HttpFoundation\Response;
 
 final class DispatchBaseUrlRequest
@@ -27,12 +26,11 @@ final class DispatchBaseUrlRequest
     {
         $requestForBaseUrl = Request::create(
             $baseUrl,
-            $originalRequest->getMethod(),
+            Request::METHOD_GET,
             $originalRequest->query->all(),
             $originalRequest->cookies->all(),
             $originalRequest->files->all(),
             $originalRequest->server->all(),
-            $originalRequest->getContent()
         );
 
         $requestForBaseUrl->headers->replace($originalRequest->headers->all());
@@ -48,33 +46,58 @@ final class DispatchBaseUrlRequest
         // Dispatch the request without encrypting cookies because that has
         // already happens in the original request. We don't want to
         // double-encrypt them, as that would nullify the cookies.
-        return $this->withoutEncryptingCookies($route, function () use ($requestForBaseUrl) {
-            $response = app()->handle($requestForBaseUrl, Application::SUB_REQUEST);
+        $this->bindRequest($requestForBaseUrl);
 
-            return $response instanceof Responsable
-                ? $response->toResponse($requestForBaseUrl)
-                : $response;
-        });
+        $response = new Pipeline(app())
+            ->send($requestForBaseUrl)
+            ->through($this->gatherMiddleware($route))
+            ->then(function ($requestForBaseUrl) use ($route) {
+                $this->bindRequest($requestForBaseUrl);
+
+                $response = $route->run();
+
+                // If the base URL route returns a Modal, convert it to a simple Inertia response
+                // without dispatching its own base URL to prevent infinite recursion (#115)
+                if ($response instanceof Modal) {
+                    return inertia()->render($response->getComponent(), $response->getProps())
+                        ->toResponse($requestForBaseUrl);
+                }
+
+                if ($response instanceof Responsable) {
+                    return $response->toResponse($requestForBaseUrl);
+                }
+
+                return $response;
+            });
+
+        return tap($response, fn () => $this->bindRequest($originalRequest));
     }
 
     /**
-     * Run the given callback with the EncryptCookies middleware disabled.
+     * Bind the given request to the container and set it as the current request for the router.
      */
-    protected function withoutEncryptingCookies(Route $route, callable $callback): mixed
+    private function bindRequest(Request $request): void
     {
-        $middleware = $this->router->resolveMiddleware($route->gatherMiddleware());
+        Facade::clearResolvedInstance('request');
 
-        $route->flushController();
+        app()->instance('request', $request);
 
-        $currentExcludedMiddleware = Arr::get($route->action, 'excluded_middleware', []);
+        // @phpstan-ignore-next-line
+        $this->router->setCurrentRequest($request);
+    }
 
-        foreach ($middleware as $class) {
-            if ($class === EncryptCookies::class || is_subclass_of($class, EncryptCookies::class)) {
-                // @phpstan-ignore-next-line
-                $route->withoutMiddleware($class);
-            }
-        }
+    /**
+     * Gather the middleware for the given route and exclude the configured middleware.
+     *
+     * @return array<int, class-string|string>
+     */
+    private function gatherMiddleware(Route $route): array
+    {
+        $excludedMiddleware = Modal::getMiddlewareToExcludeOnBaseUrl();
 
-        return tap($callback(), fn () => $route->action['excluded_middleware'] = $currentExcludedMiddleware);
+        return collect($this->router->gatherRouteMiddleware($route))
+            ->reject(fn ($middleware): bool => array_any($excludedMiddleware, fn ($excludeMiddleware): bool => $middleware === $excludeMiddleware || is_subclass_of($middleware, $excludeMiddleware)))
+            ->values()
+            ->all();
     }
 }
